@@ -1,0 +1,132 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:CDataText.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:SerializerHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:IO/f:PathHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="1912" fromTop="16" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:HttpHelper.cs" caret="0" fromTop="0" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="287" fromTop="8" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1000" fromTop="17" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="1912" fromTop="16" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="205" fromTop="5" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="13" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="12" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="10" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="11" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="3" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="638" fromTop="22" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1757" fromTop="23" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1562" fromTop="17" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="684" fromTop="10" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1485" fromTop="15" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1411" fromTop="14" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1153" fromTop="9" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="216" fromTop="5" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="539" fromTop="13" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1001" fromTop="11" />
+    </RecentEdits>
+  </RecentFiles>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerMSTest>
+    <UseTestRunConfigFromMetadataFile>False</UseTestRunConfigFromMetadataFile>
+  </UnitTestRunnerMSTest>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="prop" priority="0" />
+      <Item value="string" priority="15" />
+      <Item value="Text" priority="2" />
+      <Item value="reader" priority="0" />
+      <Item value="writer" priority="0" />
+      <Item value="return" priority="6" />
+      <Item value="null" priority="0" />
+      <Item value="text" priority="0" />
+      <Item value="ctor" priority="0" />
+      <Item value="System" priority="0" />
+      <Item value="Attribute" priority="0" />
+      <Item value="AttributeUsage" priority="0" />
+      <Item value="AttributeTargets" priority="1" />
+      <Item value="_AppDomain" priority="0" />
+      <Item value="Predicate" priority="0" />
+      <Item value="public" priority="6" />
+      <Item value="interface" priority="0" />
+      <Item value="class" priority="1" />
+      <Item value="IUrlParameters" priority="1" />
+      <Item value="private" priority="2" />
+      <Item value="this" priority="5" />
+      <Item value="base" priority="0" />
+      <Item value="_baseUrl" priority="5" />
+      <Item value="UrlBuilder" priority="3" />
+      <Item value="baseUrl" priority="0" />
+      <Item value="Action" priority="1" />
+      <Item value="urlParameters" priority="0" />
+      <Item value="UrlParameters" priority="1" />
+      <Item value="parameters" priority="0" />
+      <Item value="name" priority="0" />
+      <Item value="new" priority="2" />
+      <Item value="u" priority="0" />
+      <Item value="p" priority="0" />
+      <Item value="if" priority="1" />
+      <Item value="_urlParameters" priority="1" />
+      <Item value="Console" priority="1" />
+      <Item value="Dictionary&lt;string,string&gt;" priority="0" />
+      <Item value="foreach" priority="0" />
+      <Item value="url" priority="0" />
+      <Item value="String" priority="2" />
+      <Item value="parameter" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlReader">
+      <Item value="ReadString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlWriter">
+      <Item value="WriteCData" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.AttributeTargets">
+      <Item value="Parameter" priority="0" />
+      <Item value="Property" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Global.Http.UrlParameters">
+      <Item value="baseUrl" priority="0" />
+      <Item value="Add" priority="1" />
+      <Item value="parameters" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Global.Http.UrlBuilder">
+      <Item value="Parameters" priority="0" />
+      <Item value="Build" priority="0" />
+      <Item value="BaseUrl" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="WriteLine" priority="0" />
+      <Item value="ReadLine" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Format" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair`2">
+      <Item value="Key" priority="0" />
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="EndsWith" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

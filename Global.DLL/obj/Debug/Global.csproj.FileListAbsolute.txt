@@ -1,0 +1,13 @@
+C:\andrecarrilho\Global\obj\Debug\ResolveAssemblyReference.cache
+C:\andrecarrilho\Global\obj\Debug\Global.dll
+C:\andrecarrilho\Global\obj\Debug\Global.pdb
+C:\andrecarrilho\Global\bin\Debug\Global.dll
+C:\andrecarrilho\Global\bin\Debug\Global.pdb
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Global.dll
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Global.pdb
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Debug\Global.dll
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Debug\Global.pdb
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Microsoft.Http.dll
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Microsoft.Http.Extensions.dll
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Global.XML

@@ -1,0 +1,8 @@
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Release\Global.dll
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Release\Global.pdb
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Release\Microsoft.Http.dll
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Release\Microsoft.Http.Extensions.dll
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Release\ResolveAssemblyReference.cache
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Release\Global.dll
+C:\Work\andrecarrilho\Global\Global.DLL\obj\Release\Global.pdb
+C:\Work\andrecarrilho\Global\Global.DLL\bin\Release\Global.XML

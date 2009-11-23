@@ -1,0 +1,574 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Global</name>
+    </assembly>
+    <members>
+        <member name="T:Global.Config.ConfigHelper">
+            <summary>
+             Performs current actions with the configuration files.
+            </summary>
+        </member>
+        <member name="M:Global.Config.ConfigHelper.GetAppSetting(System.String)">
+            <summary>
+            Gets a specified setting in the AppSettings section.
+            </summary>
+            <param name="key">A name identifying the setting value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.Config.ConfigHelper.GetAppSetting(System.Int32)">
+            <summary>
+            Gets a specified setting in the AppSettings section.
+            </summary>
+            <param name="index">The index of the setting value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.Config.ConfigHelper.GetConnectionString(System.String)">
+            <summary>
+            Gets a specified connection string in the ConnectionsStrings section.
+            </summary>
+            <param name="name">A name identifying the connection string value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.Config.ConfigHelper.GetConnectionString(System.Int32)">
+            <summary>
+            Gets a specified connection string in the ConnectionsStrings section.
+            </summary>
+            <param name="index">The index of the setting value.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Global.Http.HttpRequestType">
+            <summary>
+            Returns the request type to be made.
+            </summary>
+        </member>
+        <member name="F:Global.Http.HttpRequestType.POST">
+            <summary>
+             Makes a POST request.
+            </summary>
+        </member>
+        <member name="F:Global.Http.HttpRequestType.GET">
+            <summary>
+             Makes a GET request.
+            </summary>
+        </member>
+        <member name="T:Global.Http.HttpHelper">
+            <summary>
+             Performs some http related actions like GET and POST requests.
+            </summary>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendPost(System.String,System.String)">
+            <summary>
+            Sends a POST request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="postData">The data to be sent.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendPost(System.String,System.String,System.String)">
+            <summary>
+            Sends a POST request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="postData">The data to be sent.</param>
+            <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendPost(System.String,System.String,System.String,System.Net.ICredentials)">
+            <summary>
+            Sends a POST request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="postData">The data to be sent.</param>
+            <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+            <param name="credentials">The credentials to be used while making the request.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendGet(System.String)">
+            <summary>
+            Sends a GET request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendGet(System.String,System.String)">
+            <summary>
+            Sends a GET request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendGet(System.String,System.String,System.Net.ICredentials)">
+            <summary>
+            Sends a GET request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+            <param name="credentials">The credentials to be used while making the request.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.SendRequest(System.String,System.String,Global.Http.HttpRequestType,System.String,System.String,System.Nullable{System.Boolean},System.Net.ICredentials,System.Net.IWebProxy,System.Nullable{System.Int32},System.Text.Encoding)">
+            <summary>
+            Sends a request to the specified url.
+            </summary>
+            <param name="url">The request url.</param>
+            <param name="postData">The data to be sent.</param>
+            <param name="requestType">The request type. Can be GET or POST.</param>
+            <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+            <param name="userAgent">The request user agent.</param>
+            <param name="keepAlive">Indicates whether the connection must be persisted.</param>
+            <param name="credentials">The credentials to be used while making the request.</param>
+            <param name="proxy">Provide if the connection uses a proxy.</param>
+            <param name="timeout">The connection timeout.</param>
+            <param name="encoding">Set the response encoding.</param>
+            <returns>A string containing a response from the request Url.</returns>
+        </member>
+        <member name="M:Global.Http.HttpHelper.DownloadFile(System.String,System.String)">
+            <summary>
+            Downloads a file via http.
+            </summary>
+            <param name="sourceUrl">The url where the source file resides.</param>
+            <param name="destinationPath">The local destination path where the file will be stored.</param>
+            <returns>A boolean indicating if the download was successful.</returns>
+        </member>
+        <member name="P:Global.Http.HttpHelper.WebHeaderCollection">
+            <summary>
+            Sets a collection of header values to be sent in the request.
+            </summary>
+        </member>
+        <member name="P:Global.Http.HttpHelper.Encoding">
+            <summary>
+            Returns the encoding type of the web request.
+            </summary>
+        </member>
+        <member name="T:Global.Xml.ValidationHelper">
+            <summary>
+             Xml validation class.
+            </summary>
+        </member>
+        <member name="F:Global.Xml.ValidationHelper._errorsCount">
+            <summary>
+            Gets the number of errors (if any) while validating the xml file.
+            </summary>
+        </member>
+        <member name="F:Global.Xml.ValidationHelper._errorMessage">
+            <summary>
+            Gets the error messages (if any) while validating the xml file.
+            </summary>
+        </member>
+        <member name="M:Global.Xml.ValidationHelper.ValidateXmlWithXsd(System.Data.DataSet,System.String)">
+            <summary>
+            Validates a DataSet using a xsd file.
+            </summary>
+            <param name="ds">The DataSet to be validated.</param>
+            <param name="xsdFilePath">The xsd file path.</param>
+        </member>
+        <member name="M:Global.Xml.ValidationHelper.ValidateXmlWithXsd(System.String,System.Text.Encoding,System.String)">
+            <summary>
+            Validates an xml content using a xsd file.
+            </summary>
+            <param name="xmlContent">The xml content to be validated.</param>
+            <param name="encoding">The encoding of the xml content.</param>
+            <param name="xsdFilePath">The xsd file path.</param>
+        </member>
+        <member name="M:Global.Xml.ValidationHelper.ValidateXmlWithXsd(System.IO.Stream,System.String)">
+            <summary>
+            Validates an xml stream using a xsd file.
+            </summary>
+            <param name="xmlStream">The xml stream to be validated.</param>
+            <param name="xsdFilePath">The xsd file path.</param>
+            <returns>True if the validation was successful.</returns>
+        </member>
+        <member name="M:Global.Xml.ValidationHelper.ValidationCallBack(System.Object,System.Xml.Schema.ValidationEventArgs)">
+            <summary>
+            Displays any validation errors.
+            </summary>
+            <param name="sender">The object that raised the event.</param>
+            <param name="e">The arguments.</param>
+        </member>
+        <member name="T:Global.IO.PathHelper">
+            <summary>
+             Performs folder and files actions
+            </summary>
+        </member>
+        <member name="M:Global.IO.PathHelper.ValidateEndOfPath(System.String)">
+            <summary>
+            Adds a "\" to the end of the directory if it does not exist.
+            </summary>
+            <param name="path">the directory path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.GetFileNameOnly(System.String)">
+            <summary>
+            Gets the file name without extention.
+            </summary>
+            <param name="fullPath">The full file path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.GetFileNameWithExtension(System.String)">
+            <summary>
+            Returns the file name with extension.
+            </summary>
+            <param name="fullPath">the full file path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.ChangeFileExtension(System.String,System.String)">
+            <summary>
+            Changes the extension of the specified file.
+            </summary>
+            <param name="fullPath">the full file path.</param>
+            <param name="extension">The new extension.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.GetFileNameExtension(System.String)">
+            <summary>
+            Get the file extension (includes the dot).
+            </summary>
+            <param name="fullPath">The filename or full path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.ValidateStartOfExtension(System.String)">
+            <summary>
+            Returns a valid extension with a dot in the begining.
+            </summary>
+            <param name="extension">Extension to be validated.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Global.IO.PathHelper.GetFilePath(System.String)">
+            <summary>
+            Returns the path of the file.
+            </summary>
+            <param name="fullFilePath">The full path.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Global.IO.IOHelper">
+            <summary>
+             Performs input/output actions.
+            </summary>
+        </member>
+        <member name="M:Global.IO.IOHelper.GetFileLastModified(System.String)">
+            <summary>
+            Get the last modified date of the specified file.
+            </summary>
+            <param name="filePath">The full file path.</param>
+            <returns>The last modified DateTime.</returns>
+        </member>
+        <member name="M:Global.IO.IOHelper.GetFileContent(System.String)">
+            <summary>
+            Gets the file content.
+            </summary>
+            <param name="filePath">The full file path.</param>
+            <returns>A string containing the file contents.</returns>
+        </member>
+        <member name="T:Global.Xml.SerializerHelper`1">
+            <summary>
+             Class to be used when performing serialization tasks.
+            </summary>
+            <typeparam name="T">The object type to be serialized/deserialized.</typeparam>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.DeserializeFromFile(System.String)">
+            <summary>
+            Deserializes a file into an object.
+            </summary>
+            <param name="xmlFilePath">The content to be serialized.</param>
+            <returns>The object serialized from the file.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.DeserializeFromString(System.String)">
+            <summary>
+            Deserializes a string into an object.
+            </summary>
+            <param name="xmlString">The content to be serialized.</param>
+            <returns>The object serialized from the file.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.SerializeToFile(System.String,`0)">
+            <summary>
+            Serializes ans object to a file.
+            </summary>
+            <param name="xmlFilePath">The file where the serialized object should go to.</param>
+            <param name="entity">The objkect to be serialized.</param>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.SerializeToFile(System.String,`0,System.String,System.String,System.String,System.String)">
+            <summary>
+            Serializes an object to a file.
+            </summary>
+            <param name="xmlFilePath">The file where the serialized object should go to.</param>
+            <param name="entity">The object to be serialized.</param>
+            <param name="docTypeName"></param>
+            <param name="docTypePubId"></param>
+            <param name="docTypeSysId"></param>
+            <param name="docTypeSubSet"></param>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.SerializeToString(`0)">
+            <summary>
+            Serializes an object to a string.
+            </summary>
+            <param name="entity">The object to be serialized.</param>
+            <returns>The serialized object string.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.SerializeToString(`0,System.String,System.String,System.String,System.String)">
+            <summary>
+            Serializes an object to a string.
+            </summary>
+            <param name="entity">The object to be serialized.</param>
+            <param name="docTypeName"></param>
+            <param name="docTypePubId"></param>
+            <param name="docTypeSysId"></param>
+            <param name="docTypeSubSet"></param>
+            <returns>The serialized object string.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.GetNamespace(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+             Gets the namespaces from a dictionary.
+            </summary>
+            <param name="prefixNs">A collection of namespace prefixes to be added.</param>
+            <returns>Xml serializer namespaces.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.GetEmptyNamespace">
+            <summary>
+             Gets a collection of empty namespaces.
+            </summary>
+            <returns>Xml serializer namespaces.</returns>
+        </member>
+        <member name="M:Global.Xml.SerializerHelper`1.ByteArrayToString(System.Text.Encoding,System.Byte[])">
+            <summary>
+            To convert a Byte Array of Unicode values to a complete String.
+            </summary>
+            <param name="encoding">The encoding to be applied in the convertion.</param>
+            <param name="characters">Unicode Byte Array to be converted to String</param>
+            <returns>String converted from Unicode Byte Array</returns>
+        </member>
+        <member name="T:Global.Http.RestHelper">
+            <summary>
+            A collection of methods that allows performing tasks on REST services such as GET, POST, PUT and DELETE operations.
+            </summary>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestGet``1(System.String)">
+            <summary>
+            Makes a GET request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <param name="url">The full url for the request.</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestGet``1(System.String,System.String)">
+            <summary>
+            Makes a GET request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestGet``1(System.String,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a GET request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <param name="url">The full url for the request.</param>
+            <param name="messageFormat">The message format of the return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestGet``1(System.String,System.String,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a GET request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="messageFormat">The message format of the return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPost``2(System.String,System.String,``1)">
+            <summary>
+            Makes a POST request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPost``2(System.String,``1,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a POST request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="url">The full url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <param name="messageFormat">The message format of both the income and return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPost``2(System.String,System.String,``1,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a POST request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <param name="messageFormat">The message format of both the income and return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPut``2(System.String,System.String,``1)">
+            <summary>
+            Makes a PUT request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPut``2(System.String,``1,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a PUT request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="url">The full url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <param name="messageFormat">The message format of both the income and return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestPut``2(System.String,System.String,``1,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a PUT request to a REST service.
+            </summary>
+            <typeparam name="TReturn">The return object type.</typeparam>
+            <typeparam name="TContentObject">The object type passed into the request.</typeparam>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="contentObject">The actual object passed into th request.</param>
+            <param name="messageFormat">The message format of both the income and return object (XML or Json).</param>
+            <returns>The specified object for the request.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestDelete(System.String,System.String)">
+            <summary>
+            Makes a DELETE request to a REST service.
+            </summary>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <returns>A boolean indicating if the request was successful.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestDelete(System.String,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a DELETE request to a REST service.
+            </summary>
+            <param name="url">The full url for the request.</param>
+            <param name="messageFormat">The message format of the income object (XML or Json).</param>
+            <returns>A boolean indicating if the request was successful.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.HttpRestDelete(System.String,System.String,System.ServiceModel.Web.WebMessageFormat)">
+            <summary>
+            Makes a DELETE request to a REST service.
+            </summary>
+            <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+            <param name="url">The relative url for the request.</param>
+            <param name="messageFormat">The message format of the income object (XML or Json).</param>
+            <returns>A boolean indicating if the request was successful.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetInt(System.String)">
+            <summary>
+            Gets a parameter from the request and parse it to int.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <returns>The parsed int value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetInt(System.String,System.Int32)">
+            <summary>
+            Gets a parameter from the request and parse it to int.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <param name="defaultValue">The default value in case the parse gives an error.</param>
+            <returns>The parsed int value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetRequiredInt(System.String)">
+            <summary>
+            Gets a required parameter from the request and parse it to int.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <returns>The parsed int value or an exception if the parameter does not exist.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetInt(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Gets a parameter from the request and parse it to int.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <param name="defaultValue">The default value in case the parse gives an error.</param>
+            <param name="isRequired">Defines if the parameter is required.</param>
+            <returns>The parsed int value or an exception if the parameter is required.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetString(System.String)">
+            <summary>
+            Gets a string parameter from the request.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <returns>The parameter value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetString(System.String,System.String)">
+            <summary>
+            Gets a string parameter from the request.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <param name="defaultValue">A default value in case the parameter does not exist or is null or empty.</param>
+            <returns>The parameter value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetRequiredString(System.String)">
+            <summary>
+            Gets a required string parameter from the request.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <returns>The parameter value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.GetString(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a string parameter from the request.
+            </summary>
+            <param name="parmName">The request parameter name.</param>
+            <param name="defaultValue">A default value in case the parameter does not exist or is null or empty.</param>
+            <param name="isRequired">Defines if the parameter is required.</param>
+            <returns>The parameter value.</returns>
+        </member>
+        <member name="M:Global.Http.RestHelper.SetBadRequest(System.String)">
+            <summary>
+            Throws a bad request exception.
+            </summary>
+            <param name="description">The exceprion description.</param>
+        </member>
+        <member name="T:Global.Global.EnumHelper">
+            <summary>
+             Performs actions on and with enumerators.
+            </summary>
+        </member>
+        <member name="M:Global.Global.EnumHelper.NumToEnum``1(System.Int32)">
+            <summary>
+            Converts the index value into the corresponding enum value.
+            </summary>
+            <typeparam name="T">The enum object.</typeparam>
+            <param name="number">The index of the enum value.</param>
+            <returns>The enum object value.</returns>
+        </member>
+        <member name="M:Global.Global.EnumHelper.StringToEnum``1(System.String)">
+            <summary>
+            Converts the string value into the corresponding enum value.
+            </summary>
+            <typeparam name="T">The enum object.</typeparam>
+            <param name="value">The string value of the corresponding enum value.</param>
+            <returns>The enum object value.</returns>
+        </member>
+        <member name="M:Global.Global.EnumHelper.StringToEnum``1(System.String,System.Boolean)">
+            <summary>
+            Converts the string value into the corresponding enum value.
+            </summary>
+            <typeparam name="T">The enum object.</typeparam>
+            <param name="value">The string value of the corresponding enum value.</param>
+            <param name="ignoreCase">Flag to choose to ignore case or not.</param>
+            <returns>The enum object value.</returns>
+        </member>
+    </members>
+</doc>

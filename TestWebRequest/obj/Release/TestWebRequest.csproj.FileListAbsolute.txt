@@ -1,0 +1,10 @@
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\TestWebRequest.exe
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\TestWebRequest.pdb
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\Global.dll
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\Microsoft.Http.dll
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\Microsoft.Http.Extensions.dll
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\Global.pdb
+C:\Work\andrecarrilho\Global\TestWebRequest\bin\Release\Global.xml
+C:\Work\andrecarrilho\Global\TestWebRequest\obj\Release\ResolveAssemblyReference.cache
+C:\Work\andrecarrilho\Global\TestWebRequest\obj\Release\TestWebRequest.exe
+C:\Work\andrecarrilho\Global\TestWebRequest\obj\Release\TestWebRequest.pdb

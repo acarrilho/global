@@ -1,0 +1,6 @@
+_ReSharper.*
+Global.Controls*
+TestWebSite
+*.scc
+*.vssscc
+*.suo

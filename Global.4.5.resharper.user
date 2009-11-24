@@ -3,7 +3,7 @@
     <string />
     <integer />
     <boolean>
-      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="livetemplates.csharp.usevar">False</setting>
       <setting name="SolutionAnalysisEnabled">False</setting>
     </boolean>
   </SettingsComponent>
@@ -12,33 +12,53 @@
   </NAntValidationSettings>
   <RecentFiles>
     <RecentFiles>
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:RestHelper.cs" caret="9601" fromTop="61" />
       <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:CDataText.cs" caret="0" fromTop="0" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:SerializerHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:ValidationHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlParameters.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailAddresses.cs" caret="149" fromTop="7" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="8491" fromTop="126" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlBuilder.cs" caret="193" fromTop="9" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:HttpHelper.cs" caret="6633" fromTop="125" />
       <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:IO/f:PathHelper.cs" caret="0" fromTop="0" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="1912" fromTop="16" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:HttpHelper.cs" caret="0" fromTop="0" />
-      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="287" fromTop="8" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1000" fromTop="17" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Xml/f:SerializerHelper.cs" caret="0" fromTop="0" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:IO/f:IOHelper.cs" caret="0" fromTop="0" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="937" fromTop="36" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:EnumHelper.cs" caret="0" fromTop="0" />
     </RecentFiles>
     <RecentEdits>
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="0" fromTop="0" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Config/f:ConfigHelper.cs" caret="1912" fromTop="16" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="205" fromTop="5" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="13" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="12" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="10" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="11" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="76" fromTop="3" />
-      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="638" fromTop="22" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1757" fromTop="23" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1562" fromTop="17" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="684" fromTop="10" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1485" fromTop="15" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1411" fromTop="14" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1153" fromTop="9" />
-      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="216" fromTop="5" />
-      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="539" fromTop="13" />
-      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:UrlHelper.cs" caret="1001" fromTop="11" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6599" fromTop="78" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6212" fromTop="14" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6563" fromTop="23" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="7428" fromTop="33" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6478" fromTop="48" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="7962" fromTop="32" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="299" fromTop="3" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="8577" fromTop="115" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="7737" fromTop="10" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="2235" fromTop="16" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="2701" fromTop="17" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="3249" fromTop="17" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="3794" fromTop="29" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="795" fromTop="15" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="1079" fromTop="23" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="1437" fromTop="32" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="1852" fromTop="4" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6697" fromTop="24" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6747" fromTop="19" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="6974" fromTop="17" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="259" fromTop="4" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="259" fromTop="12" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="259" fromTop="9" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="1727" fromTop="27" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="814" fromTop="24" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="416" fromTop="18" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="842" fromTop="26" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Global/f:MailHelper.cs" caret="8491" fromTop="19" />
+      <File id="C05E6DEB-32E7-463A-BDFA-45D6E53D79B7/d:Http/f:HttpHelper.cs" caret="1081" fromTop="12" />
+      <File id="D8BA873A-8A9D-4013-863B-B56734EEDFFF/f:Program.cs" caret="257" fromTop="12" />
     </RecentEdits>
   </RecentFiles>
   <UnitTestRunner>
@@ -49,47 +69,90 @@
   </UnitTestRunnerMSTest>
   <CompletionStatisticsManager>
     <ItemStatistics item="Default">
-      <Item value="prop" priority="0" />
-      <Item value="string" priority="15" />
+      <Item value="prop" priority="9" />
+      <Item value="string" priority="25" />
       <Item value="Text" priority="2" />
       <Item value="reader" priority="0" />
       <Item value="writer" priority="0" />
-      <Item value="return" priority="6" />
+      <Item value="return" priority="16" />
       <Item value="null" priority="0" />
       <Item value="text" priority="0" />
       <Item value="ctor" priority="0" />
-      <Item value="System" priority="0" />
+      <Item value="System" priority="1" />
       <Item value="Attribute" priority="0" />
       <Item value="AttributeUsage" priority="0" />
       <Item value="AttributeTargets" priority="1" />
       <Item value="_AppDomain" priority="0" />
       <Item value="Predicate" priority="0" />
-      <Item value="public" priority="6" />
+      <Item value="public" priority="14" />
       <Item value="interface" priority="0" />
-      <Item value="class" priority="1" />
+      <Item value="class" priority="2" />
       <Item value="IUrlParameters" priority="1" />
-      <Item value="private" priority="2" />
-      <Item value="this" priority="5" />
+      <Item value="private" priority="7" />
+      <Item value="this" priority="8" />
       <Item value="base" priority="0" />
       <Item value="_baseUrl" priority="5" />
       <Item value="UrlBuilder" priority="3" />
       <Item value="baseUrl" priority="0" />
-      <Item value="Action" priority="1" />
+      <Item value="Action" priority="2" />
       <Item value="urlParameters" priority="0" />
       <Item value="UrlParameters" priority="1" />
       <Item value="parameters" priority="0" />
       <Item value="name" priority="0" />
-      <Item value="new" priority="2" />
+      <Item value="new" priority="18" />
       <Item value="u" priority="0" />
       <Item value="p" priority="0" />
-      <Item value="if" priority="1" />
+      <Item value="if" priority="3" />
       <Item value="_urlParameters" priority="1" />
       <Item value="Console" priority="1" />
       <Item value="Dictionary&lt;string,string&gt;" priority="0" />
-      <Item value="foreach" priority="0" />
-      <Item value="url" priority="0" />
+      <Item value="foreach" priority="1" />
+      <Item value="url" priority="2" />
       <Item value="String" priority="2" />
       <Item value="parameter" priority="1" />
+      <Item value="MailHelper" priority="8" />
+      <Item value="fromMail" priority="0" />
+      <Item value="MailAddressCollection" priority="13" />
+      <Item value="mailAddresses" priority="1" />
+      <Item value="mailHelper" priority="2" />
+      <Item value="mails" priority="1" />
+      <Item value="_mailAddressCollection" priority="0" />
+      <Item value="MailAddress" priority="3" />
+      <Item value="MailAddresses" priority="1" />
+      <Item value="mail" priority="0" />
+      <Item value="_mailAddresses" priority="0" />
+      <Item value="ToMails" priority="0" />
+      <Item value="fromDisplayName" priority="0" />
+      <Item value="CcMails" priority="0" />
+      <Item value="BccMails" priority="0" />
+      <Item value="bcc" priority="0" />
+      <Item value="cc" priority="0" />
+      <Item value="bool" priority="2" />
+      <Item value="true" priority="1" />
+      <Item value="SmtpClient" priority="4" />
+      <Item value="smtpClient" priority="2" />
+      <Item value="MailMessage" priority="6" />
+      <Item value="m" priority="1" />
+      <Item value="DeliveryNotificationOptions" priority="0" />
+      <Item value="int" priority="1" />
+      <Item value="NetworkCredential" priority="2" />
+      <Item value="_message" priority="2" />
+      <Item value="Message" priority="5" />
+      <Item value="subject" priority="0" />
+      <Item value="body" priority="0" />
+      <Item value="addressCollection" priority="0" />
+      <Item value="_adressCollection" priority="0" />
+      <Item value="Net" priority="0" />
+      <Item value="Mail" priority="0" />
+      <Item value="_smtpClient" priority="5" />
+      <Item value="username" priority="0" />
+      <Item value="password" priority="0" />
+      <Item value="host" priority="0" />
+      <Item value="enableSsl" priority="0" />
+      <Item value="false" priority="0" />
+      <Item value="void" priority="1" />
+      <Item value="BuildUrl" priority="0" />
+      <Item value="SendMail" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Xml.XmlReader">
       <Item value="ReadString" priority="0" />
@@ -103,7 +166,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:Global.Http.UrlParameters">
       <Item value="baseUrl" priority="0" />
-      <Item value="Add" priority="1" />
+      <Item value="Add" priority="2" />
       <Item value="parameters" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
@@ -126,7 +189,46 @@
       <Item value="Value" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.String">
-      <Item value="EndsWith" priority="0" />
+      <Item value="EndsWith" priority="2" />
+      <Item value="Remove" priority="0" />
+      <Item value="Length" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Global.Global.MailHelper">
+      <Item value="To" priority="2" />
+      <Item value="From" priority="2" />
+      <Item value="Bcc" priority="0" />
+      <Item value="Cc" priority="0" />
+      <Item value="Send" priority="0" />
+      <Item value="Body" priority="0" />
+      <Item value="Subject" priority="0" />
+      <Item value="IsBodyHtml" priority="0" />
+      <Item value="Credentials" priority="0" />
+      <Item value="Ssl" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.MailAddressCollection">
+      <Item value="Add" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Global.Global.MailAddresses">
+      <Item value="Add" priority="6" />
+      <Item value="AddressCollection" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.SmtpClient">
+      <Item value="Send" priority="2" />
+      <Item value="Credentials" priority="3" />
+      <Item value="Host" priority="0" />
+      <Item value="EnableSsl" priority="0" />
+      <Item value="UseDefaultCredentials" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Net.Mail.MailMessage">
+      <Item value="DeliveryNotificationOptions" priority="0" />
+      <Item value="Subject" priority="0" />
+      <Item value="Body" priority="0" />
+      <Item value="SubjectEncoding" priority="0" />
+      <Item value="IsBodyHtml" priority="0" />
+      <Item value="From" priority="0" />
+      <Item value="To" priority="1" />
+      <Item value="CC" priority="0" />
+      <Item value="Bcc" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>

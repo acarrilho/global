@@ -10,10 +10,10 @@ namespace TestWebRequest
     {
         static void Main(string[] args)
         {
-            Program program = new Program();
+            //Program program = new Program();
             SendHttpRequest();
-            BuildUrl();
-            SendMail();
+            //BuildUrl();
+            //SendMail();
 
             Console.ReadLine();
         }

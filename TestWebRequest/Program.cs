@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Global.Global;
@@ -11,9 +12,9 @@ namespace TestWebRequest
         static void Main(string[] args)
         {
             //Program program = new Program();
-            SendHttpRequest();
+            //SendHttpRequest();
             //BuildUrl();
-            //SendMail();
+            SendMail();
 
             Console.ReadLine();
         }
@@ -34,20 +35,27 @@ namespace TestWebRequest
 
         private static void SendMail()
         {
+            Dictionary<string, string> l = new Dictionary<string, string>();
+            l.Add("A B C", "a@b.c");
+            l.Add("D E F", "d@e.f");
+
             var mailHelper = new MailHelper("smtp.gmail.com", 587);
             mailHelper
                 .From("Andre Carrilho", "andrecarrilho@gmail.com")
                 .To(to => to
-                    .Add("Andre Carrilho", "andre.carrilho@hotmail.com")
-                    .Add("Nuno Neto", "nuno_neto2003@hotmail.com"))
+                              .Add(l))
+                //.Add("Andre Carrilho", "andre.carrilho@hotmail.com"))
                 .Cc(bcc => bcc
-                    .Add("andre.carrilho@spreadder.com"))
-                .Body("The MailHelper class we are going to use for spreadder is also DONE! Now, hre is some HTML to see if this REALLY works as it should: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
+                               .Add("andre.carrilho@spreadder.com"))
+                .Body(
+                "The MailHelper class we are going to use for spreadder is also DONE! Now, hre is some HTML to see if this REALLY works as it should: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
                 .Subject("test fluent MailHelper class")
                 .IsBodyHtml(true)
                 .Credentials("someUser", "somePass")
-                .Ssl(true)
-                .Send();
+                .Ssl(true);
+                //.Send();
+
+            Console.ReadLine();
         }
 
         private static void SendHttpRequest()

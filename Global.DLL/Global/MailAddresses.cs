@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Mail;
 
 namespace Global.Global
@@ -17,7 +18,7 @@ namespace Global.Global
         }
 
         ///<summary>
-        /// Adds a new querystring parameter to the Parameters collection.
+        /// Adds a new address to the address collection.
         ///</summary>
         ///<param name="mail">The specified sender mail.</param>
         ///<returns>The same instance of the mail address class.</returns>
@@ -27,7 +28,7 @@ namespace Global.Global
             return this;
         }
         ///<summary>
-        /// Adds a new querystring parameter to the Parameters collection.
+        /// Adds a new address to the address collection.
         ///</summary>
         ///<param name="displayName">The name of the sender.</param>
         ///<param name="mail">The specified sender mail.</param>
@@ -35,6 +36,34 @@ namespace Global.Global
         public MailAddresses Add(string displayName, string mail)
         {
             AddressCollection.Add(new MailAddress(mail, displayName));
+            return this;
+        }
+
+        ///<summary>
+        /// Adds a new address to the address collection.
+        ///</summary>
+        ///<param name="mails">A list of emails.</param>
+        ///<returns>The same instance of the mail address class.</returns>
+        public MailAddresses Add(IEnumerable<string> mails)
+        {
+            foreach (var mail in mails)
+            {
+                AddressCollection.Add(new MailAddress(mail));
+            }
+            return this;
+        }
+
+        ///<summary>
+        /// Adds a new address to the address collection.
+        ///</summary>
+        ///<param name="contacts">A list of contacts.</param>
+        ///<returns>The same instance of the mail address class.</returns>
+        public MailAddresses Add(Dictionary<string, string> contacts)
+        {
+            foreach (var contact in contacts)
+            {
+                AddressCollection.Add(new MailAddress(contact.Value, contact.Key));
+            }
             return this;
         }
     }

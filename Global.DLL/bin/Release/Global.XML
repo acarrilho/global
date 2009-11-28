@@ -45,6 +45,31 @@
             <typeparam name="TReturn">The configuration section object class.</typeparam>
             <returns>The configuration section object.</returns>
         </member>
+        <member name="T:Global.Http.UrlBuilder">
+            <summary>
+             Helper class to build a url string.
+            </summary>
+        </member>
+        <member name="M:Global.Http.UrlBuilder.BaseUrl(System.String)">
+            <summary>
+             Defines the base url.
+            </summary>
+            <param name="baseUrl">The base url.</param>
+            <returns>The same instance of the UrlBuilder.</returns>
+        </member>
+        <member name="M:Global.Http.UrlBuilder.Parameters(System.Action{Global.Http.UrlParameters})">
+            <summary>
+             Defines the url Parameters.
+            </summary>
+            <param name="urlParameters">The url Parameters.</param>
+            <returns>The same instance of the UrlBuilder.</returns>
+        </member>
+        <member name="M:Global.Http.UrlBuilder.Build">
+            <summary>
+             Builds the the final url.
+            </summary>
+            <returns>The final url string.</returns>
+        </member>
         <member name="T:Global.Http.HttpRequestType">
             <summary>
             Returns the request type to be made.
@@ -149,6 +174,40 @@
             <summary>
             Returns the encoding type of the web request. The default is UTF-8.
             </summary>
+        </member>
+        <member name="T:Global.Global.MailAddresses">
+            <summary>
+             A collection of mail addresses.
+            </summary>
+        </member>
+        <member name="M:Global.Global.MailAddresses.Add(System.String)">
+            <summary>
+             Adds a new address to the address collection.
+            </summary>
+            <param name="mail">The specified sender mail.</param>
+            <returns>The same instance of the mail address class.</returns>
+        </member>
+        <member name="M:Global.Global.MailAddresses.Add(System.String,System.String)">
+            <summary>
+             Adds a new address to the address collection.
+            </summary>
+            <param name="displayName">The name of the sender.</param>
+            <param name="mail">The specified sender mail.</param>
+            <returns>The same instance of the mail address class.</returns>
+        </member>
+        <member name="M:Global.Global.MailAddresses.Add(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+             Adds a new address to the address collection.
+            </summary>
+            <param name="mails">A list of emails.</param>
+            <returns>The same instance of the mail address class.</returns>
+        </member>
+        <member name="M:Global.Global.MailAddresses.Add(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+             Adds a new address to the address collection.
+            </summary>
+            <param name="contacts">A list of contacts.</param>
+            <returns>The same instance of the mail address class.</returns>
         </member>
         <member name="T:Global.Xml.ValidationHelper">
             <summary>
@@ -268,6 +327,167 @@
             </summary>
             <param name="filePath">The full file path.</param>
             <returns>A string containing the file contents.</returns>
+        </member>
+        <member name="T:Global.Http.UrlParameters">
+            <summary>
+             A collection of url Parameters.
+            </summary>
+        </member>
+        <member name="F:Global.Http.UrlParameters.Parameters">
+            <summary>
+             A dictionary os parameter name/value pair.
+            </summary>
+        </member>
+        <member name="M:Global.Http.UrlParameters.Add(System.String,System.String)">
+            <summary>
+             Adds a new querystring parameter to the Parameters collection.
+            </summary>
+            <param name="name">The name of parameter.</param>
+            <param name="value">The value of the parameter value.</param>
+            <returns>The same instance of the parameter value.</returns>
+        </member>
+        <member name="T:Global.Global.MailHelper">
+            <summary>
+             Helper class that provides basic functionalities for sending mails.
+            </summary>
+        </member>
+        <member name="M:Global.Global.MailHelper.#ctor">
+            <summary>
+             Creates a new instance of the MailHelper class.
+            </summary>
+        </member>
+        <member name="M:Global.Global.MailHelper.#ctor(System.String)">
+            <summary>
+             Creates a new instance of the MailHelper class.
+            </summary>
+            <param name="host">The host from where to send the mail from.</param>
+        </member>
+        <member name="M:Global.Global.MailHelper.#ctor(System.String,System.Int32)">
+            <summary>
+             Creates a new instance of the MailHelper class.
+            </summary>
+            <param name="host">The host from where to send the mail from.</param>
+            <param name="port">The specified port.</param>
+        </member>
+        <member name="M:Global.Global.MailHelper.From(System.String)">
+            <summary>
+             Defines the from address.
+            </summary>
+            <param name="fromMail">The from mail address.</param>
+            <returns>The same instance of MailHelper.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.From(System.String,System.String)">
+            <summary>
+             Defines the from address.
+            </summary>
+            <param name="fromDisplayName">The from display name.</param>
+            <param name="fromMail">The from mail address.</param>
+            <returns>The same instance of MailHelper.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.To(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
+            <summary>
+             Adds a collection of mail addresses to send to.
+            </summary>
+            <param name="mailAddresses">The specified addresses to send to.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Cc(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
+            <summary>
+             Adds a collection of mail addresses to send to.
+            </summary>
+            <param name="mailAddresses">The specified addresses to send to.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Bcc(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
+            <summary>
+             Adds a collection of mail addresses to send to.
+            </summary>
+            <param name="mailAddresses">The specified addresses to send to.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Subject(System.String)">
+            <summary>
+             Sets the message subject.
+            </summary>
+            <param name="subject">The subject.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Body(System.String)">
+            <summary>
+             Sets the message body.
+            </summary>
+            <param name="body">The body.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.SubjectEncoding(System.Text.Encoding)">
+            <summary>
+             Sets the message subject encoding.
+            </summary>
+            <param name="subjectEncoding">The subject encoding.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.BodyEncoding(System.Text.Encoding)">
+            <summary>
+             Sets the message body encoding.
+            </summary>
+            <param name="bodyEncoding">The body encoding.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.IsBodyHtml(System.Boolean)">
+            <summary>
+             Sets the message body as html or not.
+            </summary>
+            <param name="isBodyHtml">Message body html flag.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Host(System.String)">
+            <summary>
+             The host from where to send the mail from.
+            </summary>
+            <param name="host">The host from where to send the mail from.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Port(System.Int32)">
+            <summary>
+             The specified port.
+            </summary>
+            <param name="port">The specified port.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Ssl(System.Boolean)">
+            <summary>
+             Specifies if ssl should be enabled.
+            </summary>
+            <param name="enableSsl">Flag to enable ssl.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Credentials(System.String,System.String)">
+            <summary>
+             Defines the credentials to use from for sending the mail (NetworkCredentials).
+            </summary>
+            <param name="username">The specified username.</param>
+            <param name="password">The specified passord.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Credentials(System.String,System.String,System.String)">
+            <summary>
+             Defines the credentials to use from for sending the mail (NetworkCredentials).
+            </summary>
+            <param name="username">The specified username.</param>
+            <param name="password">The specified passord.</param>
+            <param name="domain">The specified domain.</param>
+            <returns>The same instance of the mail helper class.</returns>
+        </member>
+        <member name="M:Global.Global.MailHelper.Send">
+            <summary>
+             Sends the specified message defined.
+            </summary>
+            <returns>If no error was found it returns true.</returns>
+        </member>
+        <member name="P:Global.Global.MailHelper.Message">
+            <summary>
+             Defines the message settings such as from, to, subject, etc. These fields will be set automatically by calling the respective methods.
+            </summary>
         </member>
         <member name="T:Global.Xml.CDataText">
             <summary>
@@ -630,212 +850,6 @@
             <param name="value">The string value of the corresponding enum value.</param>
             <param name="ignoreCase">Flag to choose to ignore case or not.</param>
             <returns>The enum object value.</returns>
-        </member>
-        <member name="T:Global.Global.MailHelper">
-            <summary>
-             Helper class that provides basic functionalities for sending mails.
-            </summary>
-        </member>
-        <member name="M:Global.Global.MailHelper.#ctor">
-            <summary>
-             Creates a new instance of the MailHelper class.
-            </summary>
-        </member>
-        <member name="M:Global.Global.MailHelper.#ctor(System.String)">
-            <summary>
-             Creates a new instance of the MailHelper class.
-            </summary>
-            <param name="host">The host from where to send the mail from.</param>
-        </member>
-        <member name="M:Global.Global.MailHelper.#ctor(System.String,System.Int32)">
-            <summary>
-             Creates a new instance of the MailHelper class.
-            </summary>
-            <param name="host">The host from where to send the mail from.</param>
-            <param name="port">The specified port.</param>
-        </member>
-        <member name="M:Global.Global.MailHelper.From(System.String)">
-            <summary>
-             Defines the from address.
-            </summary>
-            <param name="fromMail">The from mail address.</param>
-            <returns>The same instance of MailHelper.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.From(System.String,System.String)">
-            <summary>
-             Defines the from address.
-            </summary>
-            <param name="fromDisplayName">The from display name.</param>
-            <param name="fromMail">The from mail address.</param>
-            <returns>The same instance of MailHelper.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.To(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
-            <summary>
-             Adds a collection of mail addresses to send to.
-            </summary>
-            <param name="mailAddresses">The specified addresses to send to.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Cc(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
-            <summary>
-             Adds a collection of mail addresses to send to.
-            </summary>
-            <param name="mailAddresses">The specified addresses to send to.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Bcc(System.Func{Global.Global.MailAddresses,Global.Global.MailAddresses})">
-            <summary>
-             Adds a collection of mail addresses to send to.
-            </summary>
-            <param name="mailAddresses">The specified addresses to send to.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Subject(System.String)">
-            <summary>
-             Sets the message subject.
-            </summary>
-            <param name="subject">The subject.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Body(System.String)">
-            <summary>
-             Sets the message body.
-            </summary>
-            <param name="body">The body.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.SubjectEncoding(System.Text.Encoding)">
-            <summary>
-             Sets the message subject encoding.
-            </summary>
-            <param name="subjectEncoding">The subject encoding.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.BodyEncoding(System.Text.Encoding)">
-            <summary>
-             Sets the message body encoding.
-            </summary>
-            <param name="bodyEncoding">The body encoding.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.IsBodyHtml(System.Boolean)">
-            <summary>
-             Sets the message body as html or not.
-            </summary>
-            <param name="isBodyHtml">Message body html flag.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Host(System.String)">
-            <summary>
-             The host from where to send the mail from.
-            </summary>
-            <param name="host">The host from where to send the mail from.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Port(System.Int32)">
-            <summary>
-             The specified port.
-            </summary>
-            <param name="port">The specified port.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Ssl(System.Boolean)">
-            <summary>
-             Specifies if ssl should be enabled.
-            </summary>
-            <param name="enableSsl">Flag to enable ssl.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Credentials(System.String,System.String)">
-            <summary>
-             Defines the credentials to use from for sending the mail (NetworkCredentials).
-            </summary>
-            <param name="username">The specified username.</param>
-            <param name="password">The specified passord.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Credentials(System.String,System.String,System.String)">
-            <summary>
-             Defines the credentials to use from for sending the mail (NetworkCredentials).
-            </summary>
-            <param name="username">The specified username.</param>
-            <param name="password">The specified passord.</param>
-            <param name="domain">The specified domain.</param>
-            <returns>The same instance of the mail helper class.</returns>
-        </member>
-        <member name="M:Global.Global.MailHelper.Send">
-            <summary>
-             Sends the specified message defined.
-            </summary>
-            <returns>If no error was found it returns true.</returns>
-        </member>
-        <member name="P:Global.Global.MailHelper.Message">
-            <summary>
-             Defines the message settings such as from, to, subject, etc. These fields will be set automatically by calling the respective methods.
-            </summary>
-        </member>
-        <member name="T:Global.Http.UrlParameters">
-            <summary>
-             A collection of url Parameters.
-            </summary>
-        </member>
-        <member name="F:Global.Http.UrlParameters.Parameters">
-            <summary>
-             A dictionary os parameter name/value pair.
-            </summary>
-        </member>
-        <member name="M:Global.Http.UrlParameters.Add(System.String,System.String)">
-            <summary>
-             Adds a new querystring parameter to the Parameters collection.
-            </summary>
-            <param name="name">The name of parameter.</param>
-            <param name="value">The value of the parameter value.</param>
-            <returns>The same instance of the parameter value.</returns>
-        </member>
-        <member name="T:Global.Http.UrlBuilder">
-            <summary>
-             Helper class to build a url string.
-            </summary>
-        </member>
-        <member name="M:Global.Http.UrlBuilder.BaseUrl(System.String)">
-            <summary>
-             Defines the base url.
-            </summary>
-            <param name="baseUrl">The base url.</param>
-            <returns>The same instance of the UrlBuilder.</returns>
-        </member>
-        <member name="M:Global.Http.UrlBuilder.Parameters(System.Action{Global.Http.UrlParameters})">
-            <summary>
-             Defines the url Parameters.
-            </summary>
-            <param name="urlParameters">The url Parameters.</param>
-            <returns>The same instance of the UrlBuilder.</returns>
-        </member>
-        <member name="M:Global.Http.UrlBuilder.Build">
-            <summary>
-             Builds the the final url.
-            </summary>
-            <returns>The final url string.</returns>
-        </member>
-        <member name="T:Global.Global.MailAddresses">
-            <summary>
-             A collection of mail addresses.
-            </summary>
-        </member>
-        <member name="M:Global.Global.MailAddresses.Add(System.String)">
-            <summary>
-             Adds a new querystring parameter to the Parameters collection.
-            </summary>
-            <param name="mail">The specified sender mail.</param>
-            <returns>The same instance of the mail address class.</returns>
-        </member>
-        <member name="M:Global.Global.MailAddresses.Add(System.String,System.String)">
-            <summary>
-             Adds a new querystring parameter to the Parameters collection.
-            </summary>
-            <param name="displayName">The name of the sender.</param>
-            <param name="mail">The specified sender mail.</param>
-            <returns>The same instance of the mail address class.</returns>
         </member>
     </members>
 </doc>

@@ -43,17 +43,17 @@ namespace TestWebRequest
             mailHelper
                 .From("Andre Carrilho", "andrecarrilho@gmail.com")
                 .To(to => to
-                              .Add(l))
-                //.Add("Andre Carrilho", "andre.carrilho@hotmail.com"))
-                .Cc(bcc => bcc
-                               .Add("andre.carrilho@spreadder.com"))
-                .Body(
-                "The MailHelper class we are going to use for spreadder is also DONE! Now, hre is some HTML to see if this REALLY works as it should: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
-                .Subject("test fluent MailHelper class")
+                              .Add("Andre Carrilho", "andre.carrilho@hotmail.com"))
+                .Bcc(bcc => bcc
+                               .Add("andre.carrilho@mail.com"))
+                .Cc(cc => cc
+                               .Add("Another Person", "another.person@anothermail.com"))
+                .Body("Trying out the MailHelper class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
+                .Subject("Testing Fluent MailHelper Class")
                 .IsBodyHtml(true)
                 .Credentials("someUser", "somePass")
-                .Ssl(true);
-                //.Send();
+                .Ssl(true)
+                .Send();
 
             Console.ReadLine();
         }

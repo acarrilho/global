@@ -10,4 +10,3 @@ C:\Work\andrecarrilho\Global\Global.DLL\obj\Debug\Global.dll
 C:\Work\andrecarrilho\Global\Global.DLL\obj\Debug\Global.pdb
 C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Microsoft.Http.dll
 C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Microsoft.Http.Extensions.dll
-C:\Work\andrecarrilho\Global\Global.DLL\bin\Debug\Global.XML

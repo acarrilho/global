@@ -24,10 +24,9 @@ namespace TestWebRequest
             var u = new UrlBuilder();
             var url = u.BaseUrl("http://www.google.pt/")
                 .Parameters(p => p
-                    .Add("aName", "aValue")
-                    .Add("bName", "bValue")
-                    .Add("1", "1")
-                    .Add("2", "2"))
+                    .Add("parameter_a", "parameter_a_value")
+                    .Add("parameter_b", "parameter_b_value")
+                    .Add("name", "Andre Carrilho"))
                 .Build();
 
             Console.WriteLine(url);
@@ -35,21 +34,26 @@ namespace TestWebRequest
 
         private static void SendMail()
         {
-            Dictionary<string, string> l = new Dictionary<string, string>();
-            l.Add("A B C", "a@b.c");
-            l.Add("D E F", "d@e.f");
+            var mailsWithDisplayNames = new Dictionary<string, string>
+                               {
+                                   {"Another Person", "another.person@anothermail.com"},
+                                   {"Yet Another Person","yet.another.person@anothermail.com"}
+                               };
+
+            var justMails = new List<string>
+                        {
+                            "wow.another.person@anothermail.com",
+                            "ok.another.person@anothermail.com"
+                        };
 
             var mailHelper = new MailHelper("smtp.gmail.com", 587);
             mailHelper
                 .From("Andre Carrilho", "andrecarrilho@gmail.com")
-                .To(to => to
-                              .Add("Andre Carrilho", "andre.carrilho@hotmail.com"))
-                .Bcc(bcc => bcc
-                               .Add("andre.carrilho@mail.com"))
-                .Cc(cc => cc
-                               .Add("Another Person", "another.person@anothermail.com"))
+                .To(to => to.Add("Andre Carrilho", "andre.carrilho@hotmail.com"))
+                .Bcc(bcc => bcc.Add(mailsWithDisplayNames))
+                .Cc(cc => cc.Add(justMails))
                 .Body("Trying out the MailHelper class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
-                .Subject("Testing Fluent MailHelper Class")
+                .Subject("Testing Fluent MailHelper")
                 .IsBodyHtml(true)
                 .Credentials("someUser", "somePass")
                 .Ssl(true)

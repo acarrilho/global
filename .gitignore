@@ -1,6 +1,5 @@
-.git
-_ReSharper.Global
-Global.Controls
-Global.Controls_deploy
-TestWebSite
-_UpgradeReport_Files
+_ReSharper.Global/
+*.user
+*.suo
+bin/
+obj/

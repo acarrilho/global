@@ -6,16 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebRequest", "TestWebRequest\TestWebRequest.csproj", "{D8BA873A-8A9D-4013-863B-B56734EEDFFF}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 3
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Global.DLL\\Global.csproj
-		SccLocalPath1 = .
-		SccProjectFilePathRelativizedFromConnection1 = Global.DLL\\
-		SccProjectUniqueName2 = TestWebRequest\\TestWebRequest.csproj
-		SccLocalPath2 = .
-		SccProjectFilePathRelativizedFromConnection2 = TestWebRequest\\
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

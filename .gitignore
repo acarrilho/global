@@ -1,7 +1,7 @@
 _ReSharper.Global/
 *.user
 *.suo
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
 Global.DLL/Data/
 Global.DLL/Ftp/

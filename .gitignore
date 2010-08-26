@@ -3,5 +3,5 @@ _ReSharper.Global/
 *.suo
 bin/
 obj/
-Global.DLL/Data
-Global.DLL/Ftp
+Global.DLL/Data/
+Global.DLL/Ftp/

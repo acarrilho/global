@@ -206,7 +206,7 @@ namespace Global.Http
                 ? httpClient.Delete(url) 
                 : httpClient.Delete(String.Empty);
             httpResponse.EnsureStatusIsSuccessful();
-            return true;
+            return httpResponse.ConvertHttpContentToObject<bool>(messageFormat);
         }
 
         private static HttpContent ConvertObjectToHttpContent<TContentObject>(TContentObject contentObject, 

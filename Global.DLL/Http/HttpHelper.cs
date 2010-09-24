@@ -150,8 +150,10 @@ namespace Global.Http
                     if (!String.IsNullOrEmpty(userAgent)) webReq.UserAgent = userAgent;
                     if (keepAlive != null) webReq.KeepAlive = (bool)keepAlive;
 
-                    var ascii = new ASCIIEncoding();
-                    byte[] data = !String.IsNullOrEmpty(postData) ? ascii.GetBytes(postData) : ascii.GetBytes(String.Empty);
+                    ASCIIEncoding ascii = new ASCIIEncoding();
+                    byte[] data = !String.IsNullOrEmpty(postData)
+                                      ? ascii.GetBytes(postData)
+                                      : ascii.GetBytes(String.Empty);
                     webReq.ContentLength = data.Length;
 
                     //requests the data
@@ -159,19 +161,26 @@ namespace Global.Http
 
                     string response;
                     // Get the stream associated with the response.
-                    using (var receiveStream = webResp.GetResponseStream())
+                    using (Stream receiveStream = webResp.GetResponseStream())
                     {
                         // Pipes the stream to a higher level stream reader with the required encoding format.
-                        using (var readStream = new StreamReader(receiveStream, encoding))
+                        using (StreamReader readStream = new StreamReader(receiveStream, encoding))
+                        {
                             response = readStream.ReadToEnd();
+                        }
                     }
 
                     return response;
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
                 finally
                 {
                     // Close web response
-                    if (webResp != null) webResp.Close();
+                    if (webResp != null)
+                        webResp.Close();
                 }
             }
 
@@ -186,7 +195,7 @@ namespace Global.Http
         /// <returns>A boolean indicating if the download was successful.</returns>
         public bool DownloadFile(string sourceUrl, string destinationPath)
         {
-            var webClient = new WebClient();
+            WebClient webClient = new WebClient();
             webClient.DownloadFile(sourceUrl, destinationPath);
 
             return true;

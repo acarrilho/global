@@ -4,11 +4,6 @@ using System.Web.Security;
 
 namespace Global.Security
 {
-    public class EncryptDecrypt
-    {
-        
-    }
-
     ///<summary>
     /// Provides some basic security features for a web application.
     ///</summary>
@@ -31,8 +26,8 @@ namespace Global.Security
         public static string CreateSalt(int size)
         {
             //Generate a cryptographic random number.
-            var rng = new RNGCryptoServiceProvider();
-            var buff = new byte[size];
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[size];
             rng.GetBytes(buff);
 
             // Return a Base64 string representation of the random number.

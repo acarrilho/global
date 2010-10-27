@@ -26,13 +26,13 @@ namespace Global.Security
             try
             {
                 if (string.IsNullOrEmpty(input)) return string.Empty;
-                RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
+                var provider = new RSACryptoServiceProvider();
                 provider.ImportParameters(PublicParams);
 
                 var buffer = Encoding.ASCII.GetBytes(input);
                 var encryptedbuffer = provider.Encrypt(buffer, false);
 
-                SHA1Managed hash = new SHA1Managed();
+                var hash = new SHA1Managed();
                 provider.ImportParameters(PrivateParams);
                 var hashedData = hash.ComputeHash(encryptedbuffer);
                 signature = provider.SignHash(hashedData, CryptoConfig.MapNameToOID("SHA1"));
@@ -59,7 +59,7 @@ namespace Global.Security
             if (!VerifyHash(hash, signature)) return string.Empty;
             try
             {
-                RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
+                var provider = new RSACryptoServiceProvider();
                 provider.ImportParameters(PrivateParams);
 
                 var encryptedbuffer = Convert.FromBase64String(hash);
@@ -84,8 +84,8 @@ namespace Global.Security
         {
             try
             {
-                RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
-                SHA1Managed hash = new SHA1Managed();
+                var provider = new RSACryptoServiceProvider();
+                var hash = new SHA1Managed();
 
                 provider.ImportParameters(PublicParams);
                 var encryptedbuffer = Convert.FromBase64String(signedHash);

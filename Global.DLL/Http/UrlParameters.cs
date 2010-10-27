@@ -18,9 +18,21 @@ namespace Global.Http
         ///<param name="name">The name of parameter.</param>
         ///<param name="value">The value of the parameter value.</param>
         ///<returns>The same instance of the parameter value.</returns>
-        public UrlParameters Add(string name, string value)
+        public UrlParameters Add(string name, object value)
         {
-            Parameters.Add(name, value);
+            return Add(name, value, true);
+        }
+
+        ///<summary>
+        /// Adds a new querystring parameter to the Parameters collection.
+        ///</summary>
+        ///<param name="name">The name of parameter.</param>
+        ///<param name="value">The value of the parameter value.</param>
+        ///<param name="allowNulls">Specifies if the it will allow null values.</param>
+        ///<returns>The same instance of the parameter value.</returns>
+        public UrlParameters Add(string name, object value, bool allowNulls)
+        {
+            if (!allowNulls && value != null) Parameters.Add(name, value.ToString());
             return this;
         }
 

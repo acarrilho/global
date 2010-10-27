@@ -39,7 +39,7 @@ namespace Global.Http
         public string Build()
         {
             string url = _baseUrl;
-            if (!_baseUrl.EndsWith("?") && _urlParameters != null)
+            if (!_baseUrl.EndsWith("?") && _urlParameters != null && _urlParameters.Parameters != null && _urlParameters.Parameters.Count > 0)
             {
                 url = String.Format("{0}?", url);
                 foreach (var parameter in _urlParameters.Parameters)

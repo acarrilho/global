@@ -332,7 +332,6 @@ namespace Global.Http
                 throw new InvalidOperationException("WebOperationContext is null");
 
             string returnValue = WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters[parmName];
-
             // if the parameter is required then this is a bad request - this will throw ArgumentException
             if (isRequired && string.IsNullOrEmpty(returnValue))
             {

@@ -59,9 +59,8 @@ namespace Global.Security
         ///<returns></returns>
         public static string CreatePasswordHash(string password, string passwordSalt, string passwordFormat)
         {
-            string saltAndPwd = String.Concat(password, passwordSalt);
-            string hashedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd,
-                passwordFormat);
+            var saltAndPwd = String.Concat(password, passwordSalt);
+            var hashedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, passwordFormat);
             
             return hashedPwd;
         }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Global;
 using Global.Global;
 using Global.Http;
+using Global.Security;
 using Global.Xml;
 
 namespace TestWebRequest
@@ -14,13 +16,25 @@ namespace TestWebRequest
         {
             Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
-            //Program program = new Program();
-            SendHttpRequest();
+            //var program = new Program();
+            HashSomething();
+            //SendHttpRequest();
             //BuildUrl();
             //SendMail();
             //DataContractJsonSerialization();
 
             Console.ReadLine();
+        }
+
+        private static void HashSomething()
+        {
+            var toHash = string.Format("p235:123456789:910000000:{0}:bla_bla_bla_bla", Guid.NewGuid());
+            byte[] privateKey;
+            var hashed = new CryptoHelper().Encrypt(toHash, out privateKey);
+            Console.WriteLine(hashed);
+
+            var notHashed = new CryptoHelper().Decrypt(hashed, privateKey);
+            Console.WriteLine(notHashed);
         }
 
         private static void BuildUrl()

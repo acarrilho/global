@@ -8,9 +8,9 @@ namespace Global.Security
     /// <summary>
     /// Provide hashing features 
     /// </summary>
-    public static class HashingHelper
+    public class HashingHelper
     {
-        private readonly static RSACryptoServiceProvider Rsa = new RSACryptoServiceProvider();
+        private readonly static RSACryptoServiceProvider Rsa = new RSACryptoServiceProvider(new CspParameters { Flags = CspProviderFlags.UseMachineKeyStore });
         private readonly static RSAParameters PublicParams = Rsa.ExportParameters(false); //Only public key.
         private readonly static RSAParameters PrivateParams = Rsa.ExportParameters(true); //Complete key pairs.
 
@@ -26,7 +26,7 @@ namespace Global.Security
             try
             {
                 if (string.IsNullOrEmpty(input)) return string.Empty;
-                var provider = new RSACryptoServiceProvider();
+                var provider = new RSACryptoServiceProvider(new CspParameters { Flags = CspProviderFlags.UseMachineKeyStore });
                 provider.ImportParameters(PublicParams);
 
                 var buffer = Encoding.ASCII.GetBytes(input);

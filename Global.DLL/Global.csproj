@@ -111,6 +111,7 @@
     <Compile Include="IO\IOHelper.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\CryptoHelper.cs" />
     <Compile Include="Security\HashingHelper.cs" />
     <Compile Include="Security\SecurityHelper.cs" />
     <Compile Include="Xml\CDataText.cs" />

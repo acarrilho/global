@@ -14,10 +14,18 @@ namespace TestWebRequest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
+            //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
+
+            Console.WriteLine(Common.Random(16));
+            Console.WriteLine(Common.Random(3, true));
+            Console.WriteLine(Common.Random(3, true));
+            Console.WriteLine(Common.Random(3, true));
+            Console.WriteLine(Common.Random(3, true));
+            Console.WriteLine(Common.Random(3, true));
+            Console.WriteLine(Common.Random(3, true));
 
             //var program = new Program();
-            HashSomething();
+            //HashSomething();
             //SendHttpRequest();
             //BuildUrl();
             //SendMail();

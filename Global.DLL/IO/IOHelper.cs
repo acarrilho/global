@@ -15,7 +15,7 @@ namespace Global.IO
         /// <returns>The last modified DateTime.</returns>
         public static DateTime GetFileLastModified(string filePath)
         {
-            FileInfo fInfo = new FileInfo(filePath);
+            var fInfo = new FileInfo(filePath);
             return fInfo.LastWriteTime;
         }
 

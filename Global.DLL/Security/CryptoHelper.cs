@@ -81,19 +81,8 @@ namespace Global.Security
         /// <returns>A Base64 encrypted string.</returns>
         public string Encrypt(string toEncrypt, int? keySize, int? blockSize)
         {
-            var bytesToEncrypt = TextEncoding.GetBytes(toEncrypt);
-            var rijn = Create(keySize, blockSize);
-            using (var ms = new MemoryStream())
-            {
-                var initializationVector = EncryptorEncoding.GetBytes(InitializationVectorString);
-                var secretKey = EncryptorEncoding.GetBytes(SecretKeyString);
-
-                using (var cs = new CryptoStream(ms, rijn.CreateEncryptor(secretKey, initializationVector), CryptoStreamMode.Write))
-                {
-                    cs.Write(bytesToEncrypt, 0, bytesToEncrypt.Length);
-                }
-                return Convert.ToBase64String(ms.ToArray());
-            }
+            byte[] secretKey;
+            return Encrypt(toEncrypt, out secretKey, keySize, blockSize);
         }
 
         /// <summary>
@@ -140,8 +129,20 @@ namespace Global.Security
         /// <returns>The decrypted string of the provided encrypted string.</returns>
         public string Decrypt(string toDescrypt)
         {
+            return Decrypt(toDescrypt, null, null);
+        }
+
+        /// <summary>
+        /// Decrypts a string using the Rijndael crypto algorithm.
+        /// </summary>
+        /// <param name="toDescrypt">A Base64 string to be decrypted.</param>
+        ///<param name="keySize">The key size.</param>
+        ///<param name="blockSize">The block size.</param>
+        /// <returns>The decrypted string of the provided encrypted string.</returns>
+        public string Decrypt(string toDescrypt, int? keySize, int? blockSize)
+        {
             var secretKey = EncryptorEncoding.GetBytes(SecretKeyString);
-            return Decrypt(toDescrypt, secretKey, null, null);
+            return Decrypt(toDescrypt, secretKey, keySize, blockSize);
         }
 
         /// <summary>

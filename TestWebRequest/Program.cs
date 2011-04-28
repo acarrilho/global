@@ -20,12 +20,12 @@ namespace TestWebRequest
 
             var c = new CryptoHelper {SecretKeyString = installationId};
             var str = "1324lkdjgfldjhg908:91000000:" + installationId;
-            var hashed = c.Encrypt(str);
+            var hashed = c.Encrypt(str, 128, 128);
 
             Console.WriteLine(hashed);
 
             var d = new CryptoHelper { SecretKeyString = installationId };
-            var dehashed = d.Decrypt(hashed);
+            var dehashed = d.Decrypt(hashed, 128, 128);
 
             Console.WriteLine(dehashed);
 

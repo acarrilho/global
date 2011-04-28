@@ -66,6 +66,40 @@ namespace Global.Security
         /// Encrypts a string using the Rijndael crypto algorithm.
         /// </summary>
         /// <param name="toEncrypt">The specified string to be encrypted.</param>
+        /// <returns>A Base64 encrypted string.</returns>
+        public string Encrypt(string toEncrypt)
+        {
+            return Encrypt(toEncrypt, null, null);
+        }
+
+        /// <summary>
+        /// Encrypts a string using the Rijndael crypto algorithm.
+        /// </summary>
+        /// <param name="toEncrypt">The specified string to be encrypted.</param>
+        ///<param name="keySize">The key size.</param>
+        ///<param name="blockSize">The block size.</param>
+        /// <returns>A Base64 encrypted string.</returns>
+        public string Encrypt(string toEncrypt, int? keySize, int? blockSize)
+        {
+            var bytesToEncrypt = TextEncoding.GetBytes(toEncrypt);
+            var rijn = Create(keySize, blockSize);
+            using (var ms = new MemoryStream())
+            {
+                var initializationVector = EncryptorEncoding.GetBytes(InitializationVectorString);
+                var secretKey = EncryptorEncoding.GetBytes(SecretKeyString);
+
+                using (var cs = new CryptoStream(ms, rijn.CreateEncryptor(secretKey, initializationVector), CryptoStreamMode.Write))
+                {
+                    cs.Write(bytesToEncrypt, 0, bytesToEncrypt.Length);
+                }
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// Encrypts a string using the Rijndael crypto algorithm.
+        /// </summary>
+        /// <param name="toEncrypt">The specified string to be encrypted.</param>
         /// <param name="secretKey">The secret key byte array to be used when encrypting the string.</param>
         /// <returns>A Base64 encrypted string.</returns>
         public string Encrypt(string toEncrypt, out byte[] secretKey)
@@ -96,6 +130,18 @@ namespace Global.Security
                 }
                 return Convert.ToBase64String(ms.ToArray());
             }
+        }
+
+        ///<summary>
+        /// Decrypts a string using the Rijndael crypto algorithm. It will use the SecretKeyString property to retrieve the secretKey byte array. 
+        /// If the SecretKeyString is not set it will throw an exception.
+        ///</summary>
+        /// <param name="toDescrypt">A Base64 string to be decrypted.</param>
+        /// <returns>The decrypted string of the provided encrypted string.</returns>
+        public string Decrypt(string toDescrypt)
+        {
+            var secretKey = EncryptorEncoding.GetBytes(SecretKeyString);
+            return Decrypt(toDescrypt, secretKey, null, null);
         }
 
         /// <summary>

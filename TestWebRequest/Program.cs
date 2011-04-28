@@ -16,13 +16,18 @@ namespace TestWebRequest
         {
             //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
-            Console.WriteLine(Common.Random(16));
-            Console.WriteLine(Common.Random(3, true));
-            Console.WriteLine(Common.Random(3, true));
-            Console.WriteLine(Common.Random(3, true));
-            Console.WriteLine(Common.Random(3, true));
-            Console.WriteLine(Common.Random(3, true));
-            Console.WriteLine(Common.Random(3, true));
+            var installationId = Guid.NewGuid().ToString().Replace("-", "");
+
+            var c = new CryptoHelper {SecretKeyString = installationId};
+            var str = "1324lkdjgfldjhg908:91000000:" + installationId;
+            var hashed = c.Encrypt(str);
+
+            Console.WriteLine(hashed);
+
+            var d = new CryptoHelper { SecretKeyString = installationId };
+            var dehashed = d.Decrypt(hashed);
+
+            Console.WriteLine(dehashed);
 
             //var program = new Program();
             //HashSomething();

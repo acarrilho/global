@@ -18,8 +18,8 @@ namespace TestWebRequest
         {
             //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
-            Console.WriteLine(DateTime.Parse("2011-01-01 00:00:00").Ticks);
-            Console.WriteLine(DateTime.Parse("2011-01-01 23:59:59").Ticks);
+            Console.WriteLine(DateTime.Parse("2011-04-19 00:00:00").Ticks);
+            Console.WriteLine(DateTime.Parse("2011-04-19 23:59:59").Ticks);
 
 
             var url = "http://parquemarracuene:8080/wp-content/themes/parquemarracuene/img/header.jpg";

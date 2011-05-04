@@ -333,7 +333,7 @@ namespace Global.Http
 
             if (!string.IsNullOrEmpty(value))
             {
-                if (bool.TryParse(value, out returnValue))
+                if (!bool.TryParse(value, out returnValue))
                     SetBadRequest(string.Format("Invalid query parameter \"{0}\", value \"{1}\"", parmName, value));
             }
             return returnValue;

@@ -292,6 +292,54 @@ namespace Global.Http
         }
 
         /// <summary>
+        /// Gets a parameter from the request and parse it to bool.
+        /// </summary>
+        /// <param name="parmName">The request parameter name.</param>
+        /// <returns>The parsed int value.</returns>
+        static public bool GetBool(string parmName)
+        {
+            return GetBool(parmName, false, false);
+        }
+        /// <summary>
+        /// Gets a parameter from the request and parse it to bool.
+        /// </summary>
+        /// <param name="parmName">The request parameter name.</param>
+        /// <param name="defaultValue">The default value in case the parse gives an error.</param>
+        /// <returns>The parsed int value.</returns>
+        static public bool GetBool(string parmName, bool defaultValue)
+        {
+            return GetBool(parmName, defaultValue, false);
+        }
+        /// <summary>
+        /// Gets a required parameter from the request and parse it to bool.
+        /// </summary>
+        /// <param name="parmName">The request parameter name.</param>
+        /// <returns>The parsed int value or an exception if the parameter does not exist.</returns>
+        static public bool GetRequiredBool(string parmName)
+        {
+            return GetBool(parmName, false, true);
+        }
+        /// <summary>
+        /// Gets a parameter from the request and parse it to bool.
+        /// </summary>
+        /// <param name="parmName">The request parameter name.</param>
+        /// <param name="defaultValue">The default value in case the parse gives an error.</param>
+        /// <param name="isRequired">Defines if the parameter is required.</param>
+        /// <returns>The parsed int value or an exception if the parameter is required.</returns>
+        static public bool GetBool(string parmName, bool defaultValue, bool isRequired)
+        {
+            string value = GetString(parmName, defaultValue.ToString(), isRequired);
+            bool returnValue = defaultValue;
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                if (bool.TryParse(value, out returnValue))
+                    SetBadRequest(string.Format("Invalid query parameter \"{0}\", value \"{1}\"", parmName, value));
+            }
+            return returnValue;
+        }
+
+        /// <summary>
         /// Gets a string parameter from the request.
         /// </summary>
         /// <param name="parmName">The request parameter name.</param>

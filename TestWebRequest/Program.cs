@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using Global;
 using Global.Global;
 using Global.Http;
+using Global.IO;
 using Global.Security;
 using Global.Xml;
 
@@ -16,18 +18,27 @@ namespace TestWebRequest
         {
             //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
-            var installationId = Guid.NewGuid().ToString().Replace("-", "");
+            Console.WriteLine(DateTime.Parse("2011-01-01 00:00:00").Ticks);
+            Console.WriteLine(DateTime.Parse("2011-01-01 23:59:59").Ticks);
 
-            var c = new CryptoHelper {SecretKeyString = installationId};
-            var str = "1324lkdjgfldjhg908:91000000:" + installationId;
-            var hashed = c.Encrypt(str, 128, 128);
 
-            Console.WriteLine(hashed);
+            var url = "http://parquemarracuene:8080/wp-content/themes/parquemarracuene/img/header.jpg";
+            Console.WriteLine(PathHelper.GetFileNameWithExtension(url));
 
-            var d = new CryptoHelper { SecretKeyString = installationId };
-            var dehashed = d.Decrypt(hashed, 128, 128);
+            //var installationId = "8b7d8f719ebb411098f27b28073ef5fe"; // Guid.NewGuid().ToString().Replace("-", "");
 
-            Console.WriteLine(dehashed);
+            //var c = new CryptoHelper {SecretKeyString = installationId};
+            //var str = "1:2:3:4"; // "1324lkdjgfldjhg908:91000000:" + installationId;
+            //var hashed = c.Encrypt(str, 128, 128);
+
+            //Console.WriteLine(hashed);
+
+            //var d = new CryptoHelper { SecretKeyString = "8b7d8f719ebb411098f27b28073ef5fe" /*installationId*/ };
+            //var dehashed = d.Decrypt("K1nlwL4J4X9dQzlSXRnjTg==" /*hashed*/, 128, 128);
+
+            //Console.WriteLine(dehashed);
+
+            //Console.WriteLine("K1nlwL4J4X9dQzlSXRnjTg==");
 
             //var program = new Program();
             //HashSomething();

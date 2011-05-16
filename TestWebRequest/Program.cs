@@ -18,12 +18,19 @@ namespace TestWebRequest
         {
             //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
-            Console.WriteLine(DateTime.Parse("2011-04-19 00:00:00").Ticks);
-            Console.WriteLine(DateTime.Parse("2011-04-19 23:59:59").Ticks);
+            // 634294368000000000
+            // 1304527164696 1304602487502
 
+            //var ts = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            //Console.WriteLine(ts.TotalMilliseconds);
 
-            var url = "http://parquemarracuene:8080/wp-content/themes/parquemarracuene/img/header.jpg";
-            Console.WriteLine(PathHelper.GetFileNameWithExtension(url));
+            //var init = new DateTime(1970, 1, 1, 0, 0 ,0);
+            //var fromNuno = init.AddMilliseconds(1304614396812);
+            //Console.WriteLine(fromNuno);
+
+            //Console.WriteLine(DateTime.MinValue);
+            //Console.WriteLine(new DateTime(1304602487502));
+            //Console.WriteLine(DateTime.MaxValue);
 
             //var installationId = "8b7d8f719ebb411098f27b28073ef5fe"; // Guid.NewGuid().ToString().Replace("-", "");
 
@@ -43,7 +50,7 @@ namespace TestWebRequest
             //var program = new Program();
             //HashSomething();
             //SendHttpRequest();
-            //BuildUrl();
+            BuildUrl();
             //SendMail();
             //DataContractJsonSerialization();
 
@@ -68,7 +75,7 @@ namespace TestWebRequest
                 .Parameters(p => p
                     .Add("parameter_a", "parameter_a_value")
                     .Add("parameter_b", "parameter_b_value")
-                    .Add("name", "Andre Carrilho"))
+                    .Add("name", "André Carrilho"))
                 .Build();
 
             Console.WriteLine(url);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using Global;
 using Global.Global;
 using Global.Http;
@@ -16,6 +17,22 @@ namespace TestWebRequest
     {
         static void Main(string[] args)
         {
+            const string dataFmt = "{0,-30}{1}";
+            const string timeFmt = "{0,-30}{1:yyyy-MM-dd HH:mm}";
+
+            DateTime currentDate = DateTime.Now;
+            int currentYear = currentDate.Year;
+
+            TimeZone localZone = TimeZone.CurrentTimeZone;
+            DateTime currentUTC =
+            localZone.ToUniversalTime(currentDate);
+            TimeSpan currentOffset =
+                localZone.GetUtcOffset(currentDate);
+
+            Console.WriteLine(timeFmt, "Coordinated Universal Time:",
+                currentUTC);
+            Console.WriteLine(dataFmt, "UTC offset:", currentOffset);
+
             //Console.WriteLine("Welcome. Don't know how to use? Type gt -h to see how!");
 
             // 634294368000000000
@@ -50,9 +67,10 @@ namespace TestWebRequest
             //var program = new Program();
             //HashSomething();
             //SendHttpRequest();
-            BuildUrl();
+            //BuildUrl();
             //SendMail();
             //DataContractJsonSerialization();
+
 
             Console.ReadLine();
         }

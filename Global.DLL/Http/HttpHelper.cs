@@ -42,6 +42,12 @@ namespace Global.Http
             }
         }
 
+        private int _connectionLimit;
+        /// <summary>
+        /// Gets or sets the maximum amount of allowed connections. The default value is 100.
+        /// </summary>
+        public int ConnectionLimit { get { return _connectionLimit > 0 ? _connectionLimit : 100; } set { _connectionLimit = value; } }
+
         /// <summary>
         /// Sends a POST request to the specified url.
         /// </summary>
@@ -140,6 +146,7 @@ namespace Global.Http
                     webReq = (HttpWebRequest)WebRequest.Create(url);
                     webReq.Method = requestType.ToString();
 
+                    webReq.ServicePoint.ConnectionLimit = ConnectionLimit;
                     if (WebHeaderCollection != null) webReq.Headers = WebHeaderCollection;
                     if (credentials != null) webReq.Credentials = credentials;
                     if (proxy != null) webReq.Proxy = proxy;
@@ -150,7 +157,7 @@ namespace Global.Http
                     if (!String.IsNullOrEmpty(userAgent)) webReq.UserAgent = userAgent;
                     if (keepAlive != null) webReq.KeepAlive = (bool)keepAlive;
 
-                    ASCIIEncoding ascii = new ASCIIEncoding();
+                    var ascii = new ASCIIEncoding();
                     byte[] data = !String.IsNullOrEmpty(postData)
                                       ? ascii.GetBytes(postData)
                                       : ascii.GetBytes(String.Empty);
@@ -159,14 +166,17 @@ namespace Global.Http
                     //requests the data
                     webResp = (HttpWebResponse)webReq.GetResponse();
 
-                    string response;
+                    var response = string.Empty;
                     // Get the stream associated with the response.
-                    using (Stream receiveStream = webResp.GetResponseStream())
+                    using (var receiveStream = webResp.GetResponseStream())
                     {
-                        // Pipes the stream to a higher level stream reader with the required encoding format.
-                        using (StreamReader readStream = new StreamReader(receiveStream, encoding))
+                        if (receiveStream != null)
                         {
-                            response = readStream.ReadToEnd();
+                            // Pipes the stream to a higher level stream reader with the required encoding format.
+                            using (var readStream = new StreamReader(receiveStream, encoding))
+                            {
+                                response = readStream.ReadToEnd();
+                            }
                         }
                     }
 
@@ -179,8 +189,7 @@ namespace Global.Http
                 finally
                 {
                     // Close web response
-                    if (webResp != null)
-                        webResp.Close();
+                    if (webResp != null) webResp.Close();
                 }
             }
 
@@ -195,7 +204,7 @@ namespace Global.Http
         /// <returns>A boolean indicating if the download was successful.</returns>
         public bool DownloadFile(string sourceUrl, string destinationPath)
         {
-            WebClient webClient = new WebClient();
+            var webClient = new WebClient();
             webClient.DownloadFile(sourceUrl, destinationPath);
 
             return true;

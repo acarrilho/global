@@ -206,6 +206,25 @@ namespace Global.Global
             _smtpClient.Credentials = new NetworkCredential(username, password, domain);
             return this;
         }
+
+        /// <summary>
+        /// Inserts an attachement in the mail.
+        /// </summary>
+        /// <param name="filePath">The path of the file to be attached.</param>
+        /// <param name="type">The of file that is being sent. Check MediaTypeNames enum for available content types.</param>
+        /// <returns>The same instance of the mail helper class.</returns>
+        public virtual MailHelper Attachment(string filePath, string type)
+        {
+            var attachment = new Attachment(filePath, type);
+            
+            var disposition = attachment.ContentDisposition;
+            disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
+            disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
+            disposition.ReadDate = System.IO.File.GetLastAccessTime(filePath);
+            Message.Attachments.Add(attachment);
+
+            return this;
+        }
         ///<summary>
         /// Sends the specified message defined.
         ///</summary>

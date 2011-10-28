@@ -45,8 +45,6 @@ namespace Global.Xml
                 var serializer = new DataContractJsonSerializer(typeof(TType));
                 using (var memoryStream = new MemoryStream(encoding.GetBytes(textReader.ReadToEnd())))
                 {
-                    //memoryStream.Flush();
-                    //memoryStream.Position = 0;
                     return (TType)serializer.ReadObject(memoryStream);
                 }
             }
@@ -107,17 +105,20 @@ namespace Global.Xml
         /// <param name="encoding">The encoding to used in the serialization precess.</param>
         public void SerializeToFile(string filePath, TType entity, Encoding encoding)
         {
-            XmlWriter writer = null;
-            try
+            using (var memoryStream = new MemoryStream())
             {
                 // Write the income object to a file
                 var serializer = new DataContractSerializer(typeof(TType));
-                writer = new XmlTextWriter(filePath, encoding);
-                serializer.WriteObject(writer, entity);
-            }
-            finally
-            {
-                if (writer != null) writer.Close(); 
+                serializer.WriteObject(memoryStream, entity);
+                using (var textWriter = new StreamWriter(filePath))
+                {
+                    memoryStream.Flush();
+                    memoryStream.Position = 0;
+                    using (var streamReader = new StreamReader(memoryStream, encoding))
+                    {
+                        textWriter.Write(streamReader.ReadToEnd());
+                    }
+                }
             }
         }
         /// <summary>
@@ -166,11 +167,12 @@ namespace Global.Xml
                 // Write the income object to a strem
                 var serializer = new DataContractSerializer(typeof(TType));
                 serializer.WriteObject(memoryStream, entity);
-                // read the contents of the stream and return it as a string
-                var data = new byte[memoryStream.Length];
                 memoryStream.Flush();
                 memoryStream.Position = 0;
-                return encoding.GetString(data);
+                using (var streamReader = new StreamReader(memoryStream, encoding))
+                {
+                    return streamReader.ReadToEnd();
+                }
             }
         }
         /// <summary>

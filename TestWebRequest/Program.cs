@@ -16,44 +16,24 @@ namespace TestWebRequest
     {
         static void Main(string[] args)
         {
-            //var str =
-            //    @"+mQHiA/xd3Uk6EJ5+37KnkfkjhcZM8gRd/mg04LhN9zQwoqiWgEhBnlS3+oktWDN9fXuo8HDk4stsBKL3lT6qkyhqPyomrB/8Nw6jMV5a7QuHs0e1GcM/8ob7GRGSdP+/YwIhrp6BeEeDZ9J3D0q8ZnTOlDmJQ3xpzqoajDb3Aq3283oaCKM0IQCIWWSPIlB6kz/SMS91Al9VixdW4kJbJfIU9BNV4w4uFHd1UXJSyuSA6ty5em/1lsBqr7jI90v";
-            //var c = new CryptoHelper { SecretKeyString = "6ea6db577fb840f8b516a65406eb58a9" };
-            //var hashed = c.Decrypt(str, 128, 128);
-
-            //Console.WriteLine(hashed);
-
-            var utcDateNow = DateTime.Now.ToUniversalTime();
-            var startDate = new DateTime(utcDateNow.Year, utcDateNow.Month, utcDateNow.Day, 0, 0, 0).AddHours(1).AddDays(0).Ticks;
-            var endDate = new DateTime(utcDateNow.Year, utcDateNow.Month, utcDateNow.Day, 23, 59, 59).AddHours(1).AddDays(0).Ticks;
-
-            Console.WriteLine("{0} - {1}", startDate, endDate);
-            Console.WriteLine("{0} - {1}", new DateTime(startDate), new DateTime(endDate));
-            Console.WriteLine("{0} - {1}", new DateTime(startDate).AddHours(-1), new DateTime(endDate).AddHours(-1));
-
-            //var program = new Program();
+            //ReadHashValues();
             //HashSomething();
             //SendHttpRequest();
             //BuildUrl();
             //SendMail();
             //DataContractJsonSerialization();
 
+            // To avoid exiting
             Console.ReadLine();
         }
 
-        [DataContract(Namespace = "", Name="person")]
-        [XmlRoot(Namespace = "", ElementName="person")]
-        public class Person
+        private static void ReadHashValues()
         {
-            [DataMember(Name="name")]
-            [XmlElement(ElementName = "name")]
-            public string Name { get; set; }
-            [DataMember(Name = "age")]
-            [XmlElement(ElementName = "age")]
-            public int Age { get; set; }
-            [DataMember(Name = "birth")]
-            [XmlElement(ElementName = "birth")]
-            public DateTime Birth { get; set; }
+            var str =
+                @"+mQHiA/xd3Uk6EJ5+37KnkfkjhcZM8gRd/mg04LhN9zQwoqiWgEhBnlS3+oktWDN9fXuo8HDk4stsBKL3lT6qkyhqPyomrB/8Nw6jMV5a7QuHs0e1GcM/8ob7GRGSdP+/YwIhrp6BeEeDZ9J3D0q8ZnTOlDmJQ3xpzqoajDb3Aq3283oaCKM0IQCIWWSPIlB6kz/SMS91Al9VixdW4kJbJfIU9BNV4w4uFHd1UXJSyuSA6ty5em/1lsBqr7jI90v";
+            var c = new CryptoHelper { SecretKeyString = "6ea6db577fb840f8b516a65406eb58a9" };
+            var hashed = c.Decrypt(str, 128, 128);
+            Console.WriteLine(hashed);
         }
 
         private static void HashSomething()
@@ -65,50 +45,6 @@ namespace TestWebRequest
 
             var notHashed = new CryptoHelper().Decrypt(hashed, privateKey);
             Console.WriteLine(notHashed);
-        }
-
-        private static void BuildUrl()
-        {
-            var u = new UrlBuilder();
-            var url = u.BaseUrl("http://www.google.pt/")
-                .Parameters(p => p
-                    .Add("parameter_a", "parameter_a_value")
-                    .Add("parameter_b", "parameter_b_value")
-                    .Add("name", "André Carrilho"))
-                .Build();
-
-            Console.WriteLine(url);
-        }
-
-        private static void SendMail()
-        {
-            var mailsWithDisplayNames = new Dictionary<string, string>
-                       {
-                           {"Another Person", "another.person@anothermail.com"},
-                           {"Yet Another Person","yet.another.person@anothermail.com"}
-                       };
-
-            var justMails = new List<string>
-                {
-                    "wow.another.person@anothermail.com",
-                    "ok.another.person@anothermail.com"
-                };
-
-            var mailHelper = new MailHelper("smtp.gmail.com", 587);
-            mailHelper
-                .From("Andre Carrilho", "me@mymail.com")
-                .To(to => to.Add("Andre Carrilho", "anotherme@mymail.com"))
-                .Bcc(bcc => bcc.Add(mailsWithDisplayNames))
-                .Cc(cc => cc.Add(justMails))
-                .Body("Trying out the MailHelper class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
-                .Subject("Testing Fluent MailHelper")
-                .IsBodyHtml(true)
-                .Credentials("someUser", "somePass")
-                .Port(1234)
-                .Ssl(true)
-                .Send();
-
-            Console.ReadLine();
         }
 
         private static void SendHttpRequest()
@@ -177,43 +113,98 @@ namespace TestWebRequest
             }
         }
 
+        private static void BuildUrl()
+        {
+            var u = new UrlBuilder();
+            var url = u.BaseUrl("http://www.google.pt/")
+                .Parameters(p => p
+                    .Add("parameter_a", "parameter_a_value")
+                    .Add("parameter_b", "parameter_b_value")
+                    .Add("name", "André Carrilho"))
+                .Build();
+
+            Console.WriteLine(url);
+        }
+
+        private static void SendMail()
+        {
+            var mailsWithDisplayNames = new Dictionary<string, string>
+                       {
+                           {"Another Person", "another.person@anothermail.com"},
+                           {"Yet Another Person","yet.another.person@anothermail.com"}
+                       };
+
+            var justMails = new List<string>
+                {
+                    "wow.another.person@anothermail.com",
+                    "ok.another.person@anothermail.com"
+                };
+
+            var mailHelper = new MailHelper("smtp.gmail.com", 587);
+            mailHelper
+                .From("Andre Carrilho", "me@mymail.com")
+                .To(to => to.Add("Andre Carrilho", "anotherme@mymail.com"))
+                .Bcc(bcc => bcc.Add(mailsWithDisplayNames))
+                .Cc(cc => cc.Add(justMails))
+                .Body("Trying out the MailHelper class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
+                .Subject("Testing Fluent MailHelper")
+                .IsBodyHtml(true)
+                .Credentials("someUser", "somePass")
+                .Port(1234)
+                .Ssl(true)
+                .Send();
+
+            Console.ReadLine();
+        }
+
         private static void DataContractJsonSerialization()
         {
-            var obj = new SampleObject
-                          {
-                              Id = Guid.NewGuid(),
-                              Name = "André",
-                              AnotherObject = new SampleObject.SubObject
+            var result = new Result<SampleObject>
+                             {
+                                 Code = "12",
+                                 Successful = true,
+                                 Message = "message",
+                                 DetailedMessage = "detailed message",
+                                 Parameters = new List<Parameter>
                                                   {
-                                                      Age = 24,
-                                                      Birthdate = DateTime.Now
-                                                  }
-                          };
+                                                      new Parameter {Key = "key 1", Value = "value 1"},
+                                                      new Parameter {Key = "key 2", Value = "value 2"}
+                                                  },
+                                 Value = null
+                                 //Value = new SampleObject
+                                 //             {
+                                 //                 Id = Guid.NewGuid(),
+                                 //                 Name = "andre",
+                                 //                 AnotherObject = new SampleObject.SubObject
+                                 //                                     {
+                                 //                                         Age = 12,
+                                 //                                         Birthdate = DateTime.Now
+                                 //                                     },
+                                 //                 List = new List<SampleObject.SubObject>
+                                 //                            {
+                                 //                                new SampleObject.SubObject{ Age = 45, Birthdate = DateTime.Now.AddDays(12) },
+                                 //                                new SampleObject.SubObject{ Age = 2, Birthdate = DateTime.Now.AddDays(-1) }
+                                 //                            }
+                                 //             }
+                             };
+            var dcSer = new DataContractSerializerHelper<Result<SampleObject>>();
+            var ser = new SerializerHelper<Result<SampleObject>>();
 
-            var jsonSer = new DataContractSerializerHelper<SampleObject>();
-            var stringObj = jsonSer.SerializeToJsonString(obj, Encoding.UTF8);
+            var dcjson = dcSer.SerializeToJsonString(result);
+            Console.WriteLine("DataContractSerializer : ");
+            Console.WriteLine(dcjson);
+
+            Console.WriteLine("");
             
-            Console.WriteLine(stringObj);
-            Console.WriteLine("Done serializing to json");
+            var dcXml = dcSer.SerializeToString(result);
+            Console.WriteLine("DataContractSerializer : ");
+            Console.WriteLine(dcXml);
 
-            var deserializedObj = jsonSer.DeserializeFromJsonString(stringObj, Encoding.UTF8);
+            Console.WriteLine("");
 
-            Console.WriteLine(deserializedObj.Id);
-            Console.WriteLine(deserializedObj.Name);
-            Console.WriteLine(deserializedObj.AnotherObject.Age);
-            Console.WriteLine(deserializedObj.AnotherObject.Birthdate);
-            Console.WriteLine("Done deserializing to json");
-
-            var path = Console.ReadLine();
-            jsonSer.SerializeToJsonFile(path, obj, Encoding.UTF8);
-
-            var deserializeFiledObj = jsonSer.DeserializeFromJsonFile(path, Encoding.UTF8);
-
-            Console.WriteLine(deserializeFiledObj.Id);
-            Console.WriteLine(deserializeFiledObj.Name);
-            Console.WriteLine(deserializeFiledObj.AnotherObject.Age);
-            Console.WriteLine(deserializeFiledObj.AnotherObject.Birthdate);
-            Console.WriteLine("Done deserializing from json file");
+            var xml = ser.SerializeToString(result);
+            Console.WriteLine("XmlSerializer : ");
+            Console.WriteLine(xml);
         }
     }
 }

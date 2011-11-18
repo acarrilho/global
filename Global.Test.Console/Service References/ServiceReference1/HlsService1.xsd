@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/LicensingService/HlsService.svc?xsd=xsd2" />
+  <xs:element name="GetKeySet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="assetId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKeySetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetKeySetResult" nillable="true" type="result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

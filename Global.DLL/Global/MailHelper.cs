@@ -8,7 +8,7 @@ namespace Global.Global
     ///<summary>
     /// Helper class that provides basic functionalities for sending mails.
     ///</summary>
-    public class MailHelper
+    public class MailHelper : IDisposable
     {
         private readonly SmtpClient _smtpClient;
 
@@ -76,7 +76,7 @@ namespace Global.Global
         {
             foreach (var address in mailAddresses(new MailAddresses()).AddressCollection)
                 Message.To.Add(address);
-            
+
             return this;
         }
         ///<summary>
@@ -216,7 +216,6 @@ namespace Global.Global
         public virtual MailHelper Attachment(string filePath, string type)
         {
             var attachment = new Attachment(filePath, type);
-            
             var disposition = attachment.ContentDisposition;
             disposition.CreationDate = System.IO.File.GetCreationTime(filePath);
             disposition.ModificationDate = System.IO.File.GetLastWriteTime(filePath);
@@ -233,6 +232,20 @@ namespace Global.Global
         {
             _smtpClient.Send(Message);
             return true;
+        }
+
+        /// <summary>
+        /// Disposes the all the attachements if exist.
+        /// </summary>
+        public void Dispose()
+        {
+            if (Message != null && Message.Attachments.Count > 0)
+            {
+                foreach (var attachment in Message.Attachments)
+                {
+                    if(attachment != null) attachment.Dispose();
+                }
+            }
         }
     }
 }

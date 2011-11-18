@@ -53,7 +53,7 @@ namespace Global.Http
         /// <returns>The specified object for the request.</returns>
         public static TReturn HttpRestGet<TReturn>(string baseUrl, string url, WebMessageFormat messageFormat)
         {
-            HttpClient httpClient = new HttpClient(baseUrl);
+            var httpClient = new HttpClient(baseUrl);
             HttpResponseMessage httpResponse = (!string.IsNullOrEmpty(url))
                 ? httpClient.Get(url) : httpClient.Get();
             httpResponse.EnsureStatusIsSuccessful();
@@ -98,19 +98,11 @@ namespace Global.Http
         /// <returns>The specified object for the request.</returns>
         public static TReturn HttpRestPost<TReturn, TContentObject>(string baseUrl, string url, TContentObject contentObject, WebMessageFormat messageFormat)
         {
-            HttpClient httpClient = new HttpClient(baseUrl);
-            HttpResponseMessage httpResponse;
-            
-            if (!string.IsNullOrEmpty(url))
-            {
-                httpResponse = httpClient.Post(url, 
-                    ConvertObjectToHttpContent<TContentObject>(contentObject, messageFormat));
-            }
-            else
-            {
-                httpResponse = httpClient.Post(String.Empty, 
-                    ConvertObjectToHttpContent<TContentObject>(contentObject, messageFormat));
-            }
+            var httpClient = new HttpClient(baseUrl);
+
+            HttpResponseMessage httpResponse = httpClient.Post(!string.IsNullOrEmpty(url) 
+                                                                   ? url 
+                                                                   : String.Empty, ConvertObjectToHttpContent(contentObject, messageFormat));
 
             httpResponse.EnsureStatusIsSuccessful();
             return httpResponse.ConvertHttpContentToObject<TReturn>(messageFormat);
@@ -154,19 +146,9 @@ namespace Global.Http
         /// <returns>The specified object for the request.</returns>
         public static TReturn HttpRestPut<TReturn, TContentObject>(string baseUrl, string url, TContentObject contentObject, WebMessageFormat messageFormat)
         {
-            HttpClient httpClient = new HttpClient(baseUrl);
-            HttpResponseMessage httpResponse;
+            var httpClient = new HttpClient(baseUrl);
 
-            if (!string.IsNullOrEmpty(url))
-            {
-                httpResponse = httpClient.Put(url,
-                    ConvertObjectToHttpContent<TContentObject>(contentObject, messageFormat));
-            }
-            else
-            {
-                httpResponse = httpClient.Put(String.Empty,
-                    ConvertObjectToHttpContent<TContentObject>(contentObject, messageFormat));
-            }
+            HttpResponseMessage httpResponse = httpClient.Put(!string.IsNullOrEmpty(url) ? url : String.Empty, ConvertObjectToHttpContent(contentObject, messageFormat));
 
             httpResponse.EnsureStatusIsSuccessful();
             return httpResponse.ConvertHttpContentToObject<TReturn>(messageFormat);
@@ -201,7 +183,7 @@ namespace Global.Http
         /// <returns>A boolean indicating if the request was successful.</returns>
         public static bool HttpRestDelete(string baseUrl, string url, WebMessageFormat messageFormat)
         {
-            HttpClient httpClient = new HttpClient(baseUrl);
+            var httpClient = new HttpClient(baseUrl);
             HttpResponseMessage httpResponse = !string.IsNullOrEmpty(url) 
                 ? httpClient.Delete(url) 
                 : httpClient.Delete(String.Empty);
@@ -216,13 +198,13 @@ namespace Global.Http
             switch (messageFormat)
             {
                 case WebMessageFormat.Json:
-                    content = HttpContentExtensions.CreateJsonDataContract<TContentObject>(contentObject);
+                    content = HttpContentExtensions.CreateJsonDataContract(contentObject);
                     break;
                 case WebMessageFormat.Xml:
-                    content = HttpContentExtensions.CreateDataContract<TContentObject>(contentObject);
+                    content = HttpContentExtensions.CreateDataContract(contentObject);
                     break;
                 default:
-                    content = HttpContentExtensions.CreateDataContract<TContentObject>(contentObject);
+                    content = HttpContentExtensions.CreateDataContract(contentObject);
                     break;
             }
 

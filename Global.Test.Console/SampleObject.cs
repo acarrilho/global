@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace TestWebRequest
+namespace Global.Test.Console
 {
     [DataContract(Namespace = "", Name = "sampleobject")]
     public class SampleObject
@@ -14,6 +15,9 @@ namespace TestWebRequest
 
         [DataMember(Name = "subobject")]
         public SubObject AnotherObject { get; set; }
+
+        [DataMember(Name = "list")]
+        public List<SubObject> List { get; set; }
 
         [DataContract(Namespace = "", Name = "subobject")]
         public class SubObject

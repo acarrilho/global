@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="result">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="result" Namespace="" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="HlsKeysDataEntity" Namespace="" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="detailedmessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="parameters" nillable="true" type="ArrayOfparameter" />
+      <xs:element minOccurs="0" name="successful" type="xs:boolean" />
+      <xs:element minOccurs="0" name="value" nillable="true" type="HlsKeysDataEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="result" nillable="true" type="result" />
+  <xs:complexType name="ArrayOfparameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="parameter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfparameter" nillable="true" type="ArrayOfparameter" />
+  <xs:complexType name="parameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="parameter" nillable="true" type="parameter" />
+  <xs:complexType name="HlsKeysDataEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HexaKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LicenseAcquisitionUrl" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HlsKeysDataEntity" nillable="true" type="HlsKeysDataEntity" />
+</xs:schema>

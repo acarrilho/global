@@ -4,6 +4,9 @@ using System.Web.Security;
 
 namespace Global.Security
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EncryptDecrypt
     {
         

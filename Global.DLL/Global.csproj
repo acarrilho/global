@@ -102,7 +102,6 @@
     <Compile Include="Global\EnumHelper.cs" />
     <Compile Include="Global\MailAddresses.cs" />
     <Compile Include="Global\MailHelper.cs" />
-    <Compile Include="HttpResult.cs" />
     <Compile Include="Http\FluentHttp.cs" />
     <Compile Include="Http\HttpHelper.cs" />
     <Compile Include="Http\RestHelper.cs" />
@@ -112,8 +111,6 @@
     <Compile Include="IO\IOHelper.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Res.cs" />
-    <Compile Include="Result.cs" />
     <Compile Include="Security\CryptoHelper.cs" />
     <Compile Include="Security\HashingHelper.cs" />
     <Compile Include="Security\SecurityHelper.cs" />

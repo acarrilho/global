@@ -19,9 +19,9 @@ namespace Global.Test.Console
             //SendHttpRequest();
             //BuildUrl();
             //SendMail();
-            //DataContractSerialization();
+            DataContractSerialization();
             //Reflection();
-            Aes128();
+            //Aes128();
 
             //Test();
 
@@ -237,24 +237,40 @@ namespace Global.Test.Console
 
         private static void DataContractSerialization()
         {
-            var result = new Result<bool>();
+            var result = new Result<SampleObject>
+                             {
+                                 Code = "1234",
+                                 Message = "message",
+                                 DetailedMessage = "detailed message",
+                                 Successful = true,
+                                 Parameters = new List<Parameter>
+                                                  {
+                                                      new Parameter {Key = "key 1", Value = "value 1"},
+                                                      new Parameter {Key = "key 2", Value = "value 2"}
+                                                  },
+                                 Value = new SampleObject
+                                             {
+                                                 Id = Guid.NewGuid(),
+                                                 Name = "name"
+                                             }
+                             };
 
-            var dcSer = new DataContractSerializerHelper<Result<bool>>();
-            var ser = new SerializerHelper<Result<bool>>();
+            //var dcSer = new DataContractSerializerHelper<Result<bool>>();
+            //var ser = new SerializerHelper<Result<bool>>();
 
-            var dcjson = dcSer.SerializeToJsonString(result);
-            System.Console.WriteLine("DataContractSerializer : ");
+            var dcjson = DataContractSerializerHelper.ToJsonString(result); // dcSer.SerializeToJsonString(result);
+            System.Console.WriteLine("DataContractSerializer (json) : ");
             System.Console.WriteLine(dcjson);
 
             System.Console.WriteLine("");
 
-            var dcXml = dcSer.SerializeToString(result);
-            System.Console.WriteLine("DataContractSerializer : ");
+            var dcXml = DataContractSerializerHelper.ToString(result); // dcSer.SerializeToString(result);
+            System.Console.WriteLine("DataContractSerializer (xml) : ");
             System.Console.WriteLine(dcXml);
 
             System.Console.WriteLine("");
 
-            var xml = ser.SerializeToString(result);
+            var xml = XmlSerializerHelper.ToString(result); // ser.SerializeToString(result);
             System.Console.WriteLine("XmlSerializer : ");
             System.Console.WriteLine(xml);
         }

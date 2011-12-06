@@ -18,7 +18,7 @@ namespace Global.Xml
         /// <param name="filePath">The path of the file to be serialized.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public static TType FromFile<TType>(string filePath)
+        public static TType FromXmlFile<TType>(string filePath)
         {
             XmlReader reader = null;
             try
@@ -57,7 +57,7 @@ namespace Global.Xml
         /// <param name="objectString">The object string.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public static TType FromString<TType>(string objectString)
+        public static TType FromXmlString<TType>(string objectString)
         {
             using (var stringReader = new StringReader(objectString))
             {
@@ -99,9 +99,9 @@ namespace Global.Xml
         /// <param name="filePath">The path where the serialized object must be stored.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <param name="entity">The entity to be serialized.</param>
-        public static void ToFile<TType>(string filePath, TType entity)
+        public static void ToXmlFile<TType>(string filePath, TType entity)
         {
-            ToFile(filePath, entity, Encoding.UTF8);
+            ToXmlFile(filePath, entity, Encoding.UTF8);
         }
         /// <summary>
         /// Serialized a specified object to a file.
@@ -110,7 +110,7 @@ namespace Global.Xml
         /// <param name="entity">The entity to be serialized.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <param name="encoding">The encoding to used in the serialization precess.</param>
-        public static void ToFile<TType>(string filePath, TType entity, Encoding encoding)
+        public static void ToXmlFile<TType>(string filePath, TType entity, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -159,9 +159,9 @@ namespace Global.Xml
         /// <param name="entity">The object to be serialized.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized string.</returns>
-        public static string ToString<TType>(TType entity)
+        public static string ToXmlString<TType>(TType entity)
         {
-            return ToString(entity, Encoding.UTF8);
+            return ToXmlString(entity, Encoding.UTF8);
         }
         /// <summary>
         /// Serializes the specified object to a string.
@@ -170,7 +170,7 @@ namespace Global.Xml
         /// <param name="encoding">The encoding to be used in the serialization preocess.</param>
         /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized string.</returns>
-        public static string ToString<TType>(TType entity, Encoding encoding)
+        public static string ToXmlString<TType>(TType entity, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream())
             {

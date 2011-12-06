@@ -18,7 +18,7 @@ namespace Global.Xml
         /// <param name="xmlFilePath">The content to be serialized.</param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <returns>The object serialized from the file.</returns>
-        public static T FromFile<T>(string xmlFilePath)
+        public static T FromXmlFile<T>(string xmlFilePath)
         {
             T entity;
             using (var reader = new StreamReader(xmlFilePath))
@@ -36,7 +36,7 @@ namespace Global.Xml
         /// <param name="xmlString">The content to be serialized.</param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <returns>The object serialized from the file.</returns>
-        public static T FromString<T>(string xmlString)
+        public static T FromXmlString<T>(string xmlString)
         {
             T entity;
             using (var reader = new StringReader(xmlString))
@@ -54,7 +54,7 @@ namespace Global.Xml
         /// <param name="xmlFilePath">The file where the serialized object should go to.</param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <param name="entity">The objkect to be serialized.</param>
-        public static void ToFile<T>(string xmlFilePath, T entity)
+        public static void ToXmlFile<T>(string xmlFilePath, T entity)
         {
             using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
             {
@@ -74,7 +74,7 @@ namespace Global.Xml
         /// <param name="docTypeSysId"></param>
         /// <param name="docTypeSubSet"></param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
-        public static void ToFile<T>(string xmlFilePath, T entity, string docTypeName, string docTypePubId,
+        public static void ToXmlFile<T>(string xmlFilePath, T entity, string docTypeName, string docTypePubId,
             string docTypeSysId, string docTypeSubSet)
         {
             using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
@@ -92,7 +92,7 @@ namespace Global.Xml
         /// <param name="entity">The object to be serialized.</param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <returns>The serialized object string.</returns>
-        public static string ToString<T>(T entity)
+        public static string ToXmlString<T>(T entity)
         {
             string xml;
             var ms = new MemoryStream();
@@ -117,7 +117,7 @@ namespace Global.Xml
         /// <param name="docTypeSubSet"></param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <returns>The serialized object string.</returns>
-        public static string ToString<T>(T entity, string docTypeName, string docTypePubId,
+        public static string ToXmlString<T>(T entity, string docTypeName, string docTypePubId,
             string docTypeSysId, string docTypeSubSet)
         {
             string xml;

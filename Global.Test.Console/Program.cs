@@ -264,13 +264,13 @@ namespace Global.Test.Console
 
             System.Console.WriteLine("");
 
-            var dcXml = DataContractSerializerHelper.ToString(result); // dcSer.SerializeToString(result);
+            var dcXml = DataContractSerializerHelper.ToXmlString(result); // dcSer.SerializeToString(result);
             System.Console.WriteLine("DataContractSerializer (xml) : ");
             System.Console.WriteLine(dcXml);
 
             System.Console.WriteLine("");
 
-            var xml = XmlSerializerHelper.ToString(result); // ser.SerializeToString(result);
+            var xml = XmlSerializerHelper.ToXmlString(result); // ser.SerializeToString(result);
             System.Console.WriteLine("XmlSerializer : ");
             System.Console.WriteLine(xml);
         }

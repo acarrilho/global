@@ -5,6 +5,7 @@ using System.Text;
 using Global.Global;
 using Global.Http;
 using Global.Security;
+using Global.Serialization;
 using Global.Xml;
 
 namespace Global.Test.Console

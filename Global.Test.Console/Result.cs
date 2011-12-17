@@ -32,17 +32,4 @@ namespace Global.Test.Console
         [DataMember(Name = "value")]
         public T Value { get; set; }
     }
-
-    [XmlRoot(Namespace = "", ElementName = "parameter")]
-    [DataContract(Namespace = "", Name = "parameter")]
-    public class Parameter
-    {
-        [XmlElement(ElementName = "key")]
-        [DataMember(Name = "key")]
-        public string Key { get; set; }
-
-        [XmlElement(ElementName = "value")]
-        [DataMember(Name = "value")]
-        public string Value { get; set; }
-    } 
 }

@@ -114,10 +114,11 @@
     <Compile Include="Security\CryptoHelper.cs" />
     <Compile Include="Security\HashingHelper.cs" />
     <Compile Include="Security\SecurityHelper.cs" />
-    <Compile Include="Xml\CDataText.cs" />
+    <Compile Include="Serialization\DataContractSerializerHelper.cs" />
     <Compile Include="Xml\DataContractSerializerHelper.cs" />
     <Compile Include="Xml\SerializerHelper.cs" />
     <Compile Include="Xml\ValidationHelper.cs" />
+    <Compile Include="Serialization\XmlSerializerHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -15,7 +15,7 @@ namespace Global.IO
         /// <returns>The last modified DateTime.</returns>
         public static DateTime GetFileLastModified(string filePath)
         {
-            FileInfo fInfo = new FileInfo(filePath);
+            var fInfo = new FileInfo(filePath);
             return fInfo.LastWriteTime;
         }
         /// <summary>
@@ -25,7 +25,7 @@ namespace Global.IO
         /// <returns>The last modified DateTime.</returns>
         public static DateTime GetFolderLastModified(string folderPath)
         {
-            DirectoryInfo dInfo = new DirectoryInfo(folderPath);
+            var dInfo = new DirectoryInfo(folderPath);
             return dInfo.LastWriteTime;
         }
         /// <summary>
@@ -57,7 +57,7 @@ namespace Global.IO
                 {
                     Directory.CreateDirectory(destinationFolder);
                 }
-                FileInfo fInfo = new FileInfo(fileToMove);
+                var fInfo = new FileInfo(fileToMove);
                 fInfo.MoveTo(PathHelper.ValidateEndOfPath(destinationFolder) + PathHelper.GetFileNameWithExtension(fileToMove));
             }
             return true;
@@ -73,7 +73,7 @@ namespace Global.IO
         {
             if (Directory.Exists(folderToMove))
             {
-                DirectoryInfo dInfo = new DirectoryInfo(folderToMove);
+                var dInfo = new DirectoryInfo(folderToMove);
                 dInfo.MoveTo(PathHelper.ValidateEndOfPath(destinationFolder));
             }
             return true;
@@ -101,51 +101,55 @@ namespace Global.IO
                 {
                     // Use static Path methods to extract only the file name from the path.
                     var fileName = Path.GetFileName(s);
-                    var destFile = Path.Combine(folderToMove, fileName);
-                    File.Copy(s, destFile, true);
+                    if (fileName != null)
+                    {
+                        var destFile = Path.Combine(folderToMove, fileName);
+                        File.Copy(s, destFile, true);
+                    }
                 }
             }
             return true;
         }
 
-        public static void CopyDirectory(String Source, String Destination, Boolean Overwrite)
+        /// <summary>
+        /// Copies a directory from one place to another.
+        /// </summary>
+        /// <param name="source">The source folder.</param>
+        /// <param name="destination">The destination folder.</param>
+        /// <param name="overwrite">A flag indicating if it is to overwrite the folder if it exists.</param>
+        /// <exception cref="DirectoryNotFoundException">Throws an exception if the copy is not successful.</exception>
+        public static void CopyDirectory(string source, string destination, bool overwrite)
         {
             // Hold directory information
-            var SourceDirectory = new DirectoryInfo(Source);
-            var DestinationDirectory = new DirectoryInfo(Destination);
+            var sourceDirectory = new DirectoryInfo(source);
+            var destinationDirectory = new DirectoryInfo(destination);
 
             // Throw an error is the source directory does not exist
-            if (SourceDirectory.Exists == false)
+            if (sourceDirectory.Exists == false)
             {
                 throw new DirectoryNotFoundException();
             }
 
             // Create the destination directory
-            if (DestinationDirectory.Exists == false)
+            if (destinationDirectory.Exists == false)
             {
-                DestinationDirectory.Create();
+                destinationDirectory.Create();
             }
 
             // Loop through the files and copy them
-            var SubFiles = SourceDirectory.GetFiles();
-            for (int i = 0; i < SubFiles.Length; i++)
+            var subFiles = sourceDirectory.GetFiles();
+            foreach (var t in subFiles)
             {
-                var NewFile = Path.Combine(
-                        DestinationDirectory.FullName,
-                        SubFiles[i].Name
-                );
-                SubFiles[i].CopyTo(NewFile, Overwrite);
+                var newFile = Path.Combine(destinationDirectory.FullName, t.Name);
+                t.CopyTo(newFile, overwrite);
             }
 
             // Loop through the directories and call this function
-            var SubDirectories = SourceDirectory.GetDirectories();
-            for (int i = 0; i < SubDirectories.Length; i++)
+            var subDirectories = sourceDirectory.GetDirectories();
+            foreach (DirectoryInfo t in subDirectories)
             {
-                var NewDirectory = Path.Combine(
-                        DestinationDirectory.FullName,
-                        SubDirectories[i].Name
-                );
-                CopyDirectory(SubDirectories[i].FullName, NewDirectory, Overwrite);
+                var newDirectory = Path.Combine(destinationDirectory.FullName, t.Name);
+                CopyDirectory(t.FullName, newDirectory, overwrite);
             }
         }
 
@@ -165,7 +169,7 @@ namespace Global.IO
                 {
                     Directory.CreateDirectory(destinationFolder);
                 }
-                FileInfo fInfo = new FileInfo(fileToCopy);
+                var fInfo = new FileInfo(fileToCopy);
                 fInfo.CopyTo(PathHelper.ValidateEndOfPath(destinationFolder) + PathHelper.GetFileNameWithExtension(fileToCopy), overwrite);
             }
             return true;

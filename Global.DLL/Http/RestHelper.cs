@@ -54,8 +54,7 @@ namespace Global.Http
         public static TReturn HttpRestGet<TReturn>(string baseUrl, string url, WebMessageFormat messageFormat)
         {
             var httpClient = new HttpClient(baseUrl);
-            HttpResponseMessage httpResponse = (!string.IsNullOrEmpty(url))
-                ? httpClient.Get(url) : httpClient.Get();
+            HttpResponseMessage httpResponse = (!string.IsNullOrEmpty(url)) ? httpClient.Get(url) : httpClient.Get();
             httpResponse.EnsureStatusIsSuccessful();
             return httpResponse.ConvertHttpContentToObject<TReturn>(messageFormat);
         }

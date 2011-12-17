@@ -1,25 +1,23 @@
-using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Xml;
 
-namespace Global.Xml
+namespace Global.Serialization
 {
     /// <summary>
     /// Class to handle serialization of objects using DataContractSerializtion.
     /// </summary>
-    /// <typeparam name="TType">The object to be handled.</typeparam>
-    [Obsolete("Theres a new static DataContractSerializerHelper.")]
-    public class DataContractSerializerHelper<TType>
+    public class DataContractSerializerHelper
     {
         /// <summary>
         /// Deserializes the file to the specified object.
         /// </summary>
         /// <param name="filePath">The path of the file to be serialized.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public TType DeserializeFromFile(string filePath)
+        public static TType FromXmlFile<TType>(string filePath)
         {
             XmlReader reader = null;
             try
@@ -39,8 +37,9 @@ namespace Global.Xml
         /// </summary>
         /// <param name="filePath">The path of the file to be serialized.</param>
         /// <param name="encoding">The encoding used to deserialize the string object.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public TType DeserializeFromJsonFile(string filePath, Encoding encoding)
+        public static TType FromJsonFile<TType>(string filePath, Encoding encoding)
         {
             using (var textReader = new StreamReader(filePath, encoding))
             {
@@ -55,10 +54,11 @@ namespace Global.Xml
         /// Deserializes the string to a specified object.
         /// </summary>
         /// <param name="objectString">The object string.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public TType DeserializeFromString(string objectString)
+        public static TType FromXmlString<TType>(string objectString)
         {
-            using(var stringReader = new StringReader(objectString))
+            using (var stringReader = new StringReader(objectString))
             {
                 // Write the income object to a file
                 var serializer = new DataContractSerializer(typeof(TType));
@@ -70,18 +70,20 @@ namespace Global.Xml
         /// Deserializes a json string to the specified object.
         /// </summary>
         /// <param name="objectString">The object as a json string.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public TType DeserializeFromJsonString(string objectString)
+        public static TType FromJsonString<TType>(string objectString)
         {
-            return DeserializeFromJsonString(objectString, Encoding.UTF8);
+            return FromJsonString<TType>(objectString, Encoding.UTF8);
         }
         /// <summary>
         /// Deserializes a json string to the specified object.
         /// </summary>
         /// <param name="objectString">The object as a json string.</param>
         /// <param name="encoding">The encoding used to deserialize the string to the specified object type.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The deserialized object.</returns>
-        public TType DeserializeFromJsonString(string objectString, Encoding encoding)
+        public static TType FromJsonString<TType>(string objectString, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream(encoding.GetBytes(objectString)))
             {
@@ -94,18 +96,20 @@ namespace Global.Xml
         /// Serialized a specified object to a file.
         /// </summary>
         /// <param name="filePath">The path where the serialized object must be stored.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <param name="entity">The entity to be serialized.</param>
-        public void SerializeToFile(string filePath, TType entity)
+        public static void ToXmlFile<TType>(string filePath, TType entity)
         {
-            SerializeToFile(filePath, entity, Encoding.UTF8);
+            ToXmlFile(filePath, entity, Encoding.UTF8);
         }
         /// <summary>
         /// Serialized a specified object to a file.
         /// </summary>
         /// <param name="filePath">The path where the serialized object must be stored.</param>
         /// <param name="entity">The entity to be serialized.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <param name="encoding">The encoding to used in the serialization precess.</param>
-        public void SerializeToFile(string filePath, TType entity, Encoding encoding)
+        public static void ToXmlFile<TType>(string filePath, TType entity, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -128,15 +132,16 @@ namespace Global.Xml
         /// </summary>
         /// <param name="filePath">The path where the serialized object must be stored.</param>
         /// <param name="entity">The entity to be serialized.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <param name="encoding">The encoding to used in the serialization precess.</param>
-        public void SerializeToJsonFile(string filePath, TType entity, Encoding encoding)
+        public static void ToJsonFile<TType>(string filePath, TType entity, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream())
             {
                 // Write the income object to a file
-                var serializer = new DataContractJsonSerializer(typeof (TType));
+                var serializer = new DataContractJsonSerializer(typeof(TType));
                 serializer.WriteObject(memoryStream, entity);
-                using(var textWriter = new StreamWriter(filePath))
+                using (var textWriter = new StreamWriter(filePath))
                 {
                     memoryStream.Flush();
                     memoryStream.Position = 0;
@@ -151,20 +156,22 @@ namespace Global.Xml
         /// Serializes the specified object to a string.
         /// </summary>
         /// <param name="entity">The object to be serialized.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized string.</returns>
-        public string SerializeToString(TType entity)
+        public static string ToXmlString<TType>(TType entity)
         {
-            return SerializeToString(entity, Encoding.UTF8);
+            return ToXmlString(entity, Encoding.UTF8);
         }
         /// <summary>
         /// Serializes the specified object to a string.
         /// </summary>
         /// <param name="entity">The object to be serialized.</param>
         /// <param name="encoding">The encoding to be used in the serialization preocess.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized string.</returns>
-        public string SerializeToString(TType entity, Encoding encoding)
+        public static string ToXmlString<TType>(TType entity, Encoding encoding)
         {
-            using(var memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
                 // Write the income object to a strem
                 var serializer = new DataContractSerializer(typeof(TType));
@@ -181,18 +188,20 @@ namespace Global.Xml
         /// Serializes the specified object to a json string.
         /// </summary>
         /// <param name="entity">The object to be serialized.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized object as a string.</returns>
-        public string SerializeToJsonString(TType entity)
+        public static string ToJsonString<TType>(TType entity)
         {
-            return SerializeToJsonString(entity, Encoding.UTF8);
+            return ToJsonString(entity, Encoding.UTF8);
         }
         /// <summary>
         /// Serializes the specified object to a json string.
         /// </summary>
         /// <param name="entity">The object to be serialized.</param>
         /// <param name="encoding">The specified encoding to be used when serializing.</param>
+        /// <typeparam name="TType">The object to be handled.</typeparam>
         /// <returns>The serialized object as a string.</returns>
-        public string SerializeToJsonString(TType entity, Encoding encoding)
+        public static string ToJsonString<TType>(TType entity, Encoding encoding)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -201,7 +210,7 @@ namespace Global.Xml
                 jsonSerializer.WriteObject(memoryStream, entity);
                 memoryStream.Flush();
                 memoryStream.Position = 0;
-                using(var streamReader = new StreamReader(memoryStream, encoding))
+                using (var streamReader = new StreamReader(memoryStream, encoding))
                 {
                     return streamReader.ReadToEnd();
                 }

@@ -29,7 +29,7 @@ namespace Global.Xml
         /// <param name="xsdFilePath">The xsd file path.</param>
         public bool ValidateXmlWithXsd(DataSet ds, string xsdFilePath)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 ds.WriteXml(ms);
                 return ValidateXmlWithXsd(ms, xsdFilePath);
@@ -44,7 +44,7 @@ namespace Global.Xml
         /// <param name="xsdFilePath">The xsd file path.</param>
         public bool ValidateXmlWithXsd(string xmlContent, Encoding encoding, string xsdFilePath)
         {
-            using (MemoryStream ms = new MemoryStream(encoding.GetBytes(xmlContent)))
+            using (var ms = new MemoryStream(encoding.GetBytes(xmlContent)))
             {
                 return ValidateXmlWithXsd(ms, xsdFilePath);
             }
@@ -59,13 +59,13 @@ namespace Global.Xml
         public bool ValidateXmlWithXsd(Stream xmlStream, string xsdFilePath)
         {
             // Create the XmlSchemaSet class.
-            XmlSchemaSet sc = new XmlSchemaSet();
+            var sc = new XmlSchemaSet();
 
             // Add the schema to the collection.
             sc.Add(null, xsdFilePath);
 
             // Set the validation settings.
-            XmlReaderSettings settings = new XmlReaderSettings {ValidationType = ValidationType.Schema, Schemas = sc};
+            var settings = new XmlReaderSettings {ValidationType = ValidationType.Schema, Schemas = sc};
             settings.ValidationEventHandler += ValidationCallBack;
 
             // Create the XmlReader object.

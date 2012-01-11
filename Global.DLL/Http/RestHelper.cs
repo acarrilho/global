@@ -159,6 +159,44 @@ namespace Global.Http
         /// <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
         /// <param name="url">The relative url for the request.</param>
         /// <returns>A boolean indicating if the request was successful.</returns>
+        public static TReturn HttpRestDelete<TReturn>(string baseUrl, string url)
+        {
+            return HttpRestDelete<TReturn>(baseUrl, url, WebMessageFormat.Xml);
+        }
+        /// <summary>
+        /// Makes a DELETE request to a REST service.
+        /// </summary>
+        /// <param name="url">The full url for the request.</param>
+        /// <param name="messageFormat">The message format of the income object (XML or Json).</param>
+        /// <returns>A boolean indicating if the request was successful.</returns>
+        public static TReturn HttpRestDelete<TReturn>(string url, WebMessageFormat messageFormat)
+        {
+            return HttpRestDelete<TReturn>(url, null, messageFormat);
+        }
+        /// <summary>
+        /// Makes a DELETE request to a REST service.
+        /// </summary>
+        /// <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+        /// <param name="url">The relative url for the request.</param>
+        /// <param name="messageFormat">The message format of the income object (XML or Json).</param>
+        /// <returns>A boolean indicating if the request was successful.</returns>
+        public static TReturn HttpRestDelete<TReturn>(string baseUrl, string url, WebMessageFormat messageFormat)
+        {
+            var httpClient = new HttpClient(baseUrl);
+            var httpResponse = !string.IsNullOrEmpty(url)
+                ? httpClient.Delete(url)
+                : httpClient.Delete(String.Empty);
+            httpResponse.EnsureStatusIsSuccessful();
+            return httpResponse.ConvertHttpContentToObject<TReturn>(messageFormat);
+        }
+
+
+        /// <summary>
+        /// Makes a DELETE request to a REST service.
+        /// </summary>
+        /// <param name="baseUrl">The base url for the request (eg: http://www.example.com/services/).</param>
+        /// <param name="url">The relative url for the request.</param>
+        /// <returns>A boolean indicating if the request was successful.</returns>
         public static bool HttpRestDelete(string baseUrl, string url)
         {
             return HttpRestDelete(baseUrl, url, WebMessageFormat.Xml);
@@ -182,12 +220,13 @@ namespace Global.Http
         /// <returns>A boolean indicating if the request was successful.</returns>
         public static bool HttpRestDelete(string baseUrl, string url, WebMessageFormat messageFormat)
         {
-            var httpClient = new HttpClient(baseUrl);
-            HttpResponseMessage httpResponse = !string.IsNullOrEmpty(url) 
-                ? httpClient.Delete(url) 
-                : httpClient.Delete(String.Empty);
-            httpResponse.EnsureStatusIsSuccessful();
-            return httpResponse.ConvertHttpContentToObject<bool>(messageFormat);
+            return HttpRestDelete<bool>(baseUrl, url, messageFormat);
+            //var httpClient = new HttpClient(baseUrl);
+            //HttpResponseMessage httpResponse = !string.IsNullOrEmpty(url) 
+            //    ? httpClient.Delete(url) 
+            //    : httpClient.Delete(String.Empty);
+            //httpResponse.EnsureStatusIsSuccessful();
+            //return httpResponse.ConvertHttpContentToObject<bool>(messageFormat);
         }
 
         private static HttpContent ConvertObjectToHttpContent<TContentObject>(TContentObject contentObject, 

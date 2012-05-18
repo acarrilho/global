@@ -48,6 +48,10 @@ namespace Global.Http
         /// </summary>
         public int ConnectionLimit { get { return _connectionLimit > 0 ? _connectionLimit : 100; } set { _connectionLimit = value; } }
 
+        public string HttpStatus { get; set; }
+        public int HttpStatusCode { get; set; }
+        public string HttpStatusDescription { get; set; }
+
         /// <summary>
         /// Sends a POST request to the specified url.
         /// </summary>
@@ -189,7 +193,13 @@ namespace Global.Http
                 finally
                 {
                     // Close web response
-                    if (webResp != null) webResp.Close();
+                    if (webResp != null)
+                    {
+                        HttpStatus = webResp.StatusCode.ToString();
+                        HttpStatusCode = (int)webResp.StatusCode;
+                        HttpStatusDescription = webResp.StatusDescription;
+                        webResp.Close();
+                    }
                 }
             }
 

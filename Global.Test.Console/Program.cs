@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Xml.Serialization;
 using Global.Global;
 using Global.Http;
 using Global.Security;
@@ -10,17 +13,290 @@ using Global.Xml;
 
 namespace Global.Test.Console
 {
+    #region 
+    [CollectionDataContract(Namespace = "", Name = "servers", ItemName = "server")]
+    public class Servers : List<Server> { }
+
+    public enum ServerStatus
+    {
+        IDLE = 1,
+        OK = 2,
+        ERROR = 3,
+        WARNING = 4,
+        PENDING = 5
+    }
+
+    [DataContract(Namespace = "", Name = "server", IsReference = true)]
+    public class Server
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "displayname")]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "domain")]
+        public string Domain { get; set; }
+
+        [DataMember(Name = "isencoder")]
+        public bool IsEncoder { get; set; }
+
+        [DataMember(Name = "isspare")]
+        public bool IsSpare { get; set; }
+
+        [DataMember(Name = "status")]
+        public ServerStatus Status { get; set; }
+
+        [DataMember(Name = "ip")]
+        public string Ip { get; set; }
+
+        [DataMember(Name = "originserverid")]
+        public int? OriginServerId { get; set; }
+
+        [DataMember(Name = "username")]
+        public string Username { get; set; }
+
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
+
+        [DataMember(Name = "secretkey")]
+        public string SecretKey { get; set; }
+
+        [DataMember(Name = "lastupdatedon")]
+        public DateTime? LastUpdatedOn { get; set; }
+
+        [DataMember(Name = "lastupdatedby")]
+        public string LastUpdatedBy { get; set; }
+
+        [DataMember(Name = "lastmonitorresult")]
+        public string LastMonitorResult { get; set; }
+
+        [DataMember(Name = "applications")]
+        public Applications Applications { get; set; }
+
+        public bool HasUrlsRunning()
+        {
+            return Applications.Any(item => item.Urls.Any());
+        }
+    }
+    [CollectionDataContract(Namespace = "", Name = "applications", ItemName = "application")]
+    public class Applications : List<Application> { }
+
+    [DataContract(Namespace = "", Name = "application")]
+    public class Application
+    {
+        public Application()
+        {
+            Urls = new ServiceAssetUrls();
+        }
+
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "displayname")]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "path")]
+        public string Path { get; set; }
+
+        [DataMember(Name = "serverid")]
+        public int ServerId { get; set; }
+
+        [DataMember(Name = "applicationtype")]
+        public string ApplicationType { get; set; }
+
+        [DataMember(Name = "server")]
+        public Server Server { get; set; }
+
+        [DataMember(Name = "username")]
+        public string Username { get; set; }
+
+        [DataMember(Name = "password")]
+        public string Password { get; set; }
+
+        [DataMember(Name = "secretkey")]
+        public string SecretKey { get; set; }
+
+        [DataMember(Name = "urls")]
+        public ServiceAssetUrls Urls { get; set; }
+    }
+    /// <summary>
+    /// Container Type to be used by DataContractSerializer, to build the Xml string accordingly to the specified contract with third Party applications
+    /// </summary>
+    [DataContract(Namespace = "", Name = "assetscontainer")]
+    public class ThirdPartyServiceAssetsContainer
+    {
+        public ThirdPartyServiceAssetsContainer()
+        {
+            Assets = new List<ThirdPartyServiceAsset>();
+        }
+
+        [DataMember(Name = "assets")]
+        public List<ThirdPartyServiceAsset> Assets { get; set; }
+    }
+
+    /// <summary>
+    ///  Container Type to be used by DataContractSerializer, to build the Xml string accordingly to the specified contract with third Party applications
+    /// </summary>
+    [DataContract(Namespace = "", Name = "assetcontainer")]
+    public class ThirdPartyServiceAssetContainer
+    {
+        [DataMember(Name = "asset")]
+        public ThirdPartyServiceAsset Asset { get; set; }
+    }
+    /// <summary>
+    /// Version of the Asset Entity with only Asset and Urls. This version does not has the Devices per Url.
+    /// Used by the 3rd Party Applications
+    /// </summary>
+    [DataContract(Namespace = "", Name = "asset")]
+    public class ThirdPartyServiceAsset : BaseServiceAsset
+    {
+        [DataMember(Name = "urls")]
+        public BaseServiceAssetUrls Urls { get; set; }
+    }
+    [DataContract(Namespace = "", Name = "asset")]
+    public class BaseServiceAsset
+    {
+        [DataMember(Name = "availableout")]
+        public bool AvailableOut { get; set; }
+
+        [DataMember(Name = "displayname")]
+        public string DisplayName { get; set; }
+
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "imageurl")]
+        public string ImageUrl { get; set; }
+
+        [DataMember(Name = "isactive")]
+        public bool IsActive { get; set; }
+
+        [DataMember(Name = "isdefault")]
+        public bool IsDefault { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "order")]
+        public int Order { get; set; }
+    }
+    [CollectionDataContract(Namespace = "", Name = "assetsUrl", ItemName = "assetUrl")]
+    public class BaseServiceAssetUrls : List<BaseServiceAssetUrl> { }
+
+    [CollectionDataContract(Namespace = "", Name = "assetsUrl", ItemName = "assetUrl")]
+    public class ServiceAssetUrls : List<ServiceAssetUrl> { }
+
+    [DataContract(Namespace = "", Name = "assetUrl")]
+    public class BaseServiceAssetUrl
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "isactive")]
+        public bool IsActive { get; set; }
+
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+    }
+
+    [DataContract(Namespace = "", Name = "assetUrl")]
+    public class ServiceAssetUrl : BaseServiceAssetUrl
+    {
+        [DataMember(Name = "assetid")]
+        public int AssetId { get; set; }
+
+        [DataMember(Name = "assetname")]
+        public string AssetName { get; set; }
+
+        [DataMember(Name = "deviceid")]
+        public int DeviceId { get; set; }
+
+        [DataMember(Name = "devices")]
+        public ServiceDevices ServiceDevices { get; set; }
+
+        [DataMember(Name = "publishingpointname")]
+        public string PublishingPointName { get; set; }
+
+        [DataMember(Name = "application")]
+        public Application Application { get; set; }
+
+        [DataMember(Name = "applicationid")]
+        public int? ApplicationId { get; set; }
+
+        [DataMember(Name = "encoder")]
+        public Server Encoder { get; set; }
+
+        [DataMember(Name = "encoderid")]
+        public int? EncoderId { get; set; }
+
+        [DataMember(Name = "status")]
+        public AssetUrlStatus Status { get; set; }
+    }
+
+    public enum AssetUrlStatus
+    {
+        IDLE = 1,
+        OK = 2,
+        ERROR = 3
+    }
+    [CollectionDataContract(Namespace = "", Name = "devices", ItemName = "devices")]
+    public class ServiceDevices : List<ServiceDevice> { }
+
+    [DataContract(Namespace = "", Name = "device")]
+    public class ServiceDevice
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+        [DataMember(Name = "displayName")]
+        public string DisplayName { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+        [DataMember(Name = "useragents")]
+        public ServiceUserAgents UserAgents { get; set; }
+        [DataMember(Name = "useragentid")]
+        public int UserAgentId { get; set; }
+    }
+    [CollectionDataContract(Namespace = "", Name = "useragents", ItemName = "useragent")]
+    public class ServiceUserAgents : List<ServiceUserAgent> { }
+
+    [DataContract(Namespace = "", Name = "useragent")]
+    public class ServiceUserAgent
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+        [DataMember(Name = "deviceid")]
+        public int DeviceId { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+    }
+    #endregion
+
+
 
     public class Program
     {
         static void Main(string[] args)
         {
+
+            //var r = new Http.Http("https://web.vodott.vodafone.pt/NewWatchPageLiveWebService/Assets.svc/get/")
+            //    .SetUserAgent("CompanionTV_Vodafone_Android_")
+            //    .SetAccept("application/json")
+            //    .SetResponseEncoding(Encoding.UTF8).DoRequest<Result<ThirdPartyServiceAssetsContainer>>(Format.Json);
+            //System.Console.WriteLine(r.Successful);
+
             //ReadHashValues();
             //HashSomething();
             //SendHttpRequest();
             //BuildUrl();
             //SendMail();
-            DataContractSerialization();
+            //DataContractSerialization();
             //Reflection();
             //Aes128();
 

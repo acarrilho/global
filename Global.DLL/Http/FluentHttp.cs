@@ -8,6 +8,7 @@ namespace Global.Http
     /// <summary>
     /// Send http requests using a fluent api.
     /// </summary>
+    [Obsolete("Use the Http class instead.")]
     public class FluentHttp
     {
         private string _url;
@@ -23,6 +24,77 @@ namespace Global.Http
         private IWebProxy _webProxy;
         private WebHeaderCollection _headers;
 
+        private string _accept;
+        private string _connection;
+        private string _expect;
+        private DateTime? _ifModifiedSince;
+        private int[] _range;
+        private string _referer;
+        private string _transferEncoding;
+        private string _protocolVersion;
+
+        //public string UrlProp { get; set; }
+        //public string MethodProp { get; set; }
+        //public string PostDataProp { get; set; }
+        //public Encoding PostDataEncodingProp { get; set; }
+        //public string ContentTypeProp { get; set; }
+        //public string UserAgentProp { get; set; }
+        //public bool? KeepAliveProp { get; set; }
+        //public int? TimeoutProp { get; set; }
+        //public Encoding EncodingProp { get; set; }
+        //public ICredentials CredentialsProp { get; set; }
+        //public IWebProxy WebProxyProp { get; set; }
+        //public WebHeaderCollection HeadersProp { get; set; }
+
+        //public string AcceptProp { get; set; }
+        //public string ConnectionProp { get; set; }
+        //public string ExpectProp { get; set; }
+        //public DateTime? IfModifiedSinceProp { get; set; }
+        //public int[] RangeProp { get; set; }
+        //public string RefererProp { get; set; }
+        //public string TransferEncodingProp { get; set; }
+        //public string ProtocolVersionProp { get; set; }
+
+        public FluentHttp ProtocolVersion(string protocolVersion)
+        {
+            _protocolVersion = protocolVersion;
+            return this;
+        }
+        public FluentHttp TranferEncoding(string transferEncoding)
+        {
+            _transferEncoding = transferEncoding;
+            return this;
+        }
+        public FluentHttp Referer(string referer)
+        {
+            _referer = referer;
+            return this;
+        }
+        public FluentHttp Range(int[] range)
+        {
+            _range = range;
+            return this;
+        }
+        public FluentHttp IfModifiedSince(DateTime ifModifiedSince)
+        {
+            _ifModifiedSince = ifModifiedSince;
+            return this;
+        }
+        public FluentHttp Expect(string expect)
+        {
+            _expect = expect;
+            return this;
+        }
+        public FluentHttp Connection(string connection)
+        {
+            _connection = connection;
+            return this;
+        }
+        public FluentHttp Accept(string accept)
+        {
+            _accept = accept;
+            return this;
+        }
         /// <summary>
         /// Set the url to request to.
         /// </summary>

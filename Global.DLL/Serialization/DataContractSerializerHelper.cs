@@ -50,6 +50,8 @@ namespace Global.Serialization
                 }
             }
         }
+
+
         /// <summary>
         /// Deserializes the string to a specified object.
         /// </summary>
@@ -92,6 +94,10 @@ namespace Global.Serialization
                 return (TType)jsonSerializer.ReadObject(memoryStream);
             }
         }
+
+
+
+
         /// <summary>
         /// Serialized a specified object to a file.
         /// </summary>
@@ -152,6 +158,8 @@ namespace Global.Serialization
                 }
             }
         }
+
+
         /// <summary>
         /// Serializes the specified object to a string.
         /// </summary>

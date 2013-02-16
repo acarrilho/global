@@ -103,6 +103,7 @@
     <Compile Include="Global\MailAddresses.cs" />
     <Compile Include="Global\MailHelper.cs" />
     <Compile Include="Http\FluentHttp.cs" />
+    <Compile Include="Http\Http.cs" />
     <Compile Include="Http\HttpHelper.cs" />
     <Compile Include="Http\RestHelper.cs" />
     <Compile Include="Http\UrlBuilder.cs" />

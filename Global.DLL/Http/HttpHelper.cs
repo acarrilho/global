@@ -23,6 +23,7 @@ namespace Global.Http
     ///<summary>
     /// Performs some http related actions like GET and POST requests.
     ///</summary>
+    [Obsolete("Use the Http class instead.")]
     public class HttpHelper
     {
         /// <summary>
@@ -41,6 +42,17 @@ namespace Global.Http
                 return _encoding ?? (_encoding = Encoding.UTF8);
             }
         }
+        private Encoding _postDataEncoding;
+        /// <summary>
+        /// Returns the encoding type of the web request. The default is UTF-8.
+        /// </summary>
+        public Encoding PostDataEncoding
+        {
+            get
+            {
+                return _postDataEncoding ?? (_postDataEncoding = Encoding.ASCII);
+            }
+        }
 
         private int _connectionLimit;
         /// <summary>
@@ -48,8 +60,17 @@ namespace Global.Http
         /// </summary>
         public int ConnectionLimit { get { return _connectionLimit > 0 ? _connectionLimit : 100; } set { _connectionLimit = value; } }
 
+        /// <summary>
+        /// Specified the http status of the http response.
+        /// </summary>
         public string HttpStatus { get; set; }
+        /// <summary>
+        /// Specifies the http status code of the http response.
+        /// </summary>
         public int HttpStatusCode { get; set; }
+        /// <summary>
+        /// Specifies the http status description of the http response.
+        /// </summary>
         public string HttpStatusDescription { get; set; }
 
         /// <summary>
@@ -141,13 +162,12 @@ namespace Global.Http
         {
             if (!String.IsNullOrEmpty(url))
             {
-                HttpWebRequest webReq;
                 HttpWebResponse webResp = null;
 
                 try
                 {
                     // Prepare web request...
-                    webReq = (HttpWebRequest)WebRequest.Create(url);
+                    var webReq = (HttpWebRequest)WebRequest.Create(url);
                     webReq.Method = requestType.ToString();
 
                     webReq.ServicePoint.ConnectionLimit = ConnectionLimit;
@@ -166,6 +186,13 @@ namespace Global.Http
                                       ? ascii.GetBytes(postData)
                                       : ascii.GetBytes(String.Empty);
                     webReq.ContentLength = data.Length;
+                    if (webReq.ContentLength > 0)
+                    {
+                        using (Stream dataStream = webReq.GetRequestStream())
+                        {
+                            dataStream.Write(data, 0, data.Length);
+                        }
+                    }
 
                     //requests the data
                     webResp = (HttpWebResponse)webReq.GetResponse();
@@ -200,6 +227,91 @@ namespace Global.Http
                         HttpStatusDescription = webResp.StatusDescription;
                         webResp.Close();
                     }
+                }
+            }
+
+            throw new Exception("Must specify a valid Url.");
+        }
+
+        /// <summary>
+        /// Sends a request to the specified url.
+        /// </summary>
+        /// <param name="url">The request url.</param>
+        /// <param name="postData">The data to be sent.</param>
+        /// <param name="requestType">The request type.</param>
+        /// <param name="contentType">The request content type. The default is 'application/x-www-form-urlencoded'.</param>
+        /// <param name="userAgent">The request user agent.</param>
+        /// <param name="keepAlive">Indicates whether the connection must be persisted.</param>
+        /// <param name="credentials">The credentials to be used while making the request.</param>
+        /// <param name="proxy">Provide if the connection uses a proxy.</param>
+        /// <param name="timeout">The connection timeout.</param>
+        /// <param name="encoding">Set the response encoding.</param>
+        /// <param name="postDataEncoding">Set the post data encoding.</param>
+        /// <returns>A string containing a response from the requested Url.</returns>
+        public string SendRequest(string url, string postData, string requestType, string contentType,
+            string userAgent, bool? keepAlive, ICredentials credentials, IWebProxy proxy, int? timeout,
+            Encoding encoding, Encoding postDataEncoding)
+        {
+            if (!String.IsNullOrEmpty(url))
+            {
+                HttpWebResponse webResp = null;
+                Stream newStream = null;
+
+                try
+                {
+                    // Prepare web request...
+                    var webReq = (HttpWebRequest)WebRequest.Create(url);
+                    webReq.Method = requestType;
+
+                    webReq.ServicePoint.ConnectionLimit = ConnectionLimit;
+                    if (WebHeaderCollection != null) webReq.Headers = WebHeaderCollection;
+                    if (credentials != null) webReq.Credentials = credentials;
+                    if (proxy != null) webReq.Proxy = proxy;
+                    if (timeout != null) webReq.Timeout = (int)timeout;
+                    webReq.ContentType = !String.IsNullOrEmpty(contentType)
+                                             ? contentType
+                                             : "text/xml"; // "application/x-www-form-urlencoded";
+                    if (!String.IsNullOrEmpty(userAgent)) webReq.UserAgent = userAgent;
+                    if (keepAlive != null) webReq.KeepAlive = (bool)keepAlive;
+
+                    if (!string.IsNullOrEmpty(postData))
+                    {
+                        byte[] data = !String.IsNullOrEmpty(postData)
+                                          ? (postDataEncoding ?? PostDataEncoding).GetBytes(postData)
+                                          : (postDataEncoding ?? PostDataEncoding).GetBytes(String.Empty);
+                        webReq.ContentLength = data.Length;
+                    }
+
+                    //requests the data
+                    webResp = (HttpWebResponse)webReq.GetResponse();
+
+                    string response;
+                    // Get the stream associated with the response.
+                    using (var receiveStream = webResp.GetResponseStream())
+                    {
+                        // Pipes the stream to a higher level stream reader with the required encoding format.
+                        using (var readStream = new StreamReader(receiveStream, (encoding ?? Encoding)))
+                            response = readStream.ReadToEnd();
+                    }
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    var s = ex.Message;
+                    throw;
+                }
+                finally
+                {
+                    // Close web response
+                    if (webResp != null)
+                    {
+                        HttpStatus = webResp.StatusCode.ToString();
+                        HttpStatusCode = (int)webResp.StatusCode;
+                        HttpStatusDescription = webResp.StatusDescription;
+                        webResp.Close();
+                    }
+                    if (newStream != null) newStream.Dispose();
                 }
             }
 

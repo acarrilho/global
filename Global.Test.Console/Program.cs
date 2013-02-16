@@ -414,14 +414,14 @@ namespace Global.Test.Console
                     "ok.another.person@anothermail.com"
                 };
 
-            var mailHelper = new MailHelper("smtp.gmail.com", 587);
+            var mailHelper = new Mail("smtp.gmail.com", 587);
             mailHelper
                 .From("Andre Carrilho", "me@mymail.com")
                 .To(to => to.Add("Andre Carrilho", "anotherme@mymail.com"))
                 .Bcc(bcc => bcc.Add(mailsWithDisplayNames))
                 .Cc(cc => cc.Add(justMails))
-                .Body("Trying out the MailHelper class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
-                .Subject("Testing Fluent MailHelper")
+                .Body("Trying out the Mail class with some Html: <p style='font-weight:bold;color:blue;font-size:32px;'>html</p>")
+                .Subject("Testing Fluent Mail")
                 .IsBodyHtml(true)
                 .Credentials("someUser", "somePass")
                 .Port(1234)

@@ -86,7 +86,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
     <Compile Include="Global\MailAddresses.cs" />
-    <Compile Include="Global\MailHelper.cs" />
+    <Compile Include="Global\Mail.cs" />
     <Compile Include="Http\Header.cs" />
     <Compile Include="Http\Format.cs" />
     <Compile Include="Http\Http.cs" />

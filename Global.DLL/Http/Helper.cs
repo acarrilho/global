@@ -5,7 +5,7 @@ namespace Global.Http
     ///<summary>
     /// Defines costum url related actions.
     ///</summary>
-    public class UrlHelper
+    public class Helper
     {
         /// <summary>
         /// Adds a "/" at the end of the url if it does not exist.

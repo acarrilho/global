@@ -64,20 +64,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Shared\Microsoft.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Http.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Shared\Microsoft.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.VisualStudio.TeamSystem.Data.UnitTesting, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -99,15 +85,14 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
-    <Compile Include="Global\EnumHelper.cs" />
     <Compile Include="Global\MailAddresses.cs" />
     <Compile Include="Global\MailHelper.cs" />
-    <Compile Include="Http\FluentHttp.cs" />
+    <Compile Include="Http\Header.cs" />
+    <Compile Include="Http\Format.cs" />
     <Compile Include="Http\Http.cs" />
-    <Compile Include="Http\HttpHelper.cs" />
-    <Compile Include="Http\RestHelper.cs" />
+    <Compile Include="Http\ProxySettings.cs" />
+    <Compile Include="Http\Rest.cs" />
     <Compile Include="Http\UrlBuilder.cs" />
-    <Compile Include="Http\UrlHelper.cs" />
     <Compile Include="Http\UrlParameters.cs" />
     <Compile Include="IO\IOHelper.cs" />
     <Compile Include="IO\PathHelper.cs" />
@@ -116,9 +101,6 @@
     <Compile Include="Security\HashingHelper.cs" />
     <Compile Include="Security\SecurityHelper.cs" />
     <Compile Include="Serialization\DataContractSerializerHelper.cs" />
-    <Compile Include="Xml\DataContractSerializerHelper.cs" />
-    <Compile Include="Xml\SerializerHelper.cs" />
-    <Compile Include="Xml\ValidationHelper.cs" />
     <Compile Include="Serialization\XmlSerializerHelper.cs" />
   </ItemGroup>
   <ItemGroup>

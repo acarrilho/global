@@ -4,12 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Xml.Serialization;
 using Global.Global;
 using Global.Http;
 using Global.Security;
 using Global.Serialization;
-using Global.Xml;
 
 namespace Global.Test.Console
 {
@@ -284,35 +282,22 @@ namespace Global.Test.Console
     {
         static void Main(string[] args)
         {
-
-            //var r = new Http.Http("https://web.vodott.vodafone.pt/NewWatchPageLiveWebService/Assets.svc/get/")
-            //    .SetUserAgent("CompanionTV_Vodafone_Android_")
-            //    .SetAccept("application/json")
-            //    .SetResponseEncoding(Encoding.UTF8).DoRequest<Result<ThirdPartyServiceAssetsContainer>>(Format.Json);
-            //System.Console.WriteLine(r.Successful);
-
-            //ReadHashValues();
-            //HashSomething();
-            //SendHttpRequest();
-            //BuildUrl();
-            //SendMail();
-            //DataContractSerialization();
-            //Reflection();
-            //Aes128();
-
-            //Test();
-
             // To avoid exiting
             System.Console.ReadLine();
         }
 
         private static void Test()
         {
-            var h = new HttpHelper();
-            var s = h.SendGet(
-                "http://192.168.1.20:80/media-vod-hls/green_test/Green_Lantern_Trailer-m3u8-aapl.ism/QualityLevels(637000)/Keys(Green_Lantern_Trailer-m3u8-aapl,format=m3u8-aapl)",
-                "application/octet-binary-data");
-            System.Console.WriteLine(s);
+            var r = new Http.Http("https://web.vodott.vodafone.pt/NewWatchPageLiveWebService/Assets.svc/get/")
+                .SetUserAgent("CompanionTV_Vodafone_Android_")
+                .SetAccept("application/json")
+                .SetResponseEncoding(Encoding.UTF8).DoRequest<Result<ThirdPartyServiceAssetsContainer>>(Format.Json);
+            System.Console.WriteLine(r.Successful);
+
+            var theContent = new Http.Http("http://192.168.1.20:80/media-vod-hls/green_test/Green_Lantern_Trailer-m3u8-aapl.ism/QualityLevels(637000)/Keys(Green_Lantern_Trailer-m3u8-aapl,format=m3u8-aapl)")
+                .SetContentType("application/octet-binary-data")
+                .SetMethod("GET").DoRequest();
+            System.Console.WriteLine(theContent);
         }
 
         private static void Aes128()
@@ -400,72 +385,6 @@ namespace Global.Test.Console
 
             var notHashed = new CryptoHelper().Decrypt(hashed, privateKey);
             System.Console.WriteLine(notHashed);
-        }
-
-        private static void SendHttpRequest()
-        {
-            string site;
-            string logPath;
-            string exit = String.Empty;
-            var method = "";
-
-            while (!String.Equals(exit, "exit"))
-            {
-                try
-                {
-                    System.Console.Write("Type the url: ");
-                    site = System.Console.ReadLine();
-                    System.Console.Write("Type the output file path (or type enter to display the result on the console): ");
-                    logPath = System.Console.ReadLine();
-
-                    var http = new HttpHelper();
-
-                    string postData = null;
-                    System.Console.WriteLine("How do you want to send the request [ GET | POST ]: ");
-                    method = System.Console.ReadLine();
-
-                    var addMore = false;
-                    System.Console.Write("Do you wish to add header values [ y | n ]: ");
-                    var addHeaders = System.Console.ReadLine();
-                    addMore = !string.IsNullOrEmpty(addHeaders) && addHeaders.ToLower().Equals("y");
-                    while (addMore)
-                    {
-                        System.Console.Write("Key name: ");
-                        var key = System.Console.ReadLine();
-
-                        System.Console.Write("Key value: ");
-                        var value = System.Console.ReadLine();
-
-                        if (http.WebHeaderCollection == null) http.WebHeaderCollection = new System.Net.WebHeaderCollection();
-                        http.WebHeaderCollection.Add(key, value);
-
-                        System.Console.WriteLine();
-                        System.Console.Write("Do you wish to add more header values [true | false]: ");
-                        addMore = bool.Parse(System.Console.ReadLine());
-                    }
-
-                    var content = http.SendRequest(site, postData, EnumHelper.StringToEnum<HttpRequestType>(method),
-                        null, null, true, null, null, null, Encoding.UTF8);
-
-                    using (TextWriter txt = new StreamWriter(logPath))
-                        txt.WriteLine(content);
-
-                    //http.DownloadFile(site, logPath);
-
-                    System.Console.ForegroundColor = ConsoleColor.Green;
-                    System.Console.WriteLine("Everything went well.");
-                }
-                catch (Exception ex)
-                {
-                    System.Console.ForegroundColor = ConsoleColor.Red;
-                    System.Console.WriteLine("Error: {0}", ex.Message);
-                }
-
-                System.Console.WriteLine();
-                System.Console.ForegroundColor = ConsoleColor.Gray;
-                System.Console.Write("Type 'exit' to leave or press [Enter] to send another request: ");
-                exit = System.Console.ReadLine();
-            }
         }
 
         private static void BuildUrl()

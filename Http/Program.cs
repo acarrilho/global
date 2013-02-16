@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Net;
 using System.Text;
-using Global.Global;
+using Global;
 using Global.IO;
 
 namespace Http
@@ -193,7 +193,7 @@ namespace Http
                                 Console.WriteLine("Must supply value for -re.");
                                 return null;
                             }
-                            argsObj.ResponseEncoding = EnumHelper.StringToEnum<Encoding>(args[i + 1]);
+                            argsObj.ResponseEncoding = Common.StringToEnum<Encoding>(args[i + 1]);
                             break;
                         case "-pe":
                             if (string.IsNullOrEmpty(args[i + 1]))
@@ -201,7 +201,7 @@ namespace Http
                                 Console.WriteLine("Must supply value for -pde.");
                                 return null;
                             }
-                            argsObj.PayloadEncoding = EnumHelper.StringToEnum<Encoding>(args[i + 1]);
+                            argsObj.PayloadEncoding = Common.StringToEnum<Encoding>(args[i + 1]);
                             break;
                         case "-pp":
                             if (string.IsNullOrEmpty(args[i + 1]))

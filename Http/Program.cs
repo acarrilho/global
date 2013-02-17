@@ -34,10 +34,9 @@ namespace Http
             Console.WriteLine("***************************************************************");
             Console.WriteLine("*             Name : http requester tool                      *");
             Console.WriteLine("*        Developer : Andre da Silva Carrilho                  *");
-            Console.WriteLine("*             Date : 2012-11-30                               *");
+            Console.WriteLine("*             Date : 2013-02-17                               *");
             Console.WriteLine("*             Blog : http://www.acarrilho.com                 *");
-            Console.WriteLine("*           Hosted : http://global.codeplex.com               *");
-            Console.WriteLine("*      Source (hg) : https://hg01.codeplex.com/global         *");
+            Console.WriteLine("*           Hosted : https://bitbucket.org/acarrilho/global   *");
             Console.WriteLine("***************************************************************");
             Console.WriteLine();
             Console.WriteLine("Type 'http -h' to display the available commands.");

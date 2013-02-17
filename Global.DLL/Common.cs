@@ -48,7 +48,7 @@ namespace Global
         /// <returns>The enum object value.</returns>
         public static T NumToEnum<T>(int number)
         {
-            return (T)System.Enum.ToObject(typeof(T), number);
+            return (T)Enum.ToObject(typeof(T), number);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Global
         /// <returns>The enum object value.</returns>
         public static T StringToEnum<T>(string value)
         {
-            return (T)System.Enum.Parse(typeof(T), value, true);
+            return (T)Enum.Parse(typeof(T), value, true);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Global
         /// <returns>The enum object value.</returns>
         public static T StringToEnum<T>(string value, bool ignoreCase)
         {
-            return (T)System.Enum.Parse(typeof(T), value, ignoreCase);
+            return (T)Enum.Parse(typeof(T), value, ignoreCase);
         }
     }
 }

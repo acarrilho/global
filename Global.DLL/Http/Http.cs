@@ -249,7 +249,19 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Format format)
         {
-            return SetPayload(payload, RequestEncoding, Format.Xml, Serializer.DataContract);
+            return SetPayload(payload, RequestEncoding, format, Serializer.DataContract);
+        }
+        /// <summary>
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
+        /// </summary>
+        /// <typeparam name="TPayload">The entity type of payload.</typeparam>
+        /// <param name="payload">The payload entity.</param>
+        /// <param name="serializer">Specifies which serializer to use to serialize the payload. It will user DataContract as default.</param>
+        /// <returns>Itself.</returns>
+        public Http SetPayload<TPayload>(TPayload payload, Serializer serializer)
+        {
+            return SetPayload(payload, RequestEncoding, Format.Xml, serializer);
         }
         /// <summary>
         /// Specifies the payload to use with the request. 
@@ -262,7 +274,20 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding, Format format)
         {
-            return SetPayload<TPayload>(payload, requestEncoding, format, Serializer.DataContract);
+            return SetPayload(payload, requestEncoding, format, Serializer.DataContract);
+        }
+        /// <summary>
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
+        /// </summary>
+        /// <typeparam name="TPayload">The entity type of payload.</typeparam>
+        /// <param name="payload">The payload entity.</param>
+        /// <param name="requestEncoding">The value to encode the payload.</param>
+        /// <param name="serializer">Specifies which serializer to use to serialize the payload. It will user DataContract as default.</param>
+        /// <returns>Itself.</returns>
+        public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding, Serializer serializer)
+        {
+            return SetPayload(payload, requestEncoding, Format.Xml, serializer);
         }
         /// <summary>
         /// Specifies the payload to use with the request. 
@@ -276,7 +301,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding, Format format, Serializer serializer)
         {
-            var p = string.Empty;
+            string p;
             if (serializer == Serializer.Xml)
             {
                 p = XmlSerializerHelper.ToXmlString(payload);

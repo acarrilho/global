@@ -511,8 +511,34 @@ namespace Global.Http
         /// <returns>The response entity.</returns>
         public TReturn DoRequest<TReturn>(Format format)
         {
+            return DoRequest<TReturn>(format, Serializer.DataContract);
+        }
+        /// <summary>
+        /// Sends a specified request.
+        /// </summary>
+        /// <typeparam name="TReturn">The entity type of the response.</typeparam>
+        /// <param name="serializer">Specifies which serializer to use to serialize the payload. It will user DataContract as default.</param>
+        /// <returns>The response entity.</returns>
+        public TReturn DoRequest<TReturn>(Serializer serializer)
+        {
+            return DoRequest<TReturn>(Format.Xml, serializer);
+        }
+        /// <summary>
+        /// Sends a specified request.
+        /// </summary>
+        /// <typeparam name="TReturn">The entity type of the response.</typeparam>
+        /// <param name="format">The format of the response (xml or json).</param>
+        /// <param name="serializer">Specifies which serializer to use to serialize the payload. It will user DataContract as default.</param>
+        /// <returns>The response entity.</returns>
+        public TReturn DoRequest<TReturn>(Format format, Serializer serializer)
+        {
             var response = DoRequest();
-            return format == Format.Xml 
+            if (serializer == Serializer.Xml)
+            {
+                return XmlSerializerHelper.FromXmlString<TReturn>(response);
+            }
+
+            return format == Format.Xml
                 ? DataContractSerializerHelper.FromXmlString<TReturn>(response)
                 : DataContractSerializerHelper.FromJsonString<TReturn>(response, _responseEncoding);
         }

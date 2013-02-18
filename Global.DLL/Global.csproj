@@ -92,6 +92,7 @@
     <Compile Include="Http\Http.cs" />
     <Compile Include="Http\ProxySettings.cs" />
     <Compile Include="Http\Rest.cs" />
+    <Compile Include="Http\Serializer.cs" />
     <Compile Include="Http\UrlBuilder.cs" />
     <Compile Include="Http\UrlParameters.cs" />
     <Compile Include="IO\IOHelper.cs" />

@@ -200,6 +200,11 @@ namespace Global.Http
             {
                 byte[] data = !String.IsNullOrEmpty(value) ? RequestEncoding.GetBytes(value) : RequestEncoding.GetBytes(String.Empty);
                 WebReq.ContentLength = data.Length;
+                if (WebReq.ContentLength > 0)
+                {
+                    using (var dataStream = WebReq.GetRequestStream())
+                        dataStream.Write(data, 0, data.Length);
+                }
             }
         }
         /// <summary>
@@ -212,17 +217,19 @@ namespace Global.Http
             return SetPayload(payload, RequestEncoding);
         }
         /// <summary>
-        /// Specifies the payload to use with the request. Automatically overrides the ContentSize property.
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
         /// </summary>
         /// <typeparam name="TPayload">The entity type of payload.</typeparam>
         /// <param name="payload">The payload entity.</param>
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload)
         {
-            return SetPayload(payload, RequestEncoding, Format.Xml);
+            return SetPayload(payload, RequestEncoding, Format.Xml, Serializer.DataContract);
         }
         /// <summary>
-        /// Specifies the payload to use with the request. Automatically overrides the ContentSize property.
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
         /// </summary>
         /// <typeparam name="TPayload">The entity type of payload.</typeparam>
         /// <param name="payload">The payload entity.</param>
@@ -230,10 +237,11 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding)
         {
-            return SetPayload(payload, requestEncoding, Format.Xml);
+            return SetPayload(payload, requestEncoding, Format.Xml, Serializer.DataContract);
         }
         /// <summary>
-        /// Specifies the payload to use with the request. Automatically overrides the ContentSize property.
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
         /// </summary>
         /// <typeparam name="TPayload">The entity type of payload.</typeparam>
         /// <param name="payload">The payload entity.</param>
@@ -241,10 +249,11 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Format format)
         {
-            return SetPayload(payload, RequestEncoding, Format.Xml);
+            return SetPayload(payload, RequestEncoding, Format.Xml, Serializer.DataContract);
         }
         /// <summary>
-        /// Specifies the payload to use with the request. Automatically overrides the ContentSize property.
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
         /// </summary>
         /// <typeparam name="TPayload">The entity type of payload.</typeparam>
         /// <param name="payload">The payload entity.</param>
@@ -253,9 +262,31 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding, Format format)
         {
-            var p = format == Format.Xml 
-                ? DataContractSerializerHelper.ToXmlString(payload, requestEncoding) 
-                : DataContractSerializerHelper.ToJsonString(payload, requestEncoding);
+            return SetPayload<TPayload>(payload, requestEncoding, format, Serializer.DataContract);
+        }
+        /// <summary>
+        /// Specifies the payload to use with the request. 
+        /// Automatically overrides the ContentSize property.
+        /// </summary>
+        /// <typeparam name="TPayload">The entity type of payload.</typeparam>
+        /// <param name="payload">The payload entity.</param>
+        /// <param name="requestEncoding">The value to encode the payload.</param>
+        /// <param name="format">The format of the payload (xml or json).</param>
+        /// <param name="serializer">Specifies which serializer to use to serialize the payload. It will user DataContract as default.</param>
+        /// <returns>Itself.</returns>
+        public Http SetPayload<TPayload>(TPayload payload, Encoding requestEncoding, Format format, Serializer serializer)
+        {
+            var p = string.Empty;
+            if (serializer == Serializer.Xml)
+            {
+                p = XmlSerializerHelper.ToXmlString(payload);
+            }
+            else
+            {
+                p = format == Format.Xml
+                        ? DataContractSerializerHelper.ToXmlString(payload, requestEncoding)
+                        : DataContractSerializerHelper.ToJsonString(payload, requestEncoding);
+            }
             return SetPayload(p);
         }
         /// <summary>
@@ -268,6 +299,11 @@ namespace Global.Http
         {
             byte[] data = !string.IsNullOrEmpty(payload) ? requestEncoding.GetBytes(payload) : requestEncoding.GetBytes(String.Empty);
             WebReq.ContentLength = data.Length;
+            if (WebReq.ContentLength > 0)
+            {
+                using (var dataStream = WebReq.GetRequestStream())
+                    dataStream.Write(data, 0, data.Length);
+            }
             return this;
         }
 

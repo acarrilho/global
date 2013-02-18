@@ -5,7 +5,7 @@ namespace Global.Http
     /// <summary>
     /// Sets the headers to be used in the request.
     /// </summary>
-    public class Header
+    public class Headers
     {
         private WebHeaderCollection _collection;
         /// <summary>
@@ -23,7 +23,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="header">The header.</param>
         /// <returns>Itself.</returns>
-        public Header AddRequestHeader(string header)
+        public Headers AddRequestHeader(string header)
         {
             Collection.Add(header);
             return this;
@@ -34,7 +34,7 @@ namespace Global.Http
         /// <param name="name">The header name.</param>
         /// <param name="value">The header value.</param>
         /// <returns>Itself.</returns>
-        public Header AddRequestHeader(string name, string value)
+        public Headers AddRequestHeader(string name, string value)
         {
             Collection.Add(name, value);
             return this;
@@ -45,7 +45,7 @@ namespace Global.Http
         /// <param name="header">The header name.</param>
         /// <param name="value">The header value.</param>
         /// <returns>Itself.</returns>
-        public Header AddRequestHeader(HttpRequestHeader header, string value)
+        public Headers AddRequestHeader(HttpRequestHeader header, string value)
         {
             Collection.Add(header, value);
             return this;
@@ -56,7 +56,7 @@ namespace Global.Http
         /// <param name="header">The header name.</param>
         /// <param name="value">The header value.</param>
         /// <returns>Itself.</returns>
-        public Header AddResponseHeader(HttpResponseHeader header, string value)
+        public Headers AddResponseHeader(HttpResponseHeader header, string value)
         {
             Collection.Add(header, value);
             return this;

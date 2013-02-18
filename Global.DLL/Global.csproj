@@ -85,12 +85,12 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
-    <Compile Include="Global\MailAddresses.cs" />
+    <Compile Include="Global\Addresses.cs" />
     <Compile Include="Global\Mail.cs" />
-    <Compile Include="Http\Header.cs" />
+    <Compile Include="Http\Headers.cs" />
     <Compile Include="Http\Format.cs" />
     <Compile Include="Http\Http.cs" />
-    <Compile Include="Http\ProxySettings.cs" />
+    <Compile Include="Http\Proxy.cs" />
     <Compile Include="Http\Rest.cs" />
     <Compile Include="Http\Serializer.cs" />
     <Compile Include="Http\UrlBuilder.cs" />

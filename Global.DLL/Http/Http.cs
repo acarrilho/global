@@ -401,9 +401,9 @@ namespace Global.Http
         /// </summary>
         /// <param name="headers">Adds custom headers to the request.</param>
         /// <returns>Itself.</returns>
-        public Http SetHeaders(Func<Header, Header> headers)
+        public Http SetHeaders(Func<Headers, Headers> headers)
         {
-            WebReq.Headers = headers(new Header()).Collection;
+            WebReq.Headers = headers(new Headers()).Collection;
             return this;
         }
 
@@ -454,8 +454,9 @@ namespace Global.Http
         /// </summary>
         /// <param name="webProxy">Add proxy configuration.</param>
         /// <returns>Itself.</returns>
-        public Http SetProxy(Func<ProxySettings, ProxySettings> webProxy)
-        {WebReq.Proxy = webProxy(new ProxySettings()).WebProxy;
+        public Http SetProxy(Func<Proxy, Proxy> webProxy)
+        {
+            WebReq.Proxy = webProxy(new Proxy()).WebProxy;
             return this;
         }
         /// <summary>

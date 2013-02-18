@@ -6,7 +6,7 @@ namespace Global.Http
     /// <summary>
     /// Proxy settings used when making a request.
     /// </summary>
-    public class ProxySettings
+    public class Proxy
     {
         /// <summary>
         /// The IWebProxy class.
@@ -17,7 +17,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="rule">The specified rule.</param>
         /// <returns>Itself.</returns>
-        public ProxySettings AddBypassRule(string rule)
+        public Proxy AddBypassRule(string rule)
         {
             WebProxy.BypassArrayList.Add(rule);
             return this;
@@ -26,7 +26,7 @@ namespace Global.Http
         /// Flag to bypass local request.
         /// </summary>
         /// <returns>Itself.</returns>
-        public ProxySettings BypassLocally()
+        public Proxy BypassLocally()
         {
             WebProxy.BypassProxyOnLocal = true;
             return this;
@@ -36,7 +36,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="url">The specified url.</param>
         /// <returns>Itself.</returns>
-        public ProxySettings Address(string url)
+        public Proxy Address(string url)
         {
             WebProxy.Address = new Uri(url);
             return this;
@@ -46,7 +46,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="uri">The specified uri.</param>
         /// <returns>Itself.</returns>
-        public ProxySettings Address(Uri uri)
+        public Proxy Address(Uri uri)
         {
             WebProxy.Address = uri;
             return this;
@@ -57,7 +57,7 @@ namespace Global.Http
         /// <param name="username">The specified username.</param>
         /// <param name="password">The specified password.</param>
         /// <returns>Itself.</returns>
-        public ProxySettings Credentials(string username, string password)
+        public Proxy Credentials(string username, string password)
         {
             WebProxy.Credentials = new NetworkCredential(username, password);
             return this;
@@ -69,7 +69,7 @@ namespace Global.Http
         /// <param name="password">The specified password.</param>
         /// <param name="domain">The specified domain,</param>
         /// <returns>Itself.</returns>
-        public ProxySettings Credentials(string username, string password, string domain)
+        public Proxy Credentials(string username, string password, string domain)
         {
             WebProxy.Credentials = new NetworkCredential(username, password, domain);
             return this;
@@ -79,7 +79,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="credentials">The specified credentials object.</param>
         /// <returns>Itself.</returns>
-        public ProxySettings Credentials(ICredentials credentials)
+        public Proxy Credentials(ICredentials credentials)
         {
             WebProxy.Credentials = credentials;
             return this;

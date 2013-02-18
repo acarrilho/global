@@ -72,9 +72,9 @@ namespace Global.Global
         ///</summary>
         ///<param name="mailAddresses">The specified addresses to send to.</param>
         ///<returns>The same instance of the mail helper class.</returns>
-        public virtual Mail To(Func<MailAddresses, MailAddresses> mailAddresses)
+        public virtual Mail To(Func<Addresses, Addresses> mailAddresses)
         {
-            foreach (var address in mailAddresses(new MailAddresses()).AddressCollection)
+            foreach (var address in mailAddresses(new Addresses()).AddressCollection)
                 Message.To.Add(address);
 
             return this;
@@ -84,9 +84,9 @@ namespace Global.Global
         ///</summary>
         ///<param name="mailAddresses">The specified addresses to send to.</param>
         ///<returns>The same instance of the mail helper class.</returns>
-        public virtual Mail Cc(Func<MailAddresses, MailAddresses> mailAddresses)
+        public virtual Mail Cc(Func<Addresses, Addresses> mailAddresses)
         {
-            foreach (var address in mailAddresses(new MailAddresses()).AddressCollection)
+            foreach (var address in mailAddresses(new Addresses()).AddressCollection)
                 Message.CC.Add(address);
 
             return this;
@@ -94,11 +94,11 @@ namespace Global.Global
         ///<summary>
         /// Adds a collection of mail addresses to send to.
         ///</summary>
-        ///<param name="mailAddresses">The specified addresses to send to.</param>
+        ///<param name="adresses">The specified addresses to send to.</param>
         ///<returns>The same instance of the mail helper class.</returns>
-        public virtual Mail Bcc(Func<MailAddresses, MailAddresses> mailAddresses)
+        public virtual Mail Bcc(Func<Addresses, Addresses> adresses)
         {
-            foreach (var address in mailAddresses(new MailAddresses()).AddressCollection)
+            foreach (var address in adresses(new Addresses()).AddressCollection)
                 Message.Bcc.Add(address);
 
             return this;

@@ -508,6 +508,15 @@ namespace Global.Http
         /// Sends a specified request.
         /// </summary>
         /// <typeparam name="TReturn">The entity type of the response.</typeparam>
+        /// <returns>The response entity.</returns>
+        public TReturn DoRequest<TReturn>()
+        {
+            return DoRequest<TReturn>(Format.Xml, Serializer.DataContract);
+        }
+        /// <summary>
+        /// Sends a specified request.
+        /// </summary>
+        /// <typeparam name="TReturn">The entity type of the response.</typeparam>
         /// <param name="format">The format of the response (xml or json).</param>
         /// <returns>The response entity.</returns>
         public TReturn DoRequest<TReturn>(Format format)

@@ -319,25 +319,20 @@ namespace Http
                 Console.WriteLine("Url must be supplied.");
                 return false;
             }
-            if (!string.IsNullOrEmpty(args.ProxyCredentialUsername) &&
-                !string.IsNullOrEmpty(args.ProxyCredentialPassword))
+            if (!string.IsNullOrEmpty(args.ProxyCredentialUsername) && !string.IsNullOrEmpty(args.ProxyCredentialPassword))
             {
                 if (!string.IsNullOrEmpty(args.ProxyCredentialDomain))
                 {
-                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername,
-                                                                   args.ProxyCredentialPassword,
-                                                                   args.ProxyCredentialDomain);
+                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword, args.ProxyCredentialDomain);
                 }
                 else
                 {
-                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername,
-                                                                   args.ProxyCredentialPassword);
+                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword);
                 }
             }
             if (args.ProxyAddBypassRule != null && args.ProxyAddBypassRule.Count > 0)
             {
-                foreach (var bypass in args.ProxyAddBypassRule)
-                    args.Proxy.BypassArrayList.Add(bypass);
+                foreach (var bypass in args.ProxyAddBypassRule) args.Proxy.BypassArrayList.Add(bypass);
             }
 
             return true;

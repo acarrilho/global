@@ -335,7 +335,7 @@ namespace Global.Http
         /// <summary>
         /// Specifies the content type header.
         /// </summary>
-        public string ContentType { get { return WebReq.ContentType; } set { WebReq.ContentType = value; } }
+        public string ContentType { get { return string.IsNullOrEmpty(WebReq.ContentType) ? "text/xml" : WebReq.ContentType; } set { WebReq.ContentType = value; } }
         /// <summary>
         /// Specifies the content type header.
         /// </summary>
@@ -494,6 +494,7 @@ namespace Global.Http
         public Http (string url)
         {
             WebReq = (HttpWebRequest)WebRequest.Create(url);
+            Initialize();
         }
         /// <summary>
         /// Initializes the Http class.
@@ -502,6 +503,15 @@ namespace Global.Http
         public Http(Func<UrlBuilder, UrlBuilder> builder)
         {
             WebReq = (HttpWebRequest)WebRequest.Create(builder(new UrlBuilder()).Build());
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes some default configurations for this request. These can be changed using either the fluent api or the properties.
+        /// </summary>
+        private void Initialize()
+        {
+            SetContentType("text/xml");
         }
 
         /// <summary>

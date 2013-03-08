@@ -51,7 +51,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Global.DLL\Global.csproj">
+    <ProjectReference Include="..\Global\Global.csproj">
       <Project>{C05E6DEB-32E7-463A-BDFA-45D6E53D79B7}</Project>
       <Name>Global</Name>
     </ProjectReference>

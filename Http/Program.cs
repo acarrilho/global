@@ -76,6 +76,8 @@ namespace Http
             Console.WriteLine("              -> UTF32");
             Console.WriteLine("              -> UTF7");
             Console.WriteLine("              -> UTF8");
+            Console.WriteLine("  -p       (Payload)");
+            Console.WriteLine("           The actual payload.");
             Console.WriteLine("  -pe      (PayloadEncoding)");
             Console.WriteLine("           The encoding to be used when encoding the post data.");
             Console.WriteLine("              -> ASCII");
@@ -202,10 +204,18 @@ namespace Http
                             }
                             argsObj.PayloadEncoding = Common.StringToEnum<Encoding>(args[i + 1]);
                             break;
+                        case "-p":
+                            if (string.IsNullOrEmpty(args[i + 1]))
+                            {
+                                Console.WriteLine("Must supply value for -p.");
+                                return null;
+                            }
+                            argsObj.Payload = args[i + 1];
+                            break;
                         case "-pp":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
-                                Console.WriteLine("Must supply value for -pdp.");
+                                Console.WriteLine("Must supply value for -pp.");
                                 return null;
                             }
                             argsObj.Payload = IOHelper.GetFileContent(args[i + 1]);
@@ -342,14 +352,15 @@ namespace Http
             if (ValidateArgs(args))
             {
                 var http = new Global.Http.Http(args.Url)
-                    .SetPayload(args.Payload, args.PayloadEncoding)
                     .SetMethod(args.Method)
                     .SetContentType(args.ContentType)
-                    .SetUserAgent(args.UserAgent)
-                    .SetCredentials(args.Credential)
-                    .SetProxy(args.Proxy)
-                    .SetResponseEncoding(args.ResponseEncoding);
+                    //.SetPayload(args.Payload, args.PayloadEncoding)
+                    .SetUserAgent(args.UserAgent);
+                    //.SetCredentials(args.Credential)
+                    //.SetProxy(args.Proxy)
+                    //.SetResponseEncoding(args.ResponseEncoding);
 
+                http.Payload = args.Payload;
                 if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
                 if (args.Timeout != null) http.Timeout = (int)args.Timeout;
                 if (args.Header != null && args.Header.Count > 0)

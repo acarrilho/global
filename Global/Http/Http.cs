@@ -198,13 +198,10 @@ namespace Global.Http
         {
             set
             {
-                byte[] data = !String.IsNullOrEmpty(value) ? RequestEncoding.GetBytes(value) : RequestEncoding.GetBytes(String.Empty);
+                var data = !String.IsNullOrEmpty(value) ? RequestEncoding.GetBytes(value) : RequestEncoding.GetBytes(String.Empty);
                 WebReq.ContentLength = data.Length;
-                if (WebReq.ContentLength > 0)
-                {
-                    using (var dataStream = WebReq.GetRequestStream())
-                        dataStream.Write(data, 0, data.Length);
-                }
+                if (WebReq.ContentLength <= 0) return;
+                using (var dataStream = WebReq.GetRequestStream()) dataStream.Write(data, 0, data.Length);
             }
         }
         /// <summary>

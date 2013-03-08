@@ -10,3 +10,8 @@ _ReSharper.*
 *.sqp
 package/
 .hg/
+Global.Test.Console/
+Backup/
+Shared/
+packages/
+Global.sln

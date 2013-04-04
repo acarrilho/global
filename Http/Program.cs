@@ -403,8 +403,8 @@ namespace Http
             private Encoding _payloadEncoding;
             public Encoding PayloadEncoding { get { return _payloadEncoding ?? Encoding.UTF8; } set { _payloadEncoding = value; } }
             public string Payload { get; set; }
-            public NetworkCredential Credential { get; private set; }
 
+            public NetworkCredential Credential { get; private set; }
             public string CredentialUsername
             {
                 set
@@ -413,7 +413,6 @@ namespace Http
                     Credential.UserName = value;
                 }
             }
-
             public string CredentialPassword
             {
                 set
@@ -422,7 +421,6 @@ namespace Http
                     Credential.Password = value;
                 }
             }
-
             public string CredentialDomain
             {
                 set
@@ -433,7 +431,6 @@ namespace Http
             }
 
             public WebProxy Proxy { get; private set; }
-
             public bool ProxyBypassLocally
             {
                 set
@@ -442,7 +439,6 @@ namespace Http
                     Proxy.BypassProxyOnLocal = value;
                 }
             }
-
             public string ProxyAddress
             {
                 set
@@ -491,13 +487,6 @@ namespace Http
                 }
             }
             private ArrayList _proxyAddBypassRule;
-
-            public HttpArgs()
-            {
-                KeepAlive = null;
-                Timeout = null;
-            }
-
             public ArrayList ProxyAddBypassRule
             {
                 get
@@ -510,6 +499,12 @@ namespace Http
                     if (_proxyAddBypassRule == null) _proxyAddBypassRule = new ArrayList();
                     _proxyAddBypassRule.Add(value);
                 }
+            }
+
+            public HttpArgs()
+            {
+                KeepAlive = null;
+                Timeout = null;
             }
 
             public WebHeaderCollection Header { get; set; }

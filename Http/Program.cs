@@ -15,7 +15,6 @@ namespace Http
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             try
             {
-
                 DoRequest(ParseCommand(args));
             }
             catch (Exception ex)
@@ -34,12 +33,12 @@ namespace Http
             Console.WriteLine("***************************************************************");
             Console.WriteLine("*             Name : http requester tool                      *");
             Console.WriteLine("*        Developer : Andre da Silva Carrilho                  *");
-            Console.WriteLine("*             Date : 2013-02-17                               *");
+            Console.WriteLine("*             Date : 2013-04-04                               *");
             Console.WriteLine("*             Blog : http://www.acarrilho.com                 *");
             Console.WriteLine("*           Hosted : https://bitbucket.org/acarrilho/global   *");
             Console.WriteLine("***************************************************************");
-            Console.WriteLine();
-            Console.WriteLine("Type 'http -h' to display the available commands.");
+            //Console.WriteLine();
+            //Console.WriteLine("Type 'http -h' to display the available commands.");
             Console.WriteLine();
         }
         private static void HttpHelp()
@@ -54,11 +53,11 @@ namespace Http
             Console.WriteLine("  -op      (OutputPath)");
             Console.WriteLine("           Outputs the response to a file.");
             Console.WriteLine("           By default the response is outputed to the console.");
-            Console.WriteLine("  -oc      (OutputToScreen)");
+            Console.WriteLine("  -oc      (OutputToConsole)");
             Console.WriteLine("           Defines if the response should be uotput to the console");
             Console.WriteLine("  -m       (Method)");
-            Console.WriteLine("           Http verb. Accepted verbs are GET, POSt, PUT and DELETE.");
-            Console.WriteLine("           Default is GET..");
+            Console.WriteLine("           Http verb. Accepted verbs are GET, POST, PUT and DELETE.");
+            Console.WriteLine("           Default is GET.");
             Console.WriteLine("  -ct      (ContentType)");
             Console.WriteLine("           The content type.");
             Console.WriteLine("  -t       (Timeout)");
@@ -90,7 +89,7 @@ namespace Http
             Console.WriteLine("  -pp      (PayloadPath)");
             Console.WriteLine("           The path of the file that contains the postData.");
             Console.WriteLine("           This is used for POST and PUT requests.");
-            Console.WriteLine("           Typically you'd want to use xl or json.");
+            Console.WriteLine("           Typically you'd want to use xml or json.");
             Console.WriteLine("");
             Console.WriteLine("  -c:u     (Credentials:Username)");
             Console.WriteLine("           Sets the request credential username.");
@@ -113,7 +112,7 @@ namespace Http
             Console.WriteLine("           Adds bypass rules to the proxy settings.");
             Console.WriteLine("");
             Console.WriteLine("  -hd      (Headers)");
-            Console.WriteLine("           Adds headers to the request.");
+            Console.WriteLine("           Adds headers to the request. For multiple headers add multiple -hd arguments.");
             Console.WriteLine("           Something similar to 'Accept-Language:da'.");
         }
         private static HttpArgs ParseCommand(string[] args)
@@ -296,7 +295,7 @@ namespace Http
                         case "-hd":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
-                                Console.WriteLine("Must supply value for -ha.");
+                                Console.WriteLine("Must supply value for -hd.");
                                 return null;
                             }
                             if (argsObj.Header == null) argsObj.Header = new WebHeaderCollection();
@@ -349,6 +348,11 @@ namespace Http
         }
         private static void DoRequest(HttpArgs args)
         {
+            if (args == null)
+            {
+                HttpHelp();
+                return;
+            }
             if (ValidateArgs(args))
             {
                 var http = new Global.Http.Http(args.Url)

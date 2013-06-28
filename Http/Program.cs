@@ -125,9 +125,12 @@ namespace Http
                 {
                     switch (args[i])
                     {
+                        #region help
                         case "-h":
                             argsObj.Help = true;
                             break;
+                        #endregion
+                        #region url
                         case "-u":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -136,9 +139,13 @@ namespace Http
                             }
                             argsObj.Url = args[i + 1];
                             break;
+                        #endregion
+                        #region output to console
                         case "-oc":
                             argsObj.OutputToConsole = true;
                             break;
+                        #endregion
+                        #region output path
                         case "-op":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -147,6 +154,8 @@ namespace Http
                             }
                             argsObj.OutputPath = args[i + 1];
                             break;
+                        #endregion
+                        #region method
                         case "-m":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -155,6 +164,18 @@ namespace Http
                             }
                             argsObj.Method = args[i + 1].ToUpper();
                             break;
+                        #endregion
+                        #region accept
+                        case "-a":
+                            if (string.IsNullOrEmpty(args[i + 1]))
+                            {
+                                Console.WriteLine("Must supply value for -a.");
+                                return null;
+                            }
+                            argsObj.Accept = args[i + 1].ToUpper();
+                            break;
+                        #endregion
+                        #region content type
                         case "-ct":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -163,6 +184,8 @@ namespace Http
                             }
                             argsObj.ContentType = args[i + 1];
                             break;
+                        #endregion
+                        #region timeout
                         case "-t":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -171,6 +194,8 @@ namespace Http
                             }
                             argsObj.Timeout = int.Parse(args[i + 1]);
                             break;
+                        #endregion
+                        #region user agent
                         case "-ua":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -179,6 +204,8 @@ namespace Http
                             }
                             argsObj.UserAgent = args[i + 1];
                             break;
+                        #endregion
+                        #region keep alive
                         case "-ka":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -187,6 +214,8 @@ namespace Http
                             }
                             argsObj.KeepAlive = bool.Parse(args[i + 1]);
                             break;
+                        #endregion
+                        #region response encoding
                         case "-re":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -195,6 +224,8 @@ namespace Http
                             }
                             argsObj.ResponseEncoding = Common.StringToEnum<Encoding>(args[i + 1]);
                             break;
+                        #endregion
+                        #region payload encoding
                         case "-pe":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -203,6 +234,8 @@ namespace Http
                             }
                             argsObj.PayloadEncoding = Common.StringToEnum<Encoding>(args[i + 1]);
                             break;
+                        #endregion
+                        #region payload
                         case "-p":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -211,6 +244,8 @@ namespace Http
                             }
                             argsObj.Payload = args[i + 1];
                             break;
+                        #endregion
+                        #region payload path
                         case "-pp":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -219,6 +254,9 @@ namespace Http
                             }
                             argsObj.Payload = IOHelper.GetFileContent(args[i + 1]);
                             break;
+                        #endregion
+                        #region credentials
+                        #region username
                         case "-c:u":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -227,6 +265,8 @@ namespace Http
                             }
                             argsObj.CredentialUsername = args[i + 1];
                             break;
+                        #endregion
+                        #region password
                         case "-c:p":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -235,7 +275,9 @@ namespace Http
                             }
                             argsObj.CredentialPassword = args[i + 1];
                             break;
-                        case "-o:d":
+                        #endregion
+                        #region domain
+                        case "-c:d":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
                                 Console.WriteLine("Must supply value for -o:d.");
@@ -243,6 +285,10 @@ namespace Http
                             }
                             argsObj.CredentialDomain = args[i + 1];
                             break;
+                        #endregion
+                        #endregion
+                        #region proxy
+                        #region bypass
                         case "-ps:bl":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -251,6 +297,8 @@ namespace Http
                             }
                             argsObj.ProxyBypassLocally = bool.Parse(args[i + 1]);
                             break;
+                        #endregion
+                        #region address
                         case "-ps:a":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -259,6 +307,9 @@ namespace Http
                             }
                             argsObj.ProxyAddress = args[i + 1];
                             break;
+                        #endregion
+                        #region credentials
+                        #region username
                         case "-ps:c:u":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -267,6 +318,8 @@ namespace Http
                             }
                             argsObj.ProxyCredentialUsername = args[i + 1];
                             break;
+                        #endregion
+                        #region password
                         case "-ps:c:p":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -275,6 +328,8 @@ namespace Http
                             }
                             argsObj.ProxyCredentialPassword = args[i + 1];
                             break;
+                        #endregion
+                        #region domain
                         case "-ps:c:d":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -283,6 +338,9 @@ namespace Http
                             }
                             argsObj.ProxyCredentialDomain = args[i + 1];
                             break;
+                        #endregion
+                        #endregion
+                        #region add bypass rule
                         case "-ps:ab":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -292,6 +350,9 @@ namespace Http
                             if (argsObj.ProxyAddBypassRule == null) argsObj.ProxyAddBypassRule = new ArrayList();
                             argsObj.ProxyAddBypassRule.Add(args[i + 1]);
                             break;
+                        #endregion
+                        #endregion
+                        #region headers
                         case "-hd":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
@@ -301,6 +362,7 @@ namespace Http
                             if (argsObj.Header == null) argsObj.Header = new WebHeaderCollection();
                             argsObj.Header.Add(args[i + 1]);
                             break;
+                        #endregion
                     }
                 }
                 return argsObj;
@@ -358,17 +420,13 @@ namespace Http
                 var http = new Global.Http.Http(args.Url)
                     .SetMethod(args.Method)
                     .SetContentType(args.ContentType)
-                    //.SetPayload(args.Payload, args.PayloadEncoding)
                     .SetUserAgent(args.UserAgent);
-                    //.SetCredentials(args.Credential)
-                    //.SetProxy(args.Proxy)
-                    //.SetResponseEncoding(args.ResponseEncoding);
 
                 http.Payload = args.Payload;
                 if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
                 if (args.Timeout != null) http.Timeout = (int)args.Timeout;
-                if (args.Header != null && args.Header.Count > 0)
-                    http.Headers = args.Header;
+                if (args.Header != null && args.Header.Count > 0) http.Headers = args.Header;
+                if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
 
                 var response = http.DoRequest();
 
@@ -398,6 +456,7 @@ namespace Http
                 get { return _method ?? "GET"; }
                 set { _method = value; }
             }
+            public string Accept { get; set; }
             public string ContentType { get; set; }
             public int? Timeout { get; set; }
             public string UserAgent { get; set; }

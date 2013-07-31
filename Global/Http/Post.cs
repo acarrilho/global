@@ -12,13 +12,20 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Post(string url) : base(url) { }
+        public Post(string url) : base(url)
+        {
+            SetMethod("POST");
+        }
 
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Post(Func<UrlBuilder, UrlBuilder> builder) : base(builder) { }
+        public Post(Func<UrlBuilder, UrlBuilder> builder)
+            : base(builder)
+        {
+            SetMethod("POST");
+        }
 
         /// <summary>
         /// Does a post request.
@@ -29,7 +36,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format, string payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(format);
         }
@@ -43,7 +49,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(format);
         }
@@ -58,7 +63,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Encoding payloadEncoding)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding);
             return DoRequest<TReturn>(format);
         }
@@ -73,7 +77,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadFormat);
             return DoRequest<TReturn>(format);
         }
@@ -89,7 +92,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Encoding payloadEncoding, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat);
             return DoRequest<TReturn>(format);
         }
@@ -104,7 +106,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadSerializer);
             return DoRequest<TReturn>(format);
         }
@@ -120,7 +121,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Encoding payloadEncoding, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadSerializer);
             return DoRequest<TReturn>(format);
         }
@@ -137,7 +137,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, TPayload payload, Encoding payloadEncoding, Format payloadFormat, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat, payloadSerializer);
             return DoRequest<TReturn>(format);
         }
@@ -150,7 +149,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Serializer serializer, string payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(serializer);
         }
@@ -164,7 +162,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(serializer);
         }
@@ -179,7 +176,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Encoding payloadEncoding)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding);
             return DoRequest<TReturn>(serializer);
         }
@@ -194,7 +190,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadFormat);
             return DoRequest<TReturn>(serializer);
         }
@@ -210,7 +205,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Encoding payloadEncoding, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat);
             return DoRequest<TReturn>(serializer);
         }
@@ -225,7 +219,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadSerializer);
             return DoRequest<TReturn>(serializer);
         }
@@ -241,7 +234,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Encoding payloadEncoding, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadSerializer);
             return DoRequest<TReturn>(serializer);
         }
@@ -258,7 +250,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Serializer serializer, TPayload payload, Encoding payloadEncoding, Format payloadFormat, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat, payloadSerializer);
             return DoRequest<TReturn>(serializer);
         }
@@ -272,7 +263,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format, Serializer serializer, string payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -287,7 +277,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -303,7 +292,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Encoding payloadEncoding)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -319,7 +307,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadFormat);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -336,7 +323,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Encoding payloadEncoding, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -352,7 +338,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadSerializer);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -369,7 +354,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Encoding payloadEncoding, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadSerializer);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -387,7 +371,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(Format format, Serializer serializer, TPayload payload, Encoding payloadEncoding, Format payloadFormat, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat, payloadSerializer);
             return DoRequest<TReturn>(format, serializer);
         }
@@ -399,7 +382,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(string payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>();
         }
@@ -412,7 +394,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest<TReturn>();
         }
@@ -426,7 +407,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Encoding payloadEncoding)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding);
             return DoRequest<TReturn>();
         }
@@ -440,7 +420,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadFormat);
             return DoRequest<TReturn>();
         }
@@ -455,7 +434,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Encoding payloadEncoding, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat);
             return DoRequest<TReturn>();
         }
@@ -469,7 +447,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadSerializer);
             return DoRequest<TReturn>();
         }
@@ -484,7 +461,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Encoding payloadEncoding, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadSerializer);
             return DoRequest<TReturn>();
         }
@@ -500,7 +476,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TPayload, TReturn>(TPayload payload, Encoding payloadEncoding, Format payloadFormat, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat, payloadSerializer);
             return DoRequest<TReturn>();
         }
@@ -511,7 +486,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do(string payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest();
         }
@@ -523,7 +497,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload)
         {
-            SetMethod("POST");
             SetPayload(payload);
             return DoRequest();
         }
@@ -536,7 +509,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Encoding payloadEncoding)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding);
             return DoRequest();
         }
@@ -549,7 +521,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadFormat);
             return DoRequest();
         }
@@ -563,7 +534,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Encoding payloadEncoding, Format payloadFormat)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat);
             return DoRequest();
         }
@@ -576,7 +546,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadSerializer);
             return DoRequest();
         }
@@ -590,7 +559,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Encoding payloadEncoding, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadSerializer);
             return DoRequest();
         }
@@ -605,7 +573,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public string Do<TPayload>(TPayload payload, Encoding payloadEncoding, Format payloadFormat, Serializer payloadSerializer)
         {
-            SetMethod("POST");
             SetPayload(payload, payloadEncoding, payloadFormat, payloadSerializer);
             return DoRequest();
         }

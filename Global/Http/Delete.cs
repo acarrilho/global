@@ -11,13 +11,21 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Delete(string url) : base(url) { }
+        public Delete(string url)
+            : base(url)
+        {
+            SetMethod("DELETE");
+        }
 
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Delete(Func<UrlBuilder, UrlBuilder> builder) : base(builder) { }
+        public Delete(Func<UrlBuilder, UrlBuilder> builder)
+            : base(builder)
+        {
+            SetMethod("DELETE");
+        }
 
         /// <summary>
         /// Does a delete request.
@@ -25,7 +33,6 @@ namespace Global.Http
         /// <returns>The response entity.</returns>
         public string Do()
         {
-            SetMethod("DELETE");
             return DoRequest();
         }
         /// <summary>
@@ -36,7 +43,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format)
         {
-            SetMethod("DELETE");
             return DoRequest<TReturn>(format);
         }
         /// <summary>
@@ -47,7 +53,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Serializer serializer)
         {
-            SetMethod("DELETE");
             return DoRequest<TReturn>(serializer);
         }
         /// <summary>
@@ -59,7 +64,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format, Serializer serializer)
         {
-            SetMethod("DELETE");
             return DoRequest<TReturn>(format, serializer);
         }
         /// <summary>
@@ -69,7 +73,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>()
         {
-            SetMethod("DELETE");
             return DoRequest<TReturn>();
         }
     }

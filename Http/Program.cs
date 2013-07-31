@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Global;
+using Global.Http;
 using Global.IO;
 
 namespace Http
@@ -15,6 +16,23 @@ namespace Http
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             try
             {
+                #region force arguments
+                //args = new string[11]
+                //    {
+                //        "-u",
+                //        "http://web.vodott.vodafone.pt/WatchPageLiveWebService/Assets.svc/play/",
+                //        "-ct",
+                //        "text/xml", 
+                //        "-ua", 
+                //        "Vodafone TV Net Voz/2.0/iOSQXBwbGUgIGlQaG9uZTUsMiA2LjEuMw==", 
+                //        "-oc",
+                //        "-m",
+                //        "POST",
+                //        "-p",
+                //        "<play><asset>rtp 1</asset><parameter><key>token</key><value>kZ1fOZrzeOQnK8t8exJ9Q</value></parameter></play>"
+                //    };
+                #endregion
+
                 DoRequest(ParseCommand(args));
             }
             catch (Exception ex)
@@ -417,11 +435,8 @@ namespace Http
             }
             if (ValidateArgs(args))
             {
-                var http = new Global.Http.Http(args.Url)
-                    .SetMethod(args.Method)
-                    .SetContentType(args.ContentType)
-                    .SetUserAgent(args.UserAgent);
-
+                var http = new Global.Http.Http(args.Url).SetMethod(args.Method).SetContentType(args.ContentType).SetUserAgent(args.UserAgent);
+            
                 http.Payload = args.Payload;
                 if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
                 if (args.Timeout != null) http.Timeout = (int)args.Timeout;

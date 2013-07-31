@@ -11,12 +11,20 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Get(string url) : base(url) { }
+        public Get(string url)
+            : base(url)
+        {
+            SetMethod("GET");
+        }
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Get(Func<UrlBuilder, UrlBuilder> builder) : base(builder) { }
+        public Get(Func<UrlBuilder, UrlBuilder> builder)
+            : base(builder)
+        {
+            SetMethod("GET");
+        }
 
         /// <summary>
         /// Does a get request.
@@ -24,7 +32,6 @@ namespace Global.Http
         /// <returns>A string with the response.</returns>
         public string Do()
         {
-            SetMethod("GET");
             return DoRequest();
         }
         /// <summary>
@@ -35,7 +42,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format)
         {
-            SetMethod("GET");
             return DoRequest<TReturn>(format);
         }
         /// <summary>
@@ -46,7 +52,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Serializer serializer)
         {
-            SetMethod("GET");
             return DoRequest<TReturn>(serializer);
         }
         /// <summary>
@@ -58,7 +63,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>(Format format, Serializer serializer)
         {
-            SetMethod("GET");
             return DoRequest<TReturn>(format, serializer);
         }
         /// <summary>
@@ -68,7 +72,6 @@ namespace Global.Http
         /// <returns>The response.</returns>
         public TReturn Do<TReturn>()
         {
-            SetMethod("GET");
             return DoRequest<TReturn>();
         }
     }

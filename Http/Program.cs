@@ -3,36 +3,26 @@ using System.Collections;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using Global;
-using Global.Http;
 using Global.IO;
 
 namespace Http
 {
+    /// <summary>
+    /// a kind of wget/curl for .net users. it's an entire army but gets the stuff done for the most part.
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Entry point that receives the arguments.
+        /// </summary>
+        /// <param name="args">a list of arguments to be passed into the request.</param>
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             try
             {
-                #region force arguments
-                //args = new string[11]
-                //    {
-                //        "-u",
-                //        "http://web.vodott.vodafone.pt/WatchPageLiveWebService/Assets.svc/play/",
-                //        "-ct",
-                //        "text/xml", 
-                //        "-ua", 
-                //        "Vodafone TV Net Voz/2.0/iOSQXBwbGUgIGlQaG9uZTUsMiA2LjEuMw==", 
-                //        "-oc",
-                //        "-m",
-                //        "POST",
-                //        "-p",
-                //        "<play><asset>rtp 1</asset><parameter><key>token</key><value>kZ1fOZrzeOQnK8t8exJ9Q</value></parameter></play>"
-                //    };
-                #endregion
-
                 DoRequest(ParseCommand(args));
             }
             catch (Exception ex)
@@ -45,6 +35,9 @@ namespace Http
             }
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+        /// <summary>
+        /// builds the header when help is displayed.
+        /// </summary>
         private static void Header()
         {
             Console.WriteLine();
@@ -59,6 +52,9 @@ namespace Http
             //Console.WriteLine("Type 'http -h' to display the available commands.");
             Console.WriteLine();
         }
+        /// <summary>
+        /// builds the help menu.
+        /// </summary>
         private static void HttpHelp()
         {
             Header();
@@ -132,7 +128,14 @@ namespace Http
             Console.WriteLine("  -hd      (Headers)");
             Console.WriteLine("           Adds headers to the request. For multiple headers add multiple -hd arguments.");
             Console.WriteLine("           Something similar to 'Accept-Language:da'.");
+            Console.WriteLine("  -rx      (Regex)");
+            Console.WriteLine("           A regex that will return the matched string from the response.");
         }
+        /// <summary>
+        /// parses the arguments input by the user.
+        /// </summary>
+        /// <param name="args">the list of arguments input by the user.</param>
+        /// <returns></returns>
         private static HttpArgs ParseCommand(string[] args)
         {
             if (args != null && args.Length > 0)
@@ -381,6 +384,16 @@ namespace Http
                             argsObj.Header.Add(args[i + 1]);
                             break;
                         #endregion
+                        #region regex
+                        case "-rx":
+                            if (string.IsNullOrEmpty(args[i + 1]))
+                            {
+                                Console.WriteLine("Must supply value for -rx.");
+                                return null;
+                            }
+                            argsObj.Regex = args[i + 1];
+                            break;
+                        #endregion
                     }
                 }
                 return argsObj;
@@ -391,6 +404,11 @@ namespace Http
             //Console.WriteLine("Must call http command with valid arguments.");
             //HttpHelp();
         }
+        /// <summary>
+        /// validates if the arguments are correct. eg: the url is a required argument.
+        /// </summary>
+        /// <param name="args">the specified list of arguments.</param>
+        /// <returns>a boolean indicating if the arguments are correct.</returns>
         private static bool ValidateArgs(HttpArgs args)
         {
             if (args == null)
@@ -410,14 +428,9 @@ namespace Http
             }
             if (!string.IsNullOrEmpty(args.ProxyCredentialUsername) && !string.IsNullOrEmpty(args.ProxyCredentialPassword))
             {
-                if (!string.IsNullOrEmpty(args.ProxyCredentialDomain))
-                {
-                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword, args.ProxyCredentialDomain);
-                }
-                else
-                {
-                    args.Proxy.Credentials = new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword);
-                }
+                args.Proxy.Credentials = !string.IsNullOrEmpty(args.ProxyCredentialDomain) 
+                    ? new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword, args.ProxyCredentialDomain) 
+                    : new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword);
             }
             if (args.ProxyAddBypassRule != null && args.ProxyAddBypassRule.Count > 0)
             {
@@ -426,6 +439,10 @@ namespace Http
 
             return true;
         }
+        /// <summary>
+        /// does the actual http request.
+        /// </summary>
+        /// <param name="args">the list of parsed arguments.</param>
         private static void DoRequest(HttpArgs args)
         {
             if (args == null)
@@ -435,7 +452,10 @@ namespace Http
             }
             if (ValidateArgs(args))
             {
-                var http = new Global.Http.Http(args.Url).SetMethod(args.Method).SetContentType(args.ContentType).SetUserAgent(args.UserAgent);
+                var http = new Global.Http.Http(args.Url)
+                    .SetMethod(args.Method)
+                    .SetContentType(args.ContentType)
+                    .SetUserAgent(args.UserAgent);
             
                 http.Payload = args.Payload;
                 if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
@@ -444,6 +464,15 @@ namespace Http
                 if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
 
                 var response = http.DoRequest();
+
+                if (!string.IsNullOrEmpty(args.Regex))
+                {
+                    var m = new Regex(args.Regex).Match(response);
+                    if (m.Success)
+                    {
+                        response = m.Value;
+                    }
+                }
 
                 if (!string.IsNullOrEmpty(args.OutputPath))
                 {
@@ -459,6 +488,10 @@ namespace Http
                 Console.WriteLine("Request was successfully made.");
             }
         }
+
+        /// <summary>
+        /// when the input user arguments are parsed it goes into this class to be used when making the http request.
+        /// </summary>
         private class HttpArgs
         {
             public bool Help { get; set; }
@@ -586,6 +619,8 @@ namespace Http
             }
 
             public WebHeaderCollection Header { get; set; }
+
+            public string Regex { get; set; }
         }
     }
 }

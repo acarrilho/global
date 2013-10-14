@@ -131,7 +131,7 @@ namespace Global.IO
             }
 
             // Create the destination directory
-            if (destinationDirectory.Exists == false)
+            if (!destinationDirectory.Exists)
             {
                 destinationDirectory.Create();
             }

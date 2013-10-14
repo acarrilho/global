@@ -10,6 +10,8 @@ namespace Global.Security
     ///</summary>
     public class CryptoHelper
     {
+        // RTAIAPAURLDKMLPP
+
         /// <summary>
         /// Local variable for setting/getting the encoding of the text to be encrypted/decrypted.
         /// </summary>

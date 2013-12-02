@@ -84,7 +84,7 @@ namespace Global
         /// <returns>A boolean indicating if the list is valid or not.</returns>
         public static bool IsNullOrEmpty<TDocument>(this IEnumerable<TDocument> list)
         {
-            return list == null || list.Count() <= 0;
+            return list == null || !list.Any();
         }
         /// <summary>
         /// Converts from unix time to C#'s DateTime format.

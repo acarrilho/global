@@ -409,7 +409,7 @@ namespace Http
         /// </summary>
         /// <param name="args">the specified list of arguments.</param>
         /// <returns>a boolean indicating if the arguments are correct.</returns>
-        private static bool ValidateArgs(HttpArgs args)
+        private static bool AreArgsValid(HttpArgs args)
         {
             if (args == null)
             {
@@ -445,48 +445,53 @@ namespace Http
         /// <param name="args">the list of parsed arguments.</param>
         private static void DoRequest(HttpArgs args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("--- BEGIN");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+
             if (args == null)
             {
                 HttpHelp();
                 return;
             }
-            if (ValidateArgs(args))
-            {
-                var http = new Global.Http.Http(args.Url)
-                    .SetMethod(args.Method)
-                    .SetContentType(args.ContentType)
-                    .SetUserAgent(args.UserAgent);
+            if (!AreArgsValid(args)) return;
+            var http = new Global.Http.Http(args.Url)
+                .SetMethod(args.Method)
+                .SetContentType(args.ContentType)
+                .SetUserAgent(args.UserAgent);
             
-                http.Payload = args.Payload;
-                if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
-                if (args.Timeout != null) http.Timeout = (int)args.Timeout;
-                if (args.Header != null && args.Header.Count > 0) http.Headers = args.Header;
-                if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
+            http.Payload = args.Payload;
+            if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
+            if (args.Timeout != null) http.Timeout = (int)args.Timeout;
+            if (args.Header != null && args.Header.Count > 0) http.Headers = args.Header;
+            if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
 
-                var response = http.DoRequest();
+            var response = http.DoRequest();
 
-                if (!string.IsNullOrEmpty(args.Regex))
+            if (!string.IsNullOrEmpty(args.Regex))
+            {
+                var m = new Regex(args.Regex).Matches(response);
+                if (m.Count > 0)
                 {
-                    var m = new Regex(args.Regex).Match(response);
-                    if (m.Success)
+                    response = string.Empty;
+                    for (var i = 0; i < m.Count; i++)
                     {
-                        response = m.Value;
+                        response += m[i] + (i < m.Count - 1 ? "\n" : "");
                     }
                 }
-
-                if (!string.IsNullOrEmpty(args.OutputPath))
-                {
-                    using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
-                }
-                else if (args.OutputToConsole)
-                {
-                    Console.WriteLine(response);
-                }
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("");
-                Console.WriteLine("Request was successfully made.");
             }
+
+            if (!string.IsNullOrEmpty(args.OutputPath))
+            {
+                using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
+            }
+            else if (args.OutputToConsole)
+            {
+                Console.WriteLine(response);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("--- END");
         }
 
         /// <summary>

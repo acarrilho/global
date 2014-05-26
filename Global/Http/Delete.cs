@@ -11,18 +11,15 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Delete(string url)
-            : base(url)
+        public Delete(string url) : base(url)
         {
             SetMethod("DELETE");
         }
-
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Delete(Func<UrlBuilder, UrlBuilder> builder)
-            : base(builder)
+        public Delete(Func<UrlBuilder, UrlBuilder> builder) : base(builder)
         {
             SetMethod("DELETE");
         }

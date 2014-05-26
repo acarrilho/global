@@ -12,18 +12,15 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Put(string url)
-            : base(url)
+        public Put(string url) : base(url)
         {
             SetMethod("PUT");
         }
-
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Put(Func<UrlBuilder, UrlBuilder> builder)
-            : base(builder)
+        public Put(Func<UrlBuilder, UrlBuilder> builder) : base(builder)
         {
             SetMethod("PUT");
         }

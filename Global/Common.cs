@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -119,6 +120,57 @@ namespace Global
             if (skip > 0) queryable = queryable.Skip(skip);
             if (take > 0) queryable = queryable.Take(take);
             return queryable.ToList();
+        }
+
+        /// <summary>
+        /// Gets a specified setting in the AppSettings section in the configuration file.
+        /// </summary>
+        /// <param name="key">A name identifying the setting value.</param>
+        /// <returns></returns>
+        public static string AppSetting(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
+        }
+
+        /// <summary>
+        /// Gets a specified setting in the AppSettings section in the configuration file.
+        /// </summary>
+        /// <param name="index">The index of the setting value.</param>
+        /// <returns></returns>
+        public static string AppSetting(int index)
+        {
+            return ConfigurationManager.AppSettings[index];
+        }
+
+        /// <summary>
+        /// Gets a specified connection string in the ConnectionsStrings section in the configuration file.
+        /// </summary>
+        /// <param name="name">A name identifying the connection string value.</param>
+        /// <returns></returns>
+        public static string ConnectionString(string name)
+        {
+            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+        }
+
+        /// <summary>
+        /// Gets a specified connection string in the ConnectionsStrings section in the configuration file.
+        /// </summary>
+        /// <param name="index">The index of the setting value.</param>
+        /// <returns></returns>
+        public static string ConnectionString(int index)
+        {
+            return ConfigurationManager.ConnectionStrings[index].ConnectionString;
+        }
+
+        ///<summary>
+        /// Loads a specified configuration section in the configuration file.
+        ///</summary>
+        ///<param name="sectionName">The configuration section name.</param>
+        ///<typeparam name="TReturn">The configuration section object class.</typeparam>
+        ///<returns>The configuration section object.</returns>
+        public static TReturn LoadConfigurationSection<TReturn>(string sectionName)
+        {
+            return (TReturn)ConfigurationManager.GetSection(sectionName);
         }
     }
 }

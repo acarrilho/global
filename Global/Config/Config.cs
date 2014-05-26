@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 
 namespace Global.Config
@@ -5,6 +6,7 @@ namespace Global.Config
     ///<summary>
     /// Performs current actions with the configuration files.
     ///</summary>
+    [Obsolete("Methods were renamed and moved to Common.")]
     public class ConfigHelper
     {
         /// <summary>

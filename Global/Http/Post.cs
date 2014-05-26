@@ -16,13 +16,11 @@ namespace Global.Http
         {
             SetMethod("POST");
         }
-
         /// <summary>
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Post(Func<UrlBuilder, UrlBuilder> builder)
-            : base(builder)
+        public Post(Func<UrlBuilder, UrlBuilder> builder) : base(builder)
         {
             SetMethod("POST");
         }

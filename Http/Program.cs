@@ -446,7 +446,7 @@ namespace Http
         private static void DoRequest(HttpArgs args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("--- BEGIN");
+            //Console.WriteLine("--- BEGIN");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
             if (args == null)
@@ -466,32 +466,49 @@ namespace Http
             if (args.Header != null && args.Header.Count > 0) http.Headers = args.Header;
             if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
 
+            var started = DateTime.Now;
             var response = http.DoRequest();
-
-            if (!string.IsNullOrEmpty(args.Regex))
+            var ended = DateTime.Now;
+            if (http.Response != null && http.Response.IsSuccessStatusCode)
             {
-                var m = new Regex(args.Regex).Matches(response);
-                if (m.Count > 0)
+                if (!string.IsNullOrEmpty(args.Regex))
                 {
-                    response = string.Empty;
-                    for (var i = 0; i < m.Count; i++)
+                    var m = new Regex(args.Regex, RegexOptions.IgnoreCase | RegexOptions.Multiline).Matches(response);
+                    if (m.Count > 0)
                     {
-                        response += m[i] + (i < m.Count - 1 ? "\n" : "");
+                        response = string.Empty;
+                        for (var i = 0; i < m.Count; i++)
+                        {
+                            response += m[i] + (i < m.Count - 1 ? "\n" : "");
+                        }
+                    }
+                    else
+                    {
+                        response = "No matches were found!";
                     }
                 }
-            }
 
-            if (!string.IsNullOrEmpty(args.OutputPath))
-            {
-                using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
+                if (!string.IsNullOrEmpty(args.OutputPath))
+                {
+                    using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
+                }
+                else if (args.OutputToConsole)
+                {
+                    Console.WriteLine(response);
+                }
             }
-            else if (args.OutputToConsole)
+            else if (http.Response != null)
             {
-                Console.WriteLine(response);
+                Console.WriteLine("The request failed with status {0} and Message: {1}", http.Response.StatusCode, http.Response.ReasonPhrase);
+            }
+            else
+            {
+                Console.WriteLine("The request simply failed.");
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("--- END");
+            //Console.WriteLine("--- END");
+            Console.WriteLine("Request took {0} seconds", new TimeSpan((ended-started).Ticks).TotalSeconds);
         }
 
         /// <summary>

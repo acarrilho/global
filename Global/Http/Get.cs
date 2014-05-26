@@ -11,8 +11,7 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Get(string url)
-            : base(url)
+        public Get(string url) : base(url)
         {
             SetMethod("GET");
         }
@@ -20,8 +19,7 @@ namespace Global.Http
         /// Initializes the Http class.
         /// </summary>
         /// <param name="builder">The function to build the url.</param>
-        public Get(Func<UrlBuilder, UrlBuilder> builder)
-            : base(builder)
+        public Get(Func<UrlBuilder, UrlBuilder> builder) : base(builder)
         {
             SetMethod("GET");
         }

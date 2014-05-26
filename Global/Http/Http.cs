@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using Global.Serialization;
@@ -13,17 +14,9 @@ namespace Global.Http
     public class Http
     {
         /// <summary>
-        /// Specified the http status of the http response.
+        /// Indicates the status of the request after it finished to help catch non 200 http responses.
         /// </summary>
-        public string HttpStatus { get; set; }
-        /// <summary>
-        /// Specifies the http status code of the http response.
-        /// </summary>
-        public int HttpStatusCode { get; set; }
-        /// <summary>
-        /// Specifies the http status description of the http response.
-        /// </summary>
-        public string HttpStatusDescription { get; set; }
+        public HttpResponseMessage Response { get; set; }
 
         /// <summary>
         /// Specifies the transfer-encoding header.
@@ -87,7 +80,7 @@ namespace Global.Http
         /// <summary>
         /// Specifies the range header.
         /// </summary>
-        public int[] RangeFromTo { set { if(value.Length == 2) WebReq.AddRange(value[0], value[1]); } }
+        public int[] RangeFromTo { set { if (value.Length == 2) WebReq.AddRange(value[0], value[1]); } }
         /// <summary>
         /// Specifies the range header.
         /// </summary>
@@ -171,7 +164,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetMethod(string method)
         {
-            if(!string.IsNullOrEmpty(method)) WebReq.Method = method;
+            if (!string.IsNullOrEmpty(method)) WebReq.Method = method;
             return this;
         }
 
@@ -187,7 +180,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetRequestEncoding(Encoding requestEncoding)
         {
-            if(requestEncoding != null) _requestEncoding = requestEncoding;
+            if (requestEncoding != null) _requestEncoding = requestEncoding;
             return this;
         }
 
@@ -415,7 +408,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetCredentials(ICredentials credentials)
         {
-            if(credentials != null) WebReq.Credentials = credentials;
+            if (credentials != null) WebReq.Credentials = credentials;
             return this;
         }
         /// <summary>
@@ -463,7 +456,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetProxy(IWebProxy webProxy)
         {
-            if(webProxy != null) WebReq.Proxy = webProxy;
+            if (webProxy != null) WebReq.Proxy = webProxy;
             return this;
         }
 
@@ -488,7 +481,7 @@ namespace Global.Http
         /// Initializes the http helper class.
         /// </summary>
         /// <param name="url">The request url.</param>
-        public Http (string url)
+        public Http(string url)
         {
             WebReq = (HttpWebRequest)WebRequest.Create(url);
             Initialize();
@@ -550,14 +543,16 @@ namespace Global.Http
         public TReturn DoRequest<TReturn>(Format format, Serializer serializer)
         {
             var response = DoRequest();
-            if (serializer == Serializer.Xml)
+            if (Response!= null && Response.IsSuccessStatusCode && response != null)
             {
-                return XmlSerializerHelper.FromXmlString<TReturn>(response);
+                var result = (serializer == Serializer.Xml)
+                    ? XmlSerializerHelper.FromXmlString<TReturn>(response)
+                    : format == Format.Xml
+                        ? DataContractSerializerHelper.FromXmlString<TReturn>(response)
+                        : DataContractSerializerHelper.FromJsonString<TReturn>(response, _responseEncoding);
+                return result;
             }
-
-            return format == Format.Xml
-                ? DataContractSerializerHelper.FromXmlString<TReturn>(response)
-                : DataContractSerializerHelper.FromJsonString<TReturn>(response, _responseEncoding);
+            return default(TReturn);
         }
         /// <summary>
         /// Sends a specified request.
@@ -565,12 +560,12 @@ namespace Global.Http
         /// <returns>A string containing the response.</returns>
         public string DoRequest()
         {
-            HttpWebResponse webResp = null;
+            HttpWebResponse webResp;
             try
             {
+                string response;
                 //requests the data
                 webResp = (HttpWebResponse)WebReq.GetResponse();
-                string response;
                 // Get the stream associated with the response.
                 using (var receiveStream = webResp.GetResponseStream())
                 {
@@ -579,18 +574,22 @@ namespace Global.Http
                     using (var readStream = new StreamReader(receiveStream, (_responseEncoding ?? Encoding.UTF8)))
                         response = readStream.ReadToEnd();
                 }
+                Response = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
                 return response;
             }
-            finally
+            catch (WebException webException)
             {
-                // Close web response
-                if (webResp != null)
+                if (webException.Status == WebExceptionStatus.ProtocolError)
                 {
-                    HttpStatus = webResp.StatusCode.ToString();
-                    HttpStatusCode = (int)webResp.StatusCode;
-                    HttpStatusDescription = webResp.StatusDescription;
-                    webResp.Close();
+                    webResp = webException.Response as HttpWebResponse;
+                    if (webResp != null)
+                    {
+                        Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webException.Message};
+                        webResp.Close();
+                        return null;
+                    }
                 }
+                throw;
             }
         }
     }

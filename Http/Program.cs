@@ -469,6 +469,9 @@ namespace Http
             var started = DateTime.Now;
             var response = http.DoRequest();
             var ended = DateTime.Now;
+
+            Console.WriteLine("Request completed with a status code of {0} ({1})", http.Response.StatusCode, (int)http.Response.StatusCode);
+
             if (http.Response != null && http.Response.IsSuccessStatusCode)
             {
                 if (!string.IsNullOrEmpty(args.Regex))
@@ -487,15 +490,6 @@ namespace Http
                         response = "No matches were found!";
                     }
                 }
-
-                if (!string.IsNullOrEmpty(args.OutputPath))
-                {
-                    using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
-                }
-                else if (args.OutputToConsole)
-                {
-                    Console.WriteLine(response);
-                }
             }
             else if (http.Response != null)
             {
@@ -504,6 +498,15 @@ namespace Http
             else
             {
                 Console.WriteLine("The request simply failed.");
+            }
+
+            if (!string.IsNullOrEmpty(args.OutputPath) && !string.IsNullOrEmpty(response))
+            {
+                using (var writer = new StreamWriter(args.OutputPath)) writer.WriteLine(response);
+            }
+            else if (args.OutputToConsole && !string.IsNullOrEmpty(response))
+            {
+                Console.WriteLine(response);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;

@@ -543,7 +543,7 @@ namespace Global.Http
         public TReturn DoRequest<TReturn>(Format format, Serializer serializer)
         {
             var response = DoRequest();
-            if (Response!= null && Response.IsSuccessStatusCode && response != null)
+            if (Response != null && Response.IsSuccessStatusCode && response != null)
             {
                 var result = (serializer == Serializer.Xml)
                     ? XmlSerializerHelper.FromXmlString<TReturn>(response)
@@ -560,21 +560,14 @@ namespace Global.Http
         /// <returns>A string containing the response.</returns>
         public string DoRequest()
         {
-            HttpWebResponse webResp;
+            HttpWebResponse webResp = null;
             try
             {
-                string response;
                 //requests the data
                 webResp = (HttpWebResponse)WebReq.GetResponse();
                 // Get the stream associated with the response.
-                using (var receiveStream = webResp.GetResponseStream())
-                {
-                    if (receiveStream == null) throw new HttpException("Response stream is null.");
-                    // Pipes the stream to a higher level stream reader with the required encoding format.
-                    using (var readStream = new StreamReader(receiveStream, (_responseEncoding ?? Encoding.UTF8)))
-                        response = readStream.ReadToEnd();
-                }
-                Response = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
+                var response = ReadResponse(webResp);
+                Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webResp.StatusDescription };
                 return response;
             }
             catch (WebException webException)
@@ -584,12 +577,31 @@ namespace Global.Http
                     webResp = webException.Response as HttpWebResponse;
                     if (webResp != null)
                     {
-                        Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webException.Message};
-                        webResp.Close();
-                        return null;
+                        Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webException.Message };
+                        return ReadResponse(webResp);
                     }
                 }
                 throw;
+            }
+            finally
+            {
+                if (webResp != null) webResp.Close();
+            }
+        }
+
+        /// <summary>
+        /// Reads the contents of the http response stream.
+        /// </summary>
+        /// <param name="webResponse">The specified http response stream to read the contents from.</param>
+        /// <returns>A string containing the stream content.</returns>
+        private string ReadResponse(HttpWebResponse webResponse)
+        {
+            using (var receiveStream = webResponse.GetResponseStream())
+            {
+                if (receiveStream == null) throw new HttpException("Response stream is null.");
+                // Pipes the stream to a higher level stream reader with the required encoding format.
+                using (var readStream = new StreamReader(receiveStream, (_responseEncoding ?? Encoding.UTF8)))
+                    return readStream.ReadToEnd();
             }
         }
     }

@@ -130,6 +130,8 @@ namespace Http
             Console.WriteLine("           Something similar to 'Accept-Language:da'.");
             Console.WriteLine("  -rx      (Regex)");
             Console.WriteLine("           A regex that will return the matched string from the response.");
+            Console.WriteLine("  -rxg     (Regex Group)");
+            Console.WriteLine("           Should be used with the -rx command. It tells what group to render out of the regex pattern provided with the -rx command.");
         }
         /// <summary>
         /// parses the arguments input by the user.
@@ -394,6 +396,16 @@ namespace Http
                             argsObj.Regex = args[i + 1];
                             break;
                         #endregion
+                        #region regex
+                        case "-rxg":
+                            if (string.IsNullOrEmpty(args[i + 1]))
+                            {
+                                Console.WriteLine("Must supply value for -rx.");
+                                return null;
+                            }
+                            argsObj.RegexGroup = args[i + 1];
+                            break;
+                        #endregion
                     }
                 }
                 return argsObj;
@@ -428,8 +440,8 @@ namespace Http
             }
             if (!string.IsNullOrEmpty(args.ProxyCredentialUsername) && !string.IsNullOrEmpty(args.ProxyCredentialPassword))
             {
-                args.Proxy.Credentials = !string.IsNullOrEmpty(args.ProxyCredentialDomain) 
-                    ? new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword, args.ProxyCredentialDomain) 
+                args.Proxy.Credentials = !string.IsNullOrEmpty(args.ProxyCredentialDomain)
+                    ? new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword, args.ProxyCredentialDomain)
                     : new NetworkCredential(args.ProxyCredentialUsername, args.ProxyCredentialPassword);
             }
             if (args.ProxyAddBypassRule != null && args.ProxyAddBypassRule.Count > 0)
@@ -445,6 +457,7 @@ namespace Http
         /// <param name="args">the list of parsed arguments.</param>
         private static void DoRequest(HttpArgs args)
         {
+            var httpResponseMessage = string.Empty;
             Console.ForegroundColor = ConsoleColor.Green;
             //Console.WriteLine("--- BEGIN");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -459,7 +472,7 @@ namespace Http
                 .SetMethod(args.Method)
                 .SetContentType(args.ContentType)
                 .SetUserAgent(args.UserAgent);
-            
+
             http.Payload = args.Payload;
             if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
             if (args.Timeout != null) http.Timeout = (int)args.Timeout;
@@ -470,34 +483,35 @@ namespace Http
             var response = http.DoRequest();
             var ended = DateTime.Now;
 
-            Console.WriteLine("Request completed with a status code of {0} ({1})", http.Response.StatusCode, (int)http.Response.StatusCode);
-
-            if (http.Response != null && http.Response.IsSuccessStatusCode)
+            if (http.Response != null)
             {
-                if (!string.IsNullOrEmpty(args.Regex))
+                httpResponseMessage = string.Format("{0} {1}", (int)http.Response.StatusCode, http.Response.StatusCode);
+
+                if (http.Response.IsSuccessStatusCode)
                 {
-                    var m = new Regex(args.Regex, RegexOptions.IgnoreCase | RegexOptions.Multiline).Matches(response);
-                    if (m.Count > 0)
+                    if (!string.IsNullOrEmpty(args.Regex))
                     {
-                        response = string.Empty;
-                        for (var i = 0; i < m.Count; i++)
+                        var m = new Regex(args.Regex, RegexOptions.IgnoreCase | RegexOptions.Multiline).Matches(response);
+                        if (m.Count > 0)
                         {
-                            response += m[i] + (i < m.Count - 1 ? "\n" : "");
+                            var builder = new StringBuilder("");
+                            for (var i = 0; i < m.Count; i++)
+                            {
+                                builder.AppendFormat("Match {0}: {1}", i + 1, !string.IsNullOrEmpty(args.RegexGroup) ? m[i].Groups[args.RegexGroup] : m[i]);
+                                builder.Append(i < m.Count - 1 ? "\n" : "");
+                            }
+                            response = builder.ToString();
                         }
-                    }
-                    else
-                    {
-                        response = "No matches were found!";
+                        else
+                        {
+                            response = "No matches were found!";
+                        }
                     }
                 }
             }
-            else if (http.Response != null)
-            {
-                Console.WriteLine("The request failed with status {0} and Message: {1}", http.Response.StatusCode, http.Response.ReasonPhrase);
-            }
             else
             {
-                Console.WriteLine("The request simply failed.");
+                httpResponseMessage = "N/A (Failed unexpectadly).";
             }
 
             if (!string.IsNullOrEmpty(args.OutputPath) && !string.IsNullOrEmpty(response))
@@ -511,7 +525,7 @@ namespace Http
 
             Console.ForegroundColor = ConsoleColor.Green;
             //Console.WriteLine("--- END");
-            Console.WriteLine("Request took {0} seconds", new TimeSpan((ended-started).Ticks).TotalSeconds);
+            Console.WriteLine("Status: {0} | Duration: {1} seconds", httpResponseMessage, new TimeSpan((ended - started).Ticks).TotalSeconds);
         }
 
         /// <summary>
@@ -646,6 +660,8 @@ namespace Http
             public WebHeaderCollection Header { get; set; }
 
             public string Regex { get; set; }
+
+            public string RegexGroup { get; set; }
         }
     }
 }

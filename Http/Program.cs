@@ -492,7 +492,7 @@ namespace Http
                 {
                     if (!string.IsNullOrEmpty(args.Regex))
                     {
-                        var m = new Regex(args.Regex, RegexOptions.IgnoreCase | RegexOptions.Multiline).Matches(response);
+                        var m = new Regex(args.Regex, RegexOptions.IgnoreCase | RegexOptions.Singleline).Matches(response);
                         if (m.Count > 0)
                         {
                             var builder = new StringBuilder("");
@@ -525,7 +525,7 @@ namespace Http
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            //Console.WriteLine("--- END");
+            Console.WriteLine("");
             Console.WriteLine("Status: {0} | Duration: {1} seconds", httpResponseMessage, new TimeSpan((ended - started).Ticks).TotalSeconds);
         }
 

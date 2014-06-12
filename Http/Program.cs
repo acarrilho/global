@@ -131,7 +131,8 @@ namespace Http
             Console.WriteLine("  -rx      (Regex)");
             Console.WriteLine("           A regex that will return the matched string from the response.");
             Console.WriteLine("  -rxg     (Regex Group)");
-            Console.WriteLine("           Should be used with the -rx command. It tells what group to render out of the regex pattern provided with the -rx command.");
+            Console.WriteLine("           Should be used with the -rx command. It tells what group to");
+            Console.WriteLine("           render out of the regex pattern provided with the -rx command.");
         }
         /// <summary>
         /// parses the arguments input by the user.

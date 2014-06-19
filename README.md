@@ -1,5 +1,3 @@
-# global
-
 44KB of helpers: http/rest, serialization/deserialization, extensions, io, email, security and a light curl/wget like cli for windows users!
 
 ## installation

@@ -23,7 +23,7 @@ var url = u.BaseUrl("http://api.example.com/products/")
 
 which would output: ```http://api.example.com/products/?filter.Name=Tea&filter.Price.lt=4.59```.
 
-another feature when developing these kinds of apps is actually making the http request, serializing the payload into the appropriate format and the response (into json or xml). Here's an example of how easy it is to set up and configure the helper:
+another feature when developing these kinds of apps is actually making the http request, serializing the payload and response into the appropriate format (json or xml). Here's an example of how easy it is to set up and configure the helper:
 
 ```csharp
 var http = new Http(u => u
@@ -38,14 +38,15 @@ var http = new Http(u => u
         .AddRequestHeader("Accept", "application/xml"));
 ```
 
-as you can see, in the constructer you can use the UrlBuilder shown above. most of the http settings are available through this helper. aside from the fluent syntax you can also set/ovewrite the same values using properties:
+as you can see, in the constructor you can use the UrlBuilder shown above.
+most of the http settings are available through this helper. aside from the fluent syntax you can also set/ovewrite values using properties:
 
 ```csharp
 http.ResponseEncoding = Encoding.UTF8;
 http.UserAgent = "custom_user_agent";
 ```
 
-to actually make the request just do ```var response = http.DoRequest();``` to get the response in string format. but this is not the real scenario, normaly we want to get the response already parsed into the desired object even if it comes in xml or json format. for example, if you have the following object:
+to actually make the request just do ```var response = http.DoRequest();``` to get the response in string format. but this is not the real scenario, normally we want to get the response already parsed into the desired object even if it comes in xml or json format. for example, if you have the following object:
 
 ```csharp
 var obj = new SampleObject
@@ -60,7 +61,7 @@ var obj = new SampleObject
 };
 ```
 
-which is returned in xml format from the above api request we made. we could just call ```var sampleObject = http.DoRequest<SampleObject>(Format.Xml);```. and now you can access it as a normal SampleObject by calling it’s properties:
+which is returned in xml format from a rest api. to get the response already serialized we can just call ```var sampleObject = http.DoRequest<SampleObject>(Format.Xml);```. and now we can access it as a normal SampleObject by calling it’s properties:
 
 ```csharp
 Console.WriteLine("{0} is {1} years old.", 
@@ -70,7 +71,7 @@ Console.WriteLine("{0} is {1} years old.",
 
 ### an extra tidbit
 
-everyone loves wget/curl but unfortunately unless you're using cygwin or mysysgit you're out of luck. that's why http.exe was born. to use download the requester folder, navigate to it and issue the appropriate command, eg:
+everyone loves wget/curl but unfortunately on windows unless you're using cygwin or mysysgit you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
 
 ```http.exe -u "http://www.google.com/" -ua "Sample_User_Agent" -m "GET" -ct "text/html" -oc```
 

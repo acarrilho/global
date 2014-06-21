@@ -138,7 +138,7 @@ var cc = new List<string>
     };
 ```
 
-using the fluent syntax configure other properties like SSL, Subject, etc and just send the email. 
+and using the fluent syntax configure other properties like SSL, Subject, etc and just send the email. 
 
 ```csharp
 var mail = new Mail("smtp.gmail.com", 587);

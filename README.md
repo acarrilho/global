@@ -76,3 +76,53 @@ everyone loves wget/curl but unfortunately on windows unless you're using cygwin
 ```http.exe -u "http://www.google.com/" -ua "Sample_User_Agent" -m "GET" -ct "text/html" -oc```
 
 type ```http``` to learn all available arguments.
+
+### serialization
+
+you already saw this in action in the previous section. but you can use it independently. consider the above SampleObject we've created. to convert that object into a json/xml file:
+
+```csharp
+// saved on disk as json
+DataContractSerializerHelper
+    .ToJsonFile(@"C:\serialized.json", obj, Encoding.UTF8);
+ 
+// saved on disk as xml
+DataContractSerializerHelper
+    .ToXmlFile(@"C:\serialized.xml", obj, Encoding.UTF8);
+```
+
+or you can convert it into a string:
+
+```csharp
+// saved on disk as json
+var jsonString = DataContractSerializerHelper.ToJsonString(obj, Encoding.UTF8);
+ 
+// saved on disk as xml
+var xmlString = DataContractSerializerHelper.ToXmlString(obj, Encoding.UTF8);
+```
+
+in other cases, it's necessary to read json/xml files stored on disk:
+
+```csharp
+// deserialize from a json file
+var json = DataContractSerializerHelper
+    .FromJsonFile<SampleObject>(@"C:\serialized.json", Encoding.UTF8);
+ 
+// deserialize from a xml file
+var xml = DataContractSerializerHelper
+    .FromXmlFile<SampleObject>(@"C:\serialized.xml");
+```
+
+the same applies to strings:
+
+```csharp
+// deserialize from a json string
+var json = DataContractSerializerHelper
+    .FromJsonString<SampleObject>(jsonString);
+ 
+// deserialize from a xml string
+var xml = DataContractSerializerHelper
+    .FromXmlString<SampleObject>(xmlString);
+```
+
+the above examples use the ```DataContractSerializer``` but there's also available the ```XmlSerializer```. 

@@ -69,14 +69,6 @@ Console.WriteLine("{0} is {1} years old.",
     sampleObject.AnotherObject.Age);
 ```
 
-### an extra tidbit
-
-everyone loves wget/curl but unfortunately on windows unless you're using cygwin or mysysgit you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
-
-```http.exe -u "http://www.google.com/" -ua "Sample_User_Agent" -m "GET" -ct "text/html" -oc```
-
-type ```http``` to learn all available arguments.
-
 ### serialization
 
 you already saw this in action in the previous section. but you can use it independently. consider the above SampleObject we've created. to convert that object into a json/xml file:
@@ -125,4 +117,12 @@ var xml = DataContractSerializerHelper
     .FromXmlString<SampleObject>(xmlString);
 ```
 
-the above examples use the ```DataContractSerializer``` but there's also available the ```XmlSerializer```. 
+the above examples use the ```DataContractSerializer``` but there's also available the ```XmlSerializer```.
+
+### an extra tidbit
+
+everyone loves wget/curl but unfortunately on windows unless you're using cygwin or mysysgit you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
+
+```http.exe -u "http://www.google.com/" -ua "Sample_User_Agent" -m "GET" -ct "text/html" -oc```
+
+type ```http``` to learn all available arguments.

@@ -159,7 +159,7 @@ it is that simple!
 
 ### an extra tidbit
 
-everyone loves wget/curl but unfortunately on windows, unless you're using cygwin or mysysgit installed, you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
+everyone loves wget/curl but unfortunately on windows, unless you're using cygwin or mysysgit, you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
 
 ```http.exe -u "http://www.google.com/" -ua "Sample_User_Agent" -m "GET" -ct "text/html" -oc```
 

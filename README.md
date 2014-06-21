@@ -119,6 +119,44 @@ var xml = DataContractSerializerHelper
 
 the above examples use the ```DataContractSerializer``` but there's also available the ```XmlSerializer```.
 
+### mail
+
+for monitoring or reporting, mail is a main function in any application, big or small. and when doing it over and over we should have a way to do it in a very simple way. first, configure to whom to send mails:
+
+```csharp
+// Configure mails with Name and Email
+var bcc = new Dictionary<string, string>
+    {
+        {"Person", "person@mail.com"},
+        {"Another Person","another.person@mail.com"}
+    };
+// Or just the Emails
+var cc = new List<string>
+    {
+        "wow.another.person@anothermail.com",
+        "ok.another.person@anothermail.com"
+    };
+```
+
+using the fluent syntax configure other properties like SSL, Subject, etc and just send the email. 
+
+```csharp
+var mail = new Mail("smtp.gmail.com", 587);
+mail.From("Andre Carrilho", "me@mymail.com")
+    .To(to => to.Add("Andre Carrilho", "anotherme@mymail.com"))
+    .Bcc(bcc => bcc.Add(bcc))
+    .Cc(cc => cc.Add(cc))
+    .IsBodyHtml(true)
+    .Body("Html <p style='color:blue;font-size:32px;'>content</p>.")
+    .Subject("Testing Fluent MailHelper")
+    .Credentials("someUser", "somePass")
+    .Port(1234)
+    .Ssl(true)
+    .Send();
+```
+
+it is that simple!
+
 ### an extra tidbit
 
 everyone loves wget/curl but unfortunately on windows unless you're using cygwin or mysysgit you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:

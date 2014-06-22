@@ -157,7 +157,7 @@ mail.From("Andre Carrilho", "me@mymail.com")
 
 it is that simple!
 
-### an extra tidbit
+## an extra tidbit
 
 everyone loves wget/curl but unfortunately on windows, unless you're using cygwin or mysysgit, you're out of luck. that's why http.exe was born. to use got to the **requester** folder and issue the appropriate command, eg:
 

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>global by acarrilho</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>global</h1>
+        <h2>44KB of Helpers: Http/Rest, Serialization/Deserialization, Extensions, IO, Email, Security and a light curl/wget like cli for windows users!</h2>
+        <a href="https://github.com/acarrilho/global" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>installation</h2>
+
+<p>couldn't be simpler. just reference <strong>Global.dll</strong> into your project and you're set to go.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>usage</h2>
+
+<h3>
+<a name="http" class="anchor" href="#http"><span class="octicon octicon-link"></span></a>http</h3>
+
+<p>nowdays apps are designed to be rest oriented. most of them expose http api's so consumers/users can take advange of their services and/or consume 3rd party http api's. global tries to tackle this problem by building a simple abstraction layer.</p>
+
+<p>building the api url is one. normaly one has a base url like <a href="http://api.example.com/">http://api.example.com/</a> to avoid repeating it on other urls. the relative url differs according to the tasks one wants to do, eg: <strong>categories/</strong> or <strong>orders/1</strong> or even <strong>products/?filter.Name=Tea&amp;filter.Price.lt=4.59</strong>. instead of using string.Format or += use UrlBuilder fluent syntax:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="kt">var</span> <span class="n">u</span> <span class="p">=</span> <span class="k">new</span> <span class="n">UrlBuilder</span><span class="p">();</span>
+<span class="kt">var</span> <span class="n">url</span> <span class="p">=</span> <span class="n">u</span><span class="p">.</span><span class="n">BaseUrl</span><span class="p">(</span><span class="s">"http://api.example.com/products/"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span>
+        <span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"filter.Name"</span><span class="p">,</span> <span class="s">"Tea"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"filter.Price.lt"</span><span class="p">,</span> <span class="s">"4.59"</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">Build</span><span class="p">();</span>
+</pre></div>
+
+<p>which would output: <code>http://api.example.com/products/?filter.Name=Tea&amp;filter.Price.lt=4.59</code>.</p>
+
+<p>another feature when developing these kinds of apps is actually making the http request, serializing the payload and response into the appropriate format (json or xml). Here's an example of how easy it is to set up and configure the helper:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="kt">var</span> <span class="n">http</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Http</span><span class="p">(</span><span class="n">u</span> <span class="p">=&gt;</span> <span class="n">u</span>
+        <span class="p">.</span><span class="n">BaseUrl</span><span class="p">(</span><span class="s">"http://www.google.com/"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">Parameters</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span>
+            <span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"q"</span><span class="p">,</span> <span class="s">"Cute+Pictures+Of+Birds"</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"hl"</span><span class="p">,</span> <span class="s">"en"</span><span class="p">)))</span>
+    <span class="p">.</span><span class="n">SetContentType</span><span class="p">(</span><span class="s">"text/html"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">SetMethod</span><span class="p">(</span><span class="s">"GET"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">SetHeaders</span><span class="p">(</span><span class="n">h</span> <span class="p">=&gt;</span> <span class="n">h</span>
+        <span class="p">.</span><span class="n">AddRequestHeader</span><span class="p">(</span><span class="s">"CustomUserAgent"</span><span class="p">,</span> <span class="s">"Global User Agent"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">AddRequestHeader</span><span class="p">(</span><span class="s">"Accept"</span><span class="p">,</span> <span class="s">"application/xml"</span><span class="p">));</span>
+</pre></div>
+
+<p>as you can see, in the constructor you can use the UrlBuilder shown above.
+most of the http settings are available through this helper. aside from the fluent syntax you can also set/ovewrite values using properties:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">http</span><span class="p">.</span><span class="n">ResponseEncoding</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">;</span>
+<span class="n">http</span><span class="p">.</span><span class="n">UserAgent</span> <span class="p">=</span> <span class="s">"custom_user_agent"</span><span class="p">;</span>
+</pre></div>
+
+<p>to actually make the request just do <code>var response = http.DoRequest();</code> to get the response in string format. but this is not the real scenario, normally we want to get the response already parsed into the desired object even if it comes in xml or json format. for example, if you have the following object:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="kt">var</span> <span class="n">obj</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SampleObject</span>
+<span class="p">{</span>
+    <span class="n">Id</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">(),</span>
+    <span class="n">Name</span> <span class="p">=</span> <span class="s">"André"</span><span class="p">,</span>
+    <span class="n">AnotherObject</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SampleObject</span><span class="p">.</span><span class="n">SubObject</span>
+    <span class="p">{</span>
+        <span class="n">Age</span> <span class="p">=</span> <span class="m">24</span><span class="p">,</span>
+        <span class="n">Birthdate</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+
+<p>which is returned in xml format from a rest api. to get the response already serialized we can just call <code>var sampleObject = http.DoRequest&lt;SampleObject&gt;(Format.Xml);</code>. and now we can access it as a normal SampleObject by calling it’s properties:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"{0} is {1} years old."</span><span class="p">,</span> 
+    <span class="n">sampleObject</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> 
+    <span class="n">sampleObject</span><span class="p">.</span><span class="n">AnotherObject</span><span class="p">.</span><span class="n">Age</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="serialization" class="anchor" href="#serialization"><span class="octicon octicon-link"></span></a>serialization</h3>
+
+<p>you already saw this in action in the previous section. but you can use it independently. consider the above SampleObject we've created. to convert that object into a json/xml file:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// saved on disk as json</span>
+<span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">ToJsonFile</span><span class="p">(</span><span class="s">@"C:\serialized.json"</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">);</span>
+
+<span class="c1">// saved on disk as xml</span>
+<span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">ToXmlFile</span><span class="p">(</span><span class="s">@"C:\serialized.xml"</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">);</span>
+</pre></div>
+
+<p>or you can convert it into a string:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// saved on disk as json</span>
+<span class="kt">var</span> <span class="n">jsonString</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span><span class="p">.</span><span class="n">ToJsonString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">);</span>
+
+<span class="c1">// saved on disk as xml</span>
+<span class="kt">var</span> <span class="n">xmlString</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span><span class="p">.</span><span class="n">ToXmlString</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">);</span>
+</pre></div>
+
+<p>in other cases, it's necessary to read json/xml files stored on disk:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// deserialize from a json file</span>
+<span class="kt">var</span> <span class="n">json</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">FromJsonFile</span><span class="p">&lt;</span><span class="n">SampleObject</span><span class="p">&gt;(</span><span class="s">@"C:\serialized.json"</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">);</span>
+
+<span class="c1">// deserialize from a xml file</span>
+<span class="kt">var</span> <span class="n">xml</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">FromXmlFile</span><span class="p">&lt;</span><span class="n">SampleObject</span><span class="p">&gt;(</span><span class="s">@"C:\serialized.xml"</span><span class="p">);</span>
+</pre></div>
+
+<p>the same applies to strings:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// deserialize from a json string</span>
+<span class="kt">var</span> <span class="n">json</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">FromJsonString</span><span class="p">&lt;</span><span class="n">SampleObject</span><span class="p">&gt;(</span><span class="n">jsonString</span><span class="p">);</span>
+
+<span class="c1">// deserialize from a xml string</span>
+<span class="kt">var</span> <span class="n">xml</span> <span class="p">=</span> <span class="n">DataContractSerializerHelper</span>
+    <span class="p">.</span><span class="n">FromXmlString</span><span class="p">&lt;</span><span class="n">SampleObject</span><span class="p">&gt;(</span><span class="n">xmlString</span><span class="p">);</span>
+</pre></div>
+
+<p>the above examples use the <code>DataContractSerializer</code> but there's also available the <code>XmlSerializer</code>.</p>
+
+<h3>
+<a name="mail" class="anchor" href="#mail"><span class="octicon octicon-link"></span></a>mail</h3>
+
+<p>for monitoring or reporting, mail is a main function in any application, big or small. and when doing it over and over we should have a way to do it in a very simple way. first, configure to whom to send mails:</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Configure mails with Name and Email</span>
+<span class="kt">var</span> <span class="n">bcc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="p">{</span><span class="s">"Person"</span><span class="p">,</span> <span class="s">"person@mail.com"</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">"Another Person"</span><span class="p">,</span><span class="s">"another.person@mail.com"</span><span class="p">}</span>
+    <span class="p">};</span>
+<span class="c1">// Or just the Emails</span>
+<span class="kt">var</span> <span class="n">cc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+        <span class="s">"wow.another.person@anothermail.com"</span><span class="p">,</span>
+        <span class="s">"ok.another.person@anothermail.com"</span>
+    <span class="p">};</span>
+</pre></div>
+
+<p>and using the fluent syntax configure other properties like SSL, Subject, etc and just send the email. </p>
+
+<div class="highlight highlight-csharp"><pre><span class="kt">var</span> <span class="n">mail</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Mail</span><span class="p">(</span><span class="s">"smtp.gmail.com"</span><span class="p">,</span> <span class="m">587</span><span class="p">);</span>
+<span class="n">mail</span><span class="p">.</span><span class="n">From</span><span class="p">(</span><span class="s">"Andre Carrilho"</span><span class="p">,</span> <span class="s">"me@mymail.com"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">To</span><span class="p">(</span><span class="n">to</span> <span class="p">=&gt;</span> <span class="n">to</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">"Andre Carrilho"</span><span class="p">,</span> <span class="s">"anotherme@mymail.com"</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">Bcc</span><span class="p">(</span><span class="n">bcc</span> <span class="p">=&gt;</span> <span class="n">bcc</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">bcc</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">Cc</span><span class="p">(</span><span class="n">cc</span> <span class="p">=&gt;</span> <span class="n">cc</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">cc</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">IsBodyHtml</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Body</span><span class="p">(</span><span class="s">"Html &lt;p style='color:blue;font-size:32px;'&gt;content&lt;/p&gt;."</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Subject</span><span class="p">(</span><span class="s">"Testing Fluent MailHelper"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Credentials</span><span class="p">(</span><span class="s">"someUser"</span><span class="p">,</span> <span class="s">"somePass"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Port</span><span class="p">(</span><span class="m">1234</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Ssl</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">Send</span><span class="p">();</span>
+</pre></div>
+
+<p>it is that simple!</p>
+
+<h2>
+<a name="an-extra-tidbit" class="anchor" href="#an-extra-tidbit"><span class="octicon octicon-link"></span></a>an extra tidbit</h2>
+
+<p>everyone loves wget/curl but unfortunately on windows, unless you're using cygwin or mysysgit, you're out of luck. that's why http.exe was born. to use got to the <strong>requester</strong> folder and issue the appropriate command, eg:</p>
+
+<p><code>http.exe -u "http://www.google.com/" -ua "My_User_Agent" -m "GET" -ct -oc</code></p>
+
+<p>type <code>http</code> to learn all available arguments.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/acarrilho/global/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/acarrilho/global/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/acarrilho/global"></a> is maintained by <a href="https://github.com/acarrilho">acarrilho</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-2519200-6");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>

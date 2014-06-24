@@ -543,14 +543,18 @@ namespace Global.Http
         public TReturn DoRequest<TReturn>(Format format, Serializer serializer)
         {
             var response = DoRequest();
-            if (Response != null && Response.IsSuccessStatusCode && response != null)
+            if (Response != null && response != null)
             {
-                var result = (serializer == Serializer.Xml)
-                    ? XmlSerializerHelper.FromXmlString<TReturn>(response)
-                    : format == Format.Xml
-                        ? DataContractSerializerHelper.FromXmlString<TReturn>(response)
-                        : DataContractSerializerHelper.FromJsonString<TReturn>(response, _responseEncoding);
-                return result;
+                try
+                {
+                    var result = (serializer == Serializer.Xml)
+                        ? XmlSerializerHelper.FromXmlString<TReturn>(response)
+                        : format == Format.Xml
+                            ? DataContractSerializerHelper.FromXmlString<TReturn>(response)
+                            : DataContractSerializerHelper.FromJsonString<TReturn>(response, _responseEncoding);
+                    return result;
+                }
+                catch { }
             }
             return default(TReturn);
         }

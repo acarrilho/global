@@ -21,7 +21,7 @@ namespace Global.Http
         /// <summary>
         /// Specifies the transfer-encoding header.
         /// </summary>
-        public string TranferEncoding { get { return WebReq.TransferEncoding; } set { WebReq.TransferEncoding = value; } }
+        public string TransferEncoding { get { return WebReq.TransferEncoding; } set { WebReq.TransferEncoding = value; } }
         /// <summary>
         /// Specifies the transfer-encoding header.
         /// </summary>
@@ -29,7 +29,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetTranferEncoding(string transferEncoding)
         {
-            if (!string.IsNullOrEmpty(transferEncoding)) WebReq.TransferEncoding = transferEncoding;
+            if (!string.IsNullOrEmpty(transferEncoding)) TransferEncoding = transferEncoding;
             return this;
         }
 
@@ -44,7 +44,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetReferer(string referer)
         {
-            if (!string.IsNullOrEmpty(referer)) WebReq.Referer = referer;
+            if (!string.IsNullOrEmpty(referer)) Referer = referer;
             return this;
         }
 
@@ -59,7 +59,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetConnectionLimit(int limit)
         {
-            WebReq.ServicePoint.ConnectionLimit = limit;
+            ConnectionLimit = limit;
             return this;
         }
 
@@ -104,7 +104,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetIfModifiedSince(DateTime ifModifiedSince)
         {
-            WebReq.IfModifiedSince = ifModifiedSince;
+            IfModifiedSince = ifModifiedSince;
             return this;
         }
 
@@ -119,7 +119,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetExpect(string expect)
         {
-            if (!string.IsNullOrEmpty(expect)) WebReq.Expect = expect;
+            if (!string.IsNullOrEmpty(expect)) Expect = expect;
             return this;
         }
 
@@ -134,7 +134,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetConnection(string connection)
         {
-            if (!string.IsNullOrEmpty(connection)) WebReq.Connection = connection;
+            if (!string.IsNullOrEmpty(connection)) Connection = connection;
             return this;
         }
 
@@ -149,7 +149,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetAccept(string accept)
         {
-            if (!string.IsNullOrEmpty(accept)) WebReq.Accept = accept;
+            if (!string.IsNullOrEmpty(accept)) Accept = accept;
             return this;
         }
 
@@ -164,7 +164,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetMethod(string method)
         {
-            if (!string.IsNullOrEmpty(method)) WebReq.Method = method;
+            if (!string.IsNullOrEmpty(method)) Method = method;
             return this;
         }
 
@@ -333,7 +333,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetContentType(string contentType)
         {
-            WebReq.ContentType = !String.IsNullOrEmpty(contentType) ? contentType : "text/xml";
+            ContentType = !String.IsNullOrEmpty(contentType) ? contentType : "text/xml";
             return this;
         }
 
@@ -348,7 +348,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetUserAgent(string userAgent)
         {
-            if (!String.IsNullOrEmpty(userAgent)) WebReq.UserAgent = userAgent;
+            if (!String.IsNullOrEmpty(userAgent)) UserAgent = userAgent;
             return this;
         }
 
@@ -363,7 +363,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetKeepAlive(bool keepAlive)
         {
-            WebReq.KeepAlive = keepAlive;
+            KeepAlive = keepAlive;
             return this;
         }
 
@@ -378,7 +378,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetTimeout(int timeout)
         {
-            WebReq.Timeout = timeout;
+            Timeout = timeout;
             return this;
         }
 
@@ -393,7 +393,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetHeaders(Func<Headers, Headers> headers)
         {
-            WebReq.Headers = headers(new Headers()).Collection;
+            Headers = headers(new Headers()).Collection;
             return this;
         }
 
@@ -408,7 +408,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetCredentials(ICredentials credentials)
         {
-            if (credentials != null) WebReq.Credentials = credentials;
+            if (credentials != null) Credentials = credentials;
             return this;
         }
         /// <summary>
@@ -419,7 +419,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetCredentials(string username, string password)
         {
-            WebReq.Credentials = new NetworkCredential(username, password);
+            Credentials = new NetworkCredential(username, password);
             return this;
         }
         /// <summary>
@@ -431,7 +431,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetCredentials(string username, string password, string domain)
         {
-            WebReq.Credentials = new NetworkCredential(username, password, domain);
+            Credentials = new NetworkCredential(username, password, domain);
             return this;
         }
 
@@ -446,7 +446,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetProxy(Func<Proxy, Proxy> webProxy)
         {
-            WebReq.Proxy = webProxy(new Proxy()).WebProxy;
+            Proxy = webProxy(new Proxy()).WebProxy;
             return this;
         }
         /// <summary>
@@ -456,7 +456,7 @@ namespace Global.Http
         /// <returns>Itself.</returns>
         public Http SetProxy(IWebProxy webProxy)
         {
-            if (webProxy != null) WebReq.Proxy = webProxy;
+            if (webProxy != null) Proxy = webProxy;
             return this;
         }
 
@@ -589,6 +589,13 @@ namespace Global.Http
             }
             finally
             {
+                if (webResp != null && Response != null)
+                {
+                    for (int i = 0; i < webResp.Headers.Count; ++i)
+                    {
+                        Response.Headers.TryAddWithoutValidation(webResp.Headers.Keys[i], webResp.Headers[i]);
+                    }
+                }
                 if (webResp != null) webResp.Close();
             }
         }

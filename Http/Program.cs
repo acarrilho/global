@@ -44,9 +44,9 @@ namespace Http
             Console.WriteLine("***************************************************************");
             Console.WriteLine("*             Name : http requester tool                      *");
             Console.WriteLine("*        Developer : Andre da Silva Carrilho                  *");
-            Console.WriteLine("*             Date : 2013-04-04                               *");
-            Console.WriteLine("*             Blog : http://www.acarrilho.com                 *");
-            Console.WriteLine("*           Hosted : https://bitbucket.org/acarrilho/global   *");
+            Console.WriteLine("*             Date : {0}                               *", DateTime.Now.ToString("yyyy-MM-dd"));
+            Console.WriteLine("*             Blog : http://www.acarrilho.com/                *");
+            Console.WriteLine("*           Hosted : http://global.stainlessdot.com/          *");
             Console.WriteLine("***************************************************************");
             //Console.WriteLine();
             //Console.WriteLine("Type 'http -h' to display the available commands.");
@@ -162,6 +162,7 @@ namespace Http
                                 return null;
                             }
                             argsObj.Url = args[i + 1];
+                            if (!argsObj.Url.StartsWith("http")) argsObj.Url = string.Concat("http://", argsObj.Url);
                             break;
                         #endregion
                         #region output to console
@@ -397,11 +398,11 @@ namespace Http
                             argsObj.Regex = args[i + 1];
                             break;
                         #endregion
-                        #region regex
+                        #region regex group
                         case "-rxg":
                             if (string.IsNullOrEmpty(args[i + 1]))
                             {
-                                Console.WriteLine("Must supply value for -rx.");
+                                Console.WriteLine("Must supply value for -rxg.");
                                 return null;
                             }
                             argsObj.RegexGroup = args[i + 1];
@@ -458,35 +459,44 @@ namespace Http
         /// <param name="args">the list of parsed arguments.</param>
         private static void DoRequest(HttpArgs args)
         {
-            var httpResponseMessage = string.Empty;
             Console.ForegroundColor = ConsoleColor.Green;
             //Console.WriteLine("--- BEGIN");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
+            // display help if no arguments where provided or if arguments where invalid
+            if (args == null || !AreArgsValid(args)) { HttpHelp(); return; }
 
-            if (args == null)
-            {
-                HttpHelp();
-                return;
-            }
-            if (!AreArgsValid(args)) return;
-            var http = new Global.Http.Http(args.Url)
-                .SetMethod(args.Method)
-                .SetContentType(args.ContentType)
-                .SetUserAgent(args.UserAgent);
-
-            http.Payload = args.Payload;
+            var http = new Global.Http.Http(args.Url);
+            // for some reason if we set the value after it will not recognize it
+            // we have to set before the other values
             if (args.KeepAlive != null) http.KeepAlive = (bool)args.KeepAlive;
+
+            http = http.SetMethod(args.Method)
+                .SetContentType(args.ContentType)
+                .SetUserAgent(args.UserAgent)
+                .SetPayload(args.Payload)
+                .SetRequestEncoding(args.PayloadEncoding)
+                .SetResponseEncoding(args.ResponseEncoding);
             if (args.Timeout != null) http.Timeout = (int)args.Timeout;
             if (args.Header != null && args.Header.Count > 0) http.Headers = args.Header;
             if (!string.IsNullOrEmpty(args.Accept)) http.Accept = args.Accept;
-
+            if (args.Credential != null) http.Credentials = args.Credential;
+            if (args.Proxy != null) http.Proxy = args.Proxy;
+            // track how long the request took to show in the output console
             var started = DateTime.Now;
             var response = http.DoRequest();
             var ended = DateTime.Now;
 
             if (http.Response != null)
             {
-                httpResponseMessage = string.Format("{0} {1}", (int)http.Response.StatusCode, http.Response.StatusCode);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n{0} {1} | {2} {3}", (int)http.Response.StatusCode, http.Response.StatusCode, args.Method, args.Url);
+
+                if (http.Response.Headers != null)
+                {
+                    foreach (var h in http.Response.Headers)
+                        Console.WriteLine("{0}: {1}", h.Key, string.Join(", ", h.Value));
+                }
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
 
                 if (http.Response.IsSuccessStatusCode)
                 {
@@ -512,7 +522,7 @@ namespace Http
             }
             else
             {
-                httpResponseMessage = "N/A (Failed unexpectadly).";
+                Console.WriteLine("N/A (Failed unexpectadly).");
             }
 
             if (!string.IsNullOrEmpty(args.OutputPath) && !string.IsNullOrEmpty(response))
@@ -521,12 +531,13 @@ namespace Http
             }
             else if (args.OutputToConsole && !string.IsNullOrEmpty(response))
             {
+                Console.WriteLine("");
                 Console.WriteLine(response);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("");
-            Console.WriteLine("Status: {0} | Duration: {1} seconds", httpResponseMessage, new TimeSpan((ended - started).Ticks).TotalSeconds);
+            Console.WriteLine("{0}", new TimeSpan((ended - started).Ticks).ToString("c"));
         }
 
         /// <summary>
@@ -539,11 +550,7 @@ namespace Http
             public bool OutputToConsole { get; set; }
             public string OutputPath { get; set; }
             private string _method;
-            public string Method
-            {
-                get { return _method ?? "GET"; }
-                set { _method = value; }
-            }
+            public string Method { get { return _method ?? "GET"; } set { _method = value; } }
             public string Accept { get; set; }
             public string ContentType { get; set; }
             public int? Timeout { get; set; }

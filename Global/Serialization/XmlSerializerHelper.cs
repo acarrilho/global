@@ -26,7 +26,6 @@ namespace Global.Serialization
                 var serializer = new XmlSerializer(typeof(T));
                 entity = (T)serializer.Deserialize(reader);
             }
-
             return entity;
         }
 
@@ -74,8 +73,7 @@ namespace Global.Serialization
         /// <param name="docTypeSysId"></param>
         /// <param name="docTypeSubSet"></param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
-        public static void ToXmlFile<T>(string xmlFilePath, T entity, string docTypeName, string docTypePubId,
-                                        string docTypeSysId, string docTypeSubSet)
+        public static void ToXmlFile<T>(string xmlFilePath, T entity, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
         {
             using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
             {
@@ -117,8 +115,7 @@ namespace Global.Serialization
         /// <param name="docTypeSubSet"></param>
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         /// <returns>The serialized object string.</returns>
-        public static string ToXmlString<T>(T entity, string docTypeName, string docTypePubId,
-                                            string docTypeSysId, string docTypeSubSet)
+        public static string ToXmlString<T>(T entity, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
         {
             string xml;
             var ms = new MemoryStream();
@@ -143,10 +140,7 @@ namespace Global.Serialization
         {
             var namespaces = new XmlSerializerNamespaces();
             foreach (var keyValue in prefixNs)
-            {
                 namespaces.Add(keyValue.Key, keyValue.Value);
-            }
-
             return namespaces;
         }
 
@@ -156,13 +150,7 @@ namespace Global.Serialization
         ///<returns>Xml serializer namespaces.</returns>
         public static XmlSerializerNamespaces GetEmptyNamespace()
         {
-            var dic = new Dictionary<string, string>
-                          {
-                              {
-                                  String.Empty,
-                                  String.Empty
-                                  }
-                          };
+            var dic = new Dictionary<string, string> { { String.Empty, String.Empty } };
             return GetNamespace(dic);
         }
 

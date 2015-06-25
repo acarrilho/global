@@ -570,7 +570,7 @@ namespace Global.Http
                 //requests the data
                 webResp = (HttpWebResponse)WebReq.GetResponse();
                 // Get the stream associated with the response.
-                var response = ReadResponse(webResp);
+                var response = ReadResponse(ref webResp);
                 Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webResp.StatusDescription };
                 return response;
             }
@@ -582,7 +582,7 @@ namespace Global.Http
                     if (webResp != null)
                     {
                         Response = new HttpResponseMessage { StatusCode = webResp.StatusCode, ReasonPhrase = webException.Message };
-                        return ReadResponse(webResp);
+                        return ReadResponse(ref webResp);
                     }
                 }
                 throw;
@@ -591,10 +591,7 @@ namespace Global.Http
             {
                 if (webResp != null && Response != null)
                 {
-                    for (int i = 0; i < webResp.Headers.Count; ++i)
-                    {
-                        Response.Headers.TryAddWithoutValidation(webResp.Headers.Keys[i], webResp.Headers[i]);
-                    }
+                    for (var i = 0; i < webResp.Headers.Count; ++i) Response.Headers.TryAddWithoutValidation(webResp.Headers.Keys[i], webResp.Headers[i]);
                 }
                 if (webResp != null) webResp.Close();
             }
@@ -605,7 +602,7 @@ namespace Global.Http
         /// </summary>
         /// <param name="webResponse">The specified http response stream to read the contents from.</param>
         /// <returns>A string containing the stream content.</returns>
-        private string ReadResponse(HttpWebResponse webResponse)
+        private string ReadResponse(ref HttpWebResponse webResponse)
         {
             using (var receiveStream = webResponse.GetResponseStream())
             {

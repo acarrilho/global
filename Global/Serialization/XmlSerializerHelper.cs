@@ -55,11 +55,28 @@ namespace Global.Serialization
         /// <param name="entity">The objkect to be serialized.</param>
         public static void ToXmlFile<T>(string xmlFilePath, T entity)
         {
+            //using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
+            //{
+            //    writer.WriteStartDocument();
+            //    var serializer = new XmlSerializer(typeof(T));
+            //    serializer.Serialize(writer, entity, GetEmptyNamespace());
+            //}
+            ToXmlFile(xmlFilePath, entity, null);
+        }
+
+        /// <summary>
+        /// Serializes ans object to a file.
+        /// </summary>
+        /// <param name="xmlFilePath">The file where the serialized object should go to.</param>
+        ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
+        /// <param name="entity">The objkect to be serialized.</param>
+        public static void ToXmlFile<T>(string xmlFilePath, T entity, Dictionary<string, string> namespaces)
+        {
             using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
             {
                 writer.WriteStartDocument();
                 var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(writer, entity, GetEmptyNamespace());
+                serializer.Serialize(writer, entity, namespaces != null ? GetNamespace(namespaces) : GetEmptyNamespace());
             }
         }
 
@@ -75,12 +92,35 @@ namespace Global.Serialization
         ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
         public static void ToXmlFile<T>(string xmlFilePath, T entity, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
         {
+            //using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
+            //{
+            //    writer.WriteStartDocument();
+            //    writer.WriteDocType(docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
+            //    var serializer = new XmlSerializer(typeof(T));
+            //    serializer.Serialize(writer, entity, GetEmptyNamespace());
+            //}
+
+            ToXmlFile<T>(xmlFilePath, entity, null, docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
+        }
+
+        /// <summary>
+        /// Serializes an object to a file.
+        /// </summary>
+        /// <param name="xmlFilePath">The file where the serialized object should go to.</param>
+        /// <param name="entity">The object to be serialized.</param>
+        /// <param name="docTypeName"></param>
+        /// <param name="docTypePubId"></param>
+        /// <param name="docTypeSysId"></param>
+        /// <param name="docTypeSubSet"></param>
+        ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
+        public static void ToXmlFile<T>(string xmlFilePath, T entity, Dictionary<string, string> namespaces, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
+        {
             using (var writer = new XmlTextWriter(xmlFilePath, Encoding.UTF8))
             {
                 writer.WriteStartDocument();
                 writer.WriteDocType(docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
                 var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(writer, entity, GetEmptyNamespace());
+                serializer.Serialize(writer, entity, namespaces != null ? GetNamespace(namespaces) : GetEmptyNamespace());
             }
         }
 
@@ -92,13 +132,36 @@ namespace Global.Serialization
         /// <returns>The serialized object string.</returns>
         public static string ToXmlString<T>(T entity)
         {
+            //string xml;
+            //var ms = new MemoryStream();
+            //using (var writer = new XmlTextWriter(ms, Encoding.UTF8))
+            //{
+            //    writer.WriteStartDocument();
+            //    var serializer = new XmlSerializer(typeof(T));
+            //    serializer.Serialize(writer, entity, GetEmptyNamespace());
+            //    xml = ByteArrayToString(Encoding.UTF8, ms.ToArray());
+            //}
+
+            //return xml;
+
+            return ToXmlString<T>(entity, null);
+        }
+
+        /// <summary>
+        /// Serializes an object to a string.
+        /// </summary>
+        /// <param name="entity">The object to be serialized.</param>
+        ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
+        /// <returns>The serialized object string.</returns>
+        public static string ToXmlString<T>(T entity, Dictionary<string, string> namespaces)
+        {
             string xml;
             var ms = new MemoryStream();
             using (var writer = new XmlTextWriter(ms, Encoding.UTF8))
             {
                 writer.WriteStartDocument();
                 var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(writer, entity, GetEmptyNamespace());
+                serializer.Serialize(writer, entity, namespaces != null ? GetNamespace(namespaces) : GetEmptyNamespace());
                 xml = ByteArrayToString(Encoding.UTF8, ms.ToArray());
             }
 
@@ -117,6 +180,34 @@ namespace Global.Serialization
         /// <returns>The serialized object string.</returns>
         public static string ToXmlString<T>(T entity, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
         {
+            //string xml;
+            //var ms = new MemoryStream();
+            //using (var writer = new XmlTextWriter(ms, Encoding.UTF8))
+            //{
+            //    writer.WriteStartDocument();
+            //    writer.WriteDocType(docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
+            //    var serializer = new XmlSerializer(typeof(T));
+            //    serializer.Serialize(ms, entity, GetEmptyNamespace());
+            //    xml = ByteArrayToString(Encoding.UTF8, ms.ToArray());
+            //}
+
+            //return xml;
+
+            return ToXmlString<T>(entity, null, docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
+        }
+
+        /// <summary>
+        /// Serializes an object to a string.
+        /// </summary>
+        /// <param name="entity">The object to be serialized.</param>
+        /// <param name="docTypeName"></param>
+        /// <param name="docTypePubId"></param>
+        /// <param name="docTypeSysId"></param>
+        /// <param name="docTypeSubSet"></param>
+        ///<typeparam name="T">The object type to be serialized/deserialized.</typeparam>
+        /// <returns>The serialized object string.</returns>
+        public static string ToXmlString<T>(T entity, Dictionary<string, string> namespaces, string docTypeName, string docTypePubId, string docTypeSysId, string docTypeSubSet)
+        {
             string xml;
             var ms = new MemoryStream();
             using (var writer = new XmlTextWriter(ms, Encoding.UTF8))
@@ -124,7 +215,7 @@ namespace Global.Serialization
                 writer.WriteStartDocument();
                 writer.WriteDocType(docTypeName, docTypePubId, docTypeSysId, docTypeSubSet);
                 var serializer = new XmlSerializer(typeof(T));
-                serializer.Serialize(ms, entity, GetEmptyNamespace());
+                serializer.Serialize(ms, entity, namespaces != null ? GetNamespace(namespaces) : GetEmptyNamespace());
                 xml = ByteArrayToString(Encoding.UTF8, ms.ToArray());
             }
 

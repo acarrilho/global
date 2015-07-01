@@ -39,14 +39,25 @@ namespace Global.Http
         public string Build()
         {
             string url = _baseUrl;
-            if (!_baseUrl.EndsWith("?") && _urlParameters != null && _urlParameters.Parameters != null && _urlParameters.Parameters.Count > 0)
+
+            if (_urlParameters != null && _urlParameters.Parameters != null && _urlParameters.Parameters.Count > 0)
             {
-                url = String.Format("{0}?", url);
+                url = String.Format(_baseUrl.Contains("?") ? "{0}&" : "{0}?", url);
                 foreach (var parameter in _urlParameters.Parameters)
                 {
                     url = String.Format("{0}{1}={2}&", url, parameter.Key, parameter.Value);
                 }
             }
+
+            //if (!_baseUrl.EndsWith("?") && _urlParameters != null && _urlParameters.Parameters != null && _urlParameters.Parameters.Count > 0)
+            //{
+            //    url = String.Format("{0}?", url);
+            //    foreach (var parameter in _urlParameters.Parameters)
+            //    {
+            //        url = String.Format("{0}{1}={2}&", url, parameter.Key, parameter.Value);
+            //    }
+            //}
+
             // Remove last "&" if it exists
             return (url.EndsWith("&")) ? url.Remove((url.Length - 1), 1) : url;
         }

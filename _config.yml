@@ -1,0 +1,8 @@
+title: global
+description: "44KB of Helpers: Http/Rest, Serialization/Deserialization, Extensions, IO, Email, Security and a light curl/wget like cli for windows users!"
+google_analytics: UA-2519200-6
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
